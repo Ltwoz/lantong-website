@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSidebar } from "@/contexts/sidebar-context";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { IoMdClose } from "react-icons/io";
 import { useRouter } from "next/router";
@@ -32,21 +32,29 @@ const Menus = [
 const Sidebar = () => {
     const { isOpen, setIsOpen } = useSidebar();
     const router = useRouter();
+    const sidebarRef = useRef(null);
 
-    // useEffect(() => {
-    //     const menuHandler = () => setIsOpen(false);
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (
+                sidebarRef.current &&
+                !sidebarRef.current.contains(event.target)
+            ) {
+                setIsOpen(false);
+            }
+        };
 
-    //     window.addEventListener("click", menuHandler);
-
-    //     return () => {
-    //         window.removeEventListener("click", menuHandler);
-    //     };
-    // }, []);
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
     return (
         <AnimatePresence mode="wait">
             <motion.div
                 id="page-sidebar-wrapper"
+                ref={sidebarRef}
                 className="fixed md:hidden top-0 right-0 z-[90] h-screen overflow-auto w-[280px] bg-white shadow-md px-4 py-6"
                 animate={isOpen ? "mount" : "unmount"}
                 initial={"unmount"}
