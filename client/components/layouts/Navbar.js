@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useState, useEffect } from "react";
 
 const Navbar = () => {
@@ -23,22 +24,22 @@ const Navbar = () => {
         <nav className="w-full mx-auto px-4 md:px-4 py-4 md:py-4 bg-white">
             <div className="flex flex-row justify-between items-center">
                 <div id="logo">
-                    <a
+                    <Link
                         href="/"
                         className="text-3xl font-semibold text-[#E32C2C]"
                     >
                         หจก.ลานทองเชียงใหม่
-                    </a>
+                    </Link>
                 </div>
                 <div
                     id="nav-items-group"
                     className="hidden md:flex flex-row items-center space-x-6 font-medium"
                 >
-                    <a href="#">หน้าหลัก</a>
-                    <a href="#">เกี่ยวกับ</a>
-                    <a href="#">สินค้าของเรา</a>
-                    <a href="#">ลานทองรีวิว</a>
-                    <a href="#">ติดต่อเรา</a>
+                    <Link href="#">หน้าหลัก</Link>
+                    <Link href="#">เกี่ยวกับ</Link>
+                    <Link href="#">สินค้าของเรา</Link>
+                    <Link href="#">ลานทองรีวิว</Link>
+                    <Link href="#">ติดต่อเรา</Link>
                 </div>
                 <div
                     id="hamburger"
@@ -63,21 +64,21 @@ const Navbar = () => {
                         id="nav-items-group"
                         className="flex flex-col items-start font-medium"
                     >
-                        <a href="#" className="py-2">
+                        <Link href="#" className="py-2">
                             หน้าหลัก
-                        </a>
-                        <a href="#" className="py-2">
+                        </Link>
+                        <Link href="#" className="py-2">
                             เกี่ยวกับ
-                        </a>
-                        <a href="#" className="py-2">
+                        </Link>
+                        <Link href="#" className="py-2">
                             สินค้าของเรา
-                        </a>
-                        <a href="#" className="py-2">
+                        </Link>
+                        <Link href="#" className="py-2">
                             ลานทองรีวิว
-                        </a>
-                        <a href="#" className="py-2">
+                        </Link>
+                        <Link href="#" className="py-2">
                             ติดต่อเรา
-                        </a>
+                        </Link>
                     </div>
                 </div>
             )}
