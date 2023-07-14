@@ -1,18 +1,10 @@
+import { useSidebar } from "@/contexts/sidebar-context";
+import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
 const Navbar = () => {
-    const [isOpen, setIsOpen] = useState(false);
-
-    useEffect(() => {
-        const menuHandler = () => setIsOpen(false);
-
-        window.addEventListener("click", menuHandler);
-
-        return () => {
-            window.removeEventListener("click", menuHandler);
-        };
-    }, []);
+    const { setIsOpen } = useSidebar();
 
     const handleOnclick = (e) => {
         e.stopPropagation();
@@ -25,10 +17,20 @@ const Navbar = () => {
             <div className="flex flex-row justify-between items-center">
                 <div id="logo">
                     <Link
-                        href="/"
-                        className="text-3xl font-semibold text-[#E32C2C]"
+                        scroll={false}
+                        href={`/`}
+                        className="flex md:w-auto justify-center items-center"
                     >
-                        หจก.ลานทองเชียงใหม่
+                        <div className="relative h-8 w-8 mr-2">
+                            <Image
+                                alt="logo_img"
+                                src={"/lantong_logo.png"}
+                                draggable="false"
+                                fill
+                                className="object-cover"
+                            />
+                        </div>
+                        <h2 className="text-xl md:text-3xl font-semibold text-[#E32C2C]">หจก.ลานทองเชียงใหม่</h2>
                     </Link>
                 </div>
                 <div
@@ -58,30 +60,6 @@ const Navbar = () => {
                     </svg>
                 </div>
             </div>
-            {isOpen && (
-                <div id="mobile-nav" className="flex flex-col pt-4">
-                    <div
-                        id="nav-items-group"
-                        className="flex flex-col items-start font-medium"
-                    >
-                        <Link href="#" className="py-2">
-                            หน้าหลัก
-                        </Link>
-                        <Link href="#" className="py-2">
-                            เกี่ยวกับ
-                        </Link>
-                        <Link href="#" className="py-2">
-                            สินค้าของเรา
-                        </Link>
-                        <Link href="#" className="py-2">
-                            ลานทองรีวิว
-                        </Link>
-                        <Link href="#" className="py-2">
-                            ติดต่อเรา
-                        </Link>
-                    </div>
-                </div>
-            )}
         </nav>
     );
 };
