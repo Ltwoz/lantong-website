@@ -2,7 +2,7 @@ import Image from "next/image";
 export default function ProductCard() {
   return (
     // กล่อง card
-    <div class="max-w-sm rounded overflow-hidden shadow-lg w-[273px] hover:scale-110 max-[767px]:w-full">
+    <div class="max-w-sm rounded overflow-hidden shadow-lg w-[273px] max-[767px]:w-full">
       <Image class="w-full"
         src={"/example.avif"}
         alt="Sunset in the mountains" width={20} height={20} />
