@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./utils/db");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 
 // Handling Uncaught Exception
 process.on("uncaughtException", (err) => {
