@@ -40,7 +40,7 @@ export default function Home() {
                             className="overflow-hidden border-0 self-center absolute top-0 left-0 w-full h-full"
                             src="https://www.youtube.com/embed/-G0mepYTPXE"
                             title="พ่วงข้างลานทอง"
-                            frameborder="0"
+                            frameBorder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowfullscreen
                         />
