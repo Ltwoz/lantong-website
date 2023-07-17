@@ -35,10 +35,9 @@ export default function Home() {
                     <h1 className="font-semibold text-[40px] text-black mb-9 text-center">
                         ทำไมต้องลานทอง
                     </h1>
-                    <div className="overflow-hidden rounded-xl">
+                    <div className="overflow-hidden rounded-xl relative pb-[56.25%] w-full">
                         <iframe
-                            width="1200"
-                            height="705"
+                            className="overflow-hidden border-0 self-center absolute top-0 left-0 w-full h-full"
                             src="https://www.youtube.com/embed/-G0mepYTPXE"
                             title="พ่วงข้างลานทอง"
                             frameborder="0"
@@ -46,6 +45,16 @@ export default function Home() {
                             allowfullscreen
                         />
                     </div>
+                </div>
+            </section>
+
+            {/* รีวิวบล็อก */}
+            <section id="featured-products" className="bg-[#3A3A3A]">
+                <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center py-20 px-4 md:px-0">
+                    <h1 className="font-semibold text-[40px] text-white mb-9 text-center">
+                        ลานทองพาเที่ยว
+                    </h1>
+                    <FeaturedProducts />
                 </div>
             </section>
         </Layout>

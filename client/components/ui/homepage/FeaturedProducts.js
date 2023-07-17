@@ -89,23 +89,24 @@ const FeaturedProducts = () => {
                     flickPower: 100,
                     arrows: false,
                     pagination: false,
-                    // breakpoints: {
-                    //     1024: {
-                    //         perPage: 2,
-                    //         gap: "1.5rem",
-                    //     },
-                    //     768:
-                    //         properties.length === 1
-                    //             ? {
-                    //                   gap: "1rem",
-                    //                   perPage: 1,
-                    //               }
-                    //             : {
-                    //                   gap: "1rem",
-                    //                   fixedWidth: "16rem",
-                    //                   focus: "center",
-                    //               },
-                    // },
+                    breakpoints: {
+                        1024: {
+                            perPage: 2,
+                            gap: "1.5rem",
+                        },
+                        768:
+                            // properties.length === 1
+                            //     ? {
+                            //           gap: "1rem",
+                            //           perPage: 1,
+                            //       }
+                            //     : 
+                                {
+                                      gap: "1rem",
+                                      fixedWidth: "16rem",
+                                      focus: "center",
+                                  },
+                    },
                 }}
             >
                 <SplideTrack>

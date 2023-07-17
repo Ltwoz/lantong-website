@@ -1,5 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { FaFacebookMessenger } from "react-icons/fa";
+import { MdMail, MdPhone } from "react-icons/md";
+import { HiChatBubbleOvalLeft } from "react-icons/hi2";
 
 const Menu = () => {
     return (
@@ -136,20 +139,7 @@ const Menu = () => {
                     className="h-[50px] inline-flex items-center bg-[#4267B2] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
                 >
                     <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={2.5}
-                            stroke="currentColor"
-                            className="w-5 h-5 mr-2"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                        </svg>
+                        <FaFacebookMessenger className="mr-2" />
                         <span className="block">{"พ่วงข้างลานทอง"}</span>
                     </div>
                 </Link>
@@ -158,20 +148,7 @@ const Menu = () => {
                     className="h-[50px] inline-flex items-center bg-[#06C755] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
                 >
                     <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={2.5}
-                            stroke="currentColor"
-                            className="w-5 h-5 mr-2"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                        </svg>
+                        <HiChatBubbleOvalLeft className="mr-2" />
                         <span className="block">{"lantongshop"}</span>
                     </div>
                 </Link>
@@ -180,20 +157,7 @@ const Menu = () => {
                     className="h-[50px] inline-flex items-center bg-[#FF5A60] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
                 >
                     <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={2.5}
-                            stroke="currentColor"
-                            className="w-5 h-5 mr-2"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                        </svg>
+                        <MdMail className="mr-2" />
                         <span className="block">{"lantongshop@gmail.com"}</span>
                     </div>
                 </Link>
@@ -202,20 +166,7 @@ const Menu = () => {
                     className="h-[50px] inline-flex items-center bg-[#4E4E4E] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
                 >
                     <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={2.5}
-                            stroke="currentColor"
-                            className="w-5 h-5 mr-2"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                        </svg>
+                        <MdPhone className="mr-2" />
                         <span className="block">{"081 952 1342"}</span>
                     </div>
                 </Link>
