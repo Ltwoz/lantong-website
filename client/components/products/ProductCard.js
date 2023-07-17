@@ -1,25 +1,39 @@
 import Image from "next/image";
+import Link from "next/link";
+
 export default function ProductCard() {
-  return (
-    // กล่อง card
-    <div class="max-w-sm rounded overflow-hidden shadow-lg w-[273px] max-[767px]:w-full">
-      <Image class="w-full"
-        src={"/example.avif"}
-        alt="Sunset in the mountains" width={20} height={20} />
-        
-
-      <div class="px-6 py-4">
-        <p class="text-gray-700 text-base mb-12">
-        Lorem ipsum dolor sit amet consectetura
-        </p>
-      </div> 
-
-      <hr/>
-
-      <div class="px-6 pt-4 pb-2 flex justify-between">
-        <p>#A084</p>
-        <p>9500฿</p>
-      </div>
-    </div>
-  );
+    return (
+        <Link href={`/products`}>
+            <div className="w-full md:w-[273px] bg-white border rounded-lg overflow-hidden">
+                <div className="w-full aspect-square relative flex items-center">
+                    <div className="absolute z-[1] right-0 bottom-0 left-0 w-full h-[60%] overflow-hidden bg-gradient-to-t from-black/80 to-white/0 opacity-100" />
+                    <Image
+                        alt="property-image"
+                        src={`https://dummyimage.com/273x273`}
+                        unoptimized
+                        draggable="false"
+                        fill
+                        className="select-none object-cover"
+                    />
+                </div>
+                <div className="p-4 flex flex-col space-y-3">
+                    <h1
+                        className="text-lg font-semibold overflow-hidden h-[56px]"
+                        style={{
+                            display: "-webkit-box",
+                            WebkitLineClamp: 2,
+                            WebkitBoxOrient: "vertical",
+                        }}
+                    >
+                        Lorem ipsum dolor sit amet consectetur
+                    </h1>
+                    <hr />
+                    <div className="flex items-center justify-between">
+                        <p className="font-semibold text-xl">#A084</p>
+                        <p className="font-semibold text-xl">9,500฿</p>
+                    </div>
+                </div>
+            </div>
+        </Link>
+    );
 }

@@ -1,9 +1,9 @@
-export default function SearchBar() {
+export default function ProductFilter() {
     return (
         <>
             <form
                 autoComplete="off"
-                className="border-2 border-[#2D3648] rounded p-10 w-full md:w-[309px] grid grid-cols-4 gap-4"
+                className="border-2 border-[#2D3648] rounded p-10 w-full md:w-[309px] grid grid-cols-4 gap-4 h-fit flex-shrink-0"
             >
                 <div className="col-span-4">
                     <label className="block text-xs md:text-sm font-medium tracking-wide">
@@ -69,56 +69,6 @@ export default function SearchBar() {
                     </button>
                 </div>
             </form>
-            {/* <form>
-          <div>
-            <label>Label</label> <br />
-            <input className="border" /> <br />
-            
-            <label className="">Label</label> <br />
-            <select name="cars" id="cars" className="border">
-              <option value="volvo">Volvo</option>
-              <option value="saab">Saab</option>
-              <option value="mercedes">Mercedes</option>
-              <option value="audi">Audi</option>
-            </select>
-          </div>
-
-          <div className="mt-5 mb-5">
-            <label>Label</label> <br />
-            <input
-              type="checkbox"
-              id="vehicle1"
-              name="vehicle1"
-              value="value"
-            />
-            <label for="vehicle1"> value</label>
-            <br />
-            <input
-              type="checkbox"
-              id="vehicle2"
-              name="vehicle2"
-              value="value"
-            />
-            <label for="vehicle2"> value</label>
-            <br />
-            <input
-              type="checkbox"
-              id="vehicle3"
-              name="vehicle3"
-              value="value"
-            />
-            <label for="vehicle3"> value</label>
-            <br />
-          </div>
-
-          <div>
-            <label>ราคาต่ำสุด</label> <br/>
-            <input type="text" placeholder="Min" className="border" /><br/>
-            <label>ราคาสูงสุด</label><br/>
-            <input type="text" placeholder="Max" className="border mb-2" />
-          </div>
-          <button className="bg-[#2d3648] font-bold rounded-xl p-2 text-white">Large</button>
-        </form> */}
         </>
     );
 }
