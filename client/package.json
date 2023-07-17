@@ -11,6 +11,7 @@
   "dependencies": {
     "@splidejs/react-splide": "^0.7.12",
     "autoprefixer": "10.4.14",
+    "axios": "^1.4.0",
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.9",
     "eslint-config-prettier": "^8.8.0",
