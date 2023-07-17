@@ -35,11 +35,13 @@ export default function ProductFilter() {
                             type="text"
                             name="name"
                             className="p-2 w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
+                            placeholder="ต่ำสุด"
                         />
                         <input
                             type="text"
                             name="name"
                             className="p-2 w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
+                            placeholder="สูงสุด"
                         />
                     </div>
                 </div>
