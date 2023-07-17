@@ -6,7 +6,7 @@ const BannerSlider = () => {
     return (
         <>
             <Splide
-                className="mb-4"
+                className=""
                 hasTrack={false}
                 options={{
                     perPage: 1,
