@@ -1,6 +1,6 @@
 import ProductCard from "@/components/products/ProductCard";
 import Layout from "@/components/layouts/Layout";
-import ProductFilter from "@/components/ui/ProductFilter";
+import ProductFilter from "@/components/products/ProductFilter";
 
 export default function CatalogPage() {
     return (
