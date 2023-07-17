@@ -47,16 +47,6 @@ export default function Home() {
                     </div>
                 </div>
             </section>
-
-            {/* รีวิวบล็อก */}
-            <section id="featured-products" className="bg-[#3A3A3A]">
-                <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center py-20 px-4 md:px-0">
-                    <h1 className="font-semibold text-[40px] text-white mb-9 text-center">
-                        ลานทองพาเที่ยว
-                    </h1>
-                    <FeaturedProducts />
-                </div>
-            </section>
         </Layout>
     );
 }
