@@ -1,5 +1,6 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useDashboardSidebar } from "@/contexts/dashboard-sidebar-context";
+import { FaBars } from "react-icons/fa"
 
 const DashboardNavbar = () => {
     const { isOpen, setIsOpen, isMobile } = useDashboardSidebar();
@@ -26,24 +27,9 @@ const DashboardNavbar = () => {
         >
             <div
                 onClick={() => setIsOpen((prev) => !prev)}
-                className={`inline-flex items-center font-medium text-black py-2 rounded-md hover:cursor-pointer transition-all ${
-                    isOpen ? "" : "rotate-180"
-                }`}
+                className={`xl:hidden inline-flex items-center font-medium text-black py-2 rounded-md hover:cursor-pointer transition-all`}
             >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="w-5 h-5"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"
-                    />
-                </svg>
+                <FaBars />
             </div>
         </motion.div>
     );
