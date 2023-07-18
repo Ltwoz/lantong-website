@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
+import DashboardSidebar from "./DashboardSidebar";
 
 const Layout = ({ children, isDashboard }) => {
     return (
@@ -26,13 +27,23 @@ const Layout = ({ children, isDashboard }) => {
                 id="page-wrapper"
                 className={`min-h-screen flex flex-col text-gray-900`}
             >
-                <>
-                    <Navbar />
-                    <div className="flex-grow">
-                        <Sidebar />
-                        {children}
-                    </div>
-                </>
+                {isDashboard ? (
+                    // Layout หน้า Dashboard
+                    <>
+                        <div className="flex-grow">
+                            <DashboardSidebar />
+                        </div>
+                    </>
+                ) : (
+                    // Layout ทั่วไป
+                    <>
+                        <Navbar />
+                        <div className="flex-grow">
+                            <Sidebar />
+                            {children}
+                        </div>
+                    </>
+                )}
             </div>
         </>
     );

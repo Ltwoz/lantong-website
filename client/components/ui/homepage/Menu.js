@@ -44,7 +44,7 @@ const Menu = () => {
                         className="col-span-4 md:col-span-1 flex justify-between p-3 rounded-lg gap-[10px] bg-[#173559]"
                     >
                         <p className="text-white font-semibold">
-                            มอเตอร์ไซค์ใหม่
+                            มอเตอร์ไซค์ ใหม่
                         </p>
                         <div className="w-[76px] h-[76px] relative flex flex-shrink-0 items-center rounded-lg overflow-hidden">
                             <Image
@@ -62,7 +62,7 @@ const Menu = () => {
                         className="col-span-4 md:col-span-1 flex justify-between p-3 rounded-lg gap-[10px] bg-[#173559]"
                     >
                         <p className="text-white font-semibold">
-                            มอเตอร์ไซค์มีพ่วงข้าง
+                            มอเตอร์ไซค์ มีพ่วงข้าง
                         </p>
                         <div className="w-[76px] h-[76px] relative flex flex-shrink-0 items-center rounded-lg overflow-hidden">
                             <Image
