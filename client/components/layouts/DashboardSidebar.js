@@ -3,20 +3,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
-import { IoMdClose } from "react-icons/io";
+import { IoMdClose, IoMdReturnLeft } from "react-icons/io";
 
 const DashboardSidebar = () => {
-    const { isOpen, setIsOpen } = useDashboardSidebar();
+    const { isOpen, setIsOpen, isMobile } = useDashboardSidebar();
     const router = useRouter();
 
     return (
         <AnimatePresence mode="wait">
             <motion.div
-                id="page-sidebar-wrapper"
-                className="fixed top-0 z-[90] h-screen overflow-auto w-[280px] bg-zinc-900 shadow-md"
-                animate={!isOpen ? "mount" : "unmount"}
-                // initial={isMobile ? "unmount" : "mount"}
-                initial={"mount"}
+                id="page-dashboard-sidebar-wrapper"
+                className="fixed top-0 z-[90] h-screen overflow-auto w-[280px] bg-zinc-900 shadow-md flex flex-col justify-between"
+                animate={isOpen ? "mount" : "unmount"}
+                initial={isMobile ? "unmount" : "mount"}
                 exit="unmount"
                 variants={{
                     unmount: {
@@ -29,179 +28,194 @@ const DashboardSidebar = () => {
                     },
                 }}
             >
-                <div
-                    id="logo-wrap"
-                    className="px-4 py-6 flex flex-row justify-between items-center bg-[#E2E7F0]"
-                >
+                <div className="flex flex-col">
+                    <div
+                        id="logo-wrap"
+                        className="px-4 py-6 flex flex-row justify-between items-center bg-[#E2E7F0]"
+                    >
+                        <Link
+                            scroll={false}
+                            href={`/`}
+                            className="flex md:w-auto justify-center items-center"
+                        >
+                            <div className="relative h-8 w-8 mr-2">
+                                <Image
+                                    alt="logo_img"
+                                    src={"/lantong_logo.png"}
+                                    draggable="false"
+                                    fill
+                                    className="object-cover"
+                                />
+                            </div>
+                            <h2 className="text-lg font-semibold text-[#E32C2C]">
+                                ระบบจัดการ
+                            </h2>
+                        </Link>
+                        <IoMdClose
+                            onClick={() => setIsOpen(!isOpen)}
+                            className="w-6 h-6 cursor-pointer"
+                        />
+                    </div>
+                    <ul id="main-sidebar">
+                        <li className="mt-6">
+                            <span className="block pl-4 mb-2 font-semibold text-gray-100">
+                                ทั่วไป
+                            </span>
+                            <ul>
+                                {Menus.general.map((menu, i) => {
+                                    const isActive =
+                                        router.asPath === menu.href;
+                                    return (
+                                        <li
+                                            key={i}
+                                            className={`hover:bg-gray-100/90 text-gray-100 hover:text-zinc-900 ${
+                                                isActive
+                                                    ? "bg-gray-100 text-zinc-900"
+                                                    : ""
+                                            }`}
+                                            onClick={(e) =>
+                                                isMobile
+                                                    ? setIsOpen(false)
+                                                    : e.preventDefault()
+                                            }
+                                        >
+                                            <Link
+                                                href={menu.href}
+                                                className="flex items-center px-4 py-3 text-sm"
+                                            >
+                                                <div className="inline-flex items-center font-medium">
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none"
+                                                        viewBox="0 0 24 24"
+                                                        strokeWidth={1.5}
+                                                        stroke="currentColor"
+                                                        className="w-5 h-5 mr-3"
+                                                    >
+                                                        <path
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            d={menu.svg}
+                                                        />
+                                                    </svg>
+                                                    <span>{menu.name}</span>
+                                                </div>
+                                            </Link>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </li>
+                        <li className="mt-6">
+                            <span className="block pl-4 mb-2 font-semibold text-gray-100">
+                                สร้างใหม่
+                            </span>
+                            <ul>
+                                {Menus.create.map((menu, i) => {
+                                    const isActive =
+                                        router.asPath === menu.href;
+                                    return (
+                                        <li
+                                            key={i}
+                                            className={`hover:bg-gray-100/90 text-gray-100 hover:text-zinc-900 ${
+                                                isActive
+                                                    ? "bg-gray-100 text-zinc-900"
+                                                    : ""
+                                            }`}
+                                            onClick={(e) =>
+                                                isMobile
+                                                    ? setIsOpen(false)
+                                                    : e.preventDefault()
+                                            }
+                                        >
+                                            <Link
+                                                href={menu.href}
+                                                className="flex items-center px-4 py-3 text-sm"
+                                            >
+                                                <div className="inline-flex items-center font-medium">
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none"
+                                                        viewBox="0 0 24 24"
+                                                        strokeWidth={1.5}
+                                                        stroke="currentColor"
+                                                        className="w-5 h-5 mr-3"
+                                                    >
+                                                        <path
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            d={menu.svg}
+                                                        />
+                                                    </svg>
+                                                    <span>{menu.name}</span>
+                                                </div>
+                                            </Link>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </li>
+                        <li className="mt-6">
+                            <span className="block pl-4 mb-2 font-medium text-gray-100">
+                                การจัดการ
+                            </span>
+                            <ul>
+                                {Menus.manage.map((menu, i) => {
+                                    const isActive =
+                                        router.asPath === menu.href;
+                                    return (
+                                        <li
+                                            key={i}
+                                            className={`hover:bg-gray-100/90 text-gray-100 hover:text-zinc-900 ${
+                                                isActive
+                                                    ? "bg-gray-100 text-zinc-900"
+                                                    : ""
+                                            }`}
+                                            onClick={(e) =>
+                                                isMobile
+                                                    ? setIsOpen(false)
+                                                    : e.preventDefault()
+                                            }
+                                        >
+                                            <Link
+                                                href={menu.href}
+                                                className="flex items-center px-4 py-3 text-sm"
+                                            >
+                                                <div className="inline-flex items-center font-medium">
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none"
+                                                        viewBox="0 0 24 24"
+                                                        strokeWidth={1.5}
+                                                        stroke="currentColor"
+                                                        className="w-5 h-5 mr-3"
+                                                    >
+                                                        <path
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            d={menu.svg}
+                                                        />
+                                                    </svg>
+                                                    <span>{menu.name}</span>
+                                                </div>
+                                            </Link>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div id="exit-menu" className="px-4 py-6 bg-[#E2E7F0] flex justify-center">
                     <Link
                         scroll={false}
                         href={`/`}
-                        className="flex md:w-auto justify-center items-center"
+                        className="flex md:w-fit flex-row items-center "
                     >
-                        <div className="relative h-8 w-8 mr-2">
-                            <Image
-                                alt="logo_img"
-                                src={"/lantong_logo.png"}
-                                draggable="false"
-                                fill
-                                className="object-cover"
-                            />
-                        </div>
-                        <h2 className="text-lg font-semibold text-[#E32C2C]">
-                            ระบบจัดการ
-                        </h2>
+                        <IoMdReturnLeft className="w-6 h-6 mr-2" />
+                        <h2 className="text-lg font-semibold">กลับหน้าแรก</h2>
                     </Link>
-                    <IoMdClose
-                        onClick={() => setIsOpen(!isOpen)}
-                        className="w-6 h-6 hover:cursor-pointer"
-                    />
                 </div>
-                <ul id="main-sidebar">
-                    <li className="mt-6">
-                        <span className="block pl-4 mb-2 font-semibold text-gray-100">
-                            ทั่วไป
-                        </span>
-                        <ul>
-                            {Menus.general.map((menu, i) => {
-                                const isActive = router.asPath === menu.href;
-                                return (
-                                    <li
-                                        key={i}
-                                        className={`hover:bg-gray-100/90 text-gray-100 hover:text-zinc-900 ${
-                                            isActive
-                                                ? "bg-gray-100 text-zinc-900"
-                                                : ""
-                                        }`}
-                                        onClick={(e) =>
-                                            isMobile
-                                                ? setIsOpen(false)
-                                                : e.preventDefault()
-                                        }
-                                    >
-                                        <Link
-                                            href={menu.href}
-                                            className="flex items-center px-4 py-3 text-sm"
-                                        >
-                                            <div className="inline-flex items-center font-medium">
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    strokeWidth={1.5}
-                                                    stroke="currentColor"
-                                                    className="w-5 h-5 mr-3"
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        d={menu.svg}
-                                                    />
-                                                </svg>
-                                                <span>{menu.name}</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    </li>
-                    <li className="mt-6">
-                        <span className="block pl-4 mb-2 font-semibold text-gray-100">
-                            สร้างใหม่
-                        </span>
-                        <ul>
-                            {Menus.create.map((menu, i) => {
-                                const isActive = router.asPath === menu.href;
-                                return (
-                                    <li
-                                        key={i}
-                                        className={`hover:bg-gray-100/90 text-gray-100 hover:text-zinc-900 ${
-                                            isActive
-                                                ? "bg-gray-100 text-zinc-900"
-                                                : ""
-                                        }`}
-                                        onClick={(e) =>
-                                            isMobile
-                                                ? setIsOpen(false)
-                                                : e.preventDefault()
-                                        }
-                                    >
-                                        <Link
-                                            href={menu.href}
-                                            className="flex items-center px-4 py-3 text-sm"
-                                        >
-                                            <div className="inline-flex items-center font-medium">
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    strokeWidth={1.5}
-                                                    stroke="currentColor"
-                                                    className="w-5 h-5 mr-3"
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        d={menu.svg}
-                                                    />
-                                                </svg>
-                                                <span>{menu.name}</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    </li>
-                    <li className="mt-6">
-                        <span className="block pl-4 mb-2 font-medium text-gray-100">
-                            การจัดการ
-                        </span>
-                        <ul>
-                            {Menus.manage.map((menu, i) => {
-                                const isActive = router.asPath === menu.href;
-                                return (
-                                    <li
-                                        key={i}
-                                        className={`hover:bg-gray-100/90 text-gray-100 hover:text-zinc-900 ${
-                                            isActive
-                                                ? "bg-gray-100 text-zinc-900"
-                                                : ""
-                                        }`}
-                                        onClick={(e) =>
-                                            isMobile
-                                                ? setIsOpen(false)
-                                                : e.preventDefault()
-                                        }
-                                    >
-                                        <Link
-                                            href={menu.href}
-                                            className="flex items-center px-4 py-3 text-sm"
-                                        >
-                                            <div className="inline-flex items-center font-medium">
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    strokeWidth={1.5}
-                                                    stroke="currentColor"
-                                                    className="w-5 h-5 mr-3"
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        d={menu.svg}
-                                                    />
-                                                </svg>
-                                                <span>{menu.name}</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    </li>
-                </ul>
             </motion.div>
         </AnimatePresence>
     );

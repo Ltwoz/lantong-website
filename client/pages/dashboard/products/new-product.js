@@ -1,4 +1,5 @@
 import Layout from "@/components/layouts/Layout";
+import Head from "next/head";
 import { useState } from "react";
 
 const NewProductPage = () => {
@@ -26,7 +27,10 @@ const NewProductPage = () => {
 
     return (
         <Layout isDashboard={true}>
-
+            <Head>
+                <title>เพิ่มสินค้า - หจก.ลานทองเชียงใหม่</title>
+            </Head>
+            
         </Layout>
     );
 }
