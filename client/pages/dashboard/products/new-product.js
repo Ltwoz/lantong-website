@@ -1,9 +1,11 @@
 import Layout from "@/components/layouts/Layout";
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import Image from "next/image";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -29,6 +31,27 @@ const NewProductPage = () => {
     const [isGift, setIsGift] = useState(false);
     const [giftDetail, setGiftDetail] = useState("");
     const [isOnSale, setIsOnSale] = useState(false);
+
+    // CRUD State
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success("สร้างสำเร็จ", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+            setIsSuccess(false);
+        }
+
+        if (error) {
+            toast.error(error, {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+            setError(null);
+        }
+    }, [isSuccess, error]);
 
     function handleUploadImage(e) {
         const files = Array.from(e.target.files);
@@ -56,6 +79,11 @@ const NewProductPage = () => {
         const newImages = [...images];
         newImages.splice(index, 1);
         setImages(newImages);
+    }
+
+    function submitForm(e) {
+        e.preventDefault();
+
     }
 
     return (
@@ -264,15 +292,13 @@ const NewProductPage = () => {
                                 </label>
                             </div>
                             {imagesPreview?.length > 0 && (
-                                <div className="col-span-12">
-                                    <h3 className="text-base md:text-lg font-medium leading-6">
-                                        Preview
-                                    </h3>
+                                <div className="col-span-4">
                                     <p className="mt-1 text-sm text-gray-600 mb-4">
+                                        ทั้งหมด{" "}
                                         <span className="font-semibold">
                                             {images.length}
                                         </span>{" "}
-                                        file(s)
+                                        ไฟล์
                                     </p>
 
                                     <hr className="w-full mb-4" />
@@ -326,6 +352,173 @@ const NewProductPage = () => {
                     </div>
 
                     <hr className="w-full" />
+
+                    <div
+                        tag="form-sections"
+                        className="flex flex-col md:flex-row w-full gap-6"
+                    >
+                        <h3 className="font-semibold w-full md:w-1/3">
+                            ตั้งค่าสินค้า
+                        </h3>
+                        <div className="grid grid-cols-4 gap-6 w-full md:w-2/3">
+                            <div className="col-span-4 flex items-center justify-between">
+                                <div>
+                                    <h4 className="text-xs md:text-sm font-semibold tracking-wide">
+                                        มีของแถม
+                                    </h4>
+                                    <p className="mt-2 text-xs md:text-sm text-gray-600">
+                                        หาก
+                                        <span className="text-green-500 font-semibold">
+                                            เปิด
+                                        </span>
+                                        จะสามารถใส่ของแถมให้สินค้านี้ได้
+                                    </p>
+                                </div>
+                                <label className="inline-flex relative items-center">
+                                    <input
+                                        type="checkbox"
+                                        className="sr-only peer"
+                                        checked={isGift}
+                                        readOnly
+                                    />
+                                    <div
+                                        onClick={() => {
+                                            setIsGift(!isGift);
+                                        }}
+                                        className="w-11 h-6 cursor-pointer bg-gray-300 rounded-full peer peer-focus:ring-green-300 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"
+                                    />
+                                </label>
+                            </div>
+                            <div className="col-span-4 md:col-span-2">
+                                <label className="block text-xs md:text-sm font-semibold tracking-wide">
+                                    ของแถมที่ได้รับ
+                                </label>
+                                <input
+                                    type="text"
+                                    value={giftDetail}
+                                    onChange={(e) =>
+                                        setGiftDetail(e.target.value)
+                                    }
+                                    className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
+                                />
+                            </div>
+                            <div className="col-span-4 flex items-center justify-between">
+                                <div>
+                                    <h4 className="text-xs md:text-sm font-semibold tracking-wide">
+                                        สินค้าแนะนำ
+                                    </h4>
+                                    <p className="mt-2 text-xs md:text-sm text-gray-600">
+                                        หาก
+                                        <span className="text-green-500 font-semibold">
+                                            เปิด
+                                        </span>
+                                        จะแสดงสินค้านี้ในสินค้าแนะนำ
+                                    </p>
+                                </div>
+                                <label className="inline-flex relative items-center">
+                                    <input
+                                        type="checkbox"
+                                        className="sr-only peer"
+                                        checked={isFeatured}
+                                        readOnly
+                                    />
+                                    <div
+                                        onClick={() => {
+                                            setIsFeatured(!isFeatured);
+                                        }}
+                                        className="w-11 h-6 cursor-pointer bg-gray-300 rounded-full peer peer-focus:ring-green-300 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"
+                                    />
+                                </label>
+                            </div>
+                            <div className="col-span-4 flex items-center justify-between">
+                                <div>
+                                    <h4 className="text-xs md:text-sm font-semibold tracking-wide">
+                                        ลดราคาสินค้า
+                                    </h4>
+                                    <p className="mt-2 text-xs md:text-sm text-gray-600">
+                                        หาก
+                                        <span className="text-green-500 font-semibold">
+                                            เปิด
+                                        </span>
+                                        จะแสดงเป็นราคาสินค้าที่ลดแล้ว
+                                    </p>
+                                </div>
+                                <label className="inline-flex relative items-center">
+                                    <input
+                                        type="checkbox"
+                                        className="sr-only peer"
+                                        checked={isOnSale}
+                                        readOnly
+                                    />
+                                    <div
+                                        onClick={() => {
+                                            setIsOnSale(!isOnSale);
+                                        }}
+                                        className="w-11 h-6 cursor-pointer bg-gray-300 rounded-full peer peer-focus:ring-green-300 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"
+                                    />
+                                </label>
+                            </div>
+                            <div className="col-span-4 flex items-center justify-between">
+                                <div>
+                                    <h4 className="text-xs md:text-sm font-semibold tracking-wide">
+                                        แสดงสินค้า
+                                    </h4>
+                                    <p className="mt-2 text-xs md:text-sm text-gray-600">
+                                        หาก
+                                        <span className="text-red-500 font-semibold">
+                                            ปิด
+                                        </span>
+                                        สินค้าจะไม่แสดงบนเว็บไซต์
+                                    </p>
+                                </div>
+                                <label className="inline-flex relative items-center">
+                                    <input
+                                        type="checkbox"
+                                        className="sr-only peer"
+                                        checked={isActive}
+                                        readOnly
+                                    />
+                                    <div
+                                        onClick={() => {
+                                            setIsActive(!isActive);
+                                        }}
+                                        className="w-11 h-6 cursor-pointer bg-gray-300 rounded-full peer peer-focus:ring-green-300 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"
+                                    />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr className="w-full" />
+
+                    <div className="col-span-12 flex items-center justify-end gap-x-4">
+                        <button
+                            onClick={submitForm}
+                            // disabled={loading ? true : false}
+                            className="inline-flex items-center bg-[#12A53B] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
+                        >
+                            <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={2.5}
+                                    stroke="currentColor"
+                                    className="w-5 h-5 mr-2"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M12 4.5v15m7.5-7.5h-15"
+                                    />
+                                </svg>
+                                <span className="block">
+                                    {/* {loading ? "กำลังสร้าง" : "สร้างสินค้า"} */}
+                                    สร้างสินค้า
+                                </span>
+                            </div>
+                        </button>
+                    </div>
                 </div>
             </section>
         </Layout>
