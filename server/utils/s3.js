@@ -1,12 +1,12 @@
-import AWS from "aws-sdk";
-import { nanoid } from "nanoid";
+const AWS = require("aws-sdk")
+const { nanoid } = require("nanoid");
 
 const bucketName = process.env.AWS_BUCKET_NAME;
 const region = process.env.AWS_BUCKET_REGION;
 const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
 const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
-export const uploadFile = async (files) => {
+exports.uploadFile = async (files) => {
     const uploadPromises = files.map(async (file) => {
         const s3 = new AWS.S3({
             accessKeyId: accessKeyId,
@@ -28,7 +28,7 @@ export const uploadFile = async (files) => {
     return Promise.all(uploadPromises);
 };
 
-export const deleteFiles = async (files) => {
+exports.deleteFiles = async (files) => {
     console.log("files to delete s3 :", files);
 
     const deletePromises = files.map(async (file) => {

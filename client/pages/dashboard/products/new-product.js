@@ -6,6 +6,7 @@ import "react-quill/dist/quill.snow.css";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -114,7 +115,7 @@ const NewProductPage = () => {
             setLoading(true);
 
             const { data } = await axios.post(
-                `/api/admin/product/new`,
+                `http://localhost:8000/api/admin/product/new`,
                 formData,
                 config
             );
