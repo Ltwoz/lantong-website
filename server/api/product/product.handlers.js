@@ -4,16 +4,38 @@ const Product = require("./product.model");
 
 // Create Product -- Admin
 exports.createProduct = catchAsyncErrors(async (req, res, next) => {
-    const { productId, name, description, price, isActive, category } =
-        req.body;
+    const {
+        productId,
+        name,
+        description,
+        price,
+        salePrice,
+        category,
+        width,
+        length,
+        height,
+        weightAccept,
+        isActive,
+        isFeatured,
+        isGift,
+        isOnSale,
+    } = req.body;
 
     const product = await Product.create({
         productId,
         name,
         description,
         price,
+        salePrice,
         category,
+        width,
+        length,
+        height,
+        weightAccept,
         isActive,
+        isFeatured,
+        isGift,
+        isOnSale,
     });
 
     res.status(201).json({ success: true, product });
@@ -39,7 +61,7 @@ exports.getFilterProducts = catchAsyncErrors(async (req, res, next) => {
         success: true,
         products,
         productsCount,
-        filteredProductsCount
+        filteredProductsCount,
     });
 });
 

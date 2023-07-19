@@ -21,7 +21,7 @@ const NewProductPage = () => {
     const [width, setWidth] = useState("");
     const [length, setLength] = useState("");
     const [height, setHeight] = useState("");
-    const [weigthAccept, setWeightAccept] = useState("");
+    const [weightAccept, setWeightAccept] = useState("");
 
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
@@ -81,9 +81,51 @@ const NewProductPage = () => {
         setImages(newImages);
     }
 
-    function submitForm(e) {
+    async function submitForm(e) {
         e.preventDefault();
 
+        const formData = new FormData();
+
+        formData.set("productId", productId);
+        formData.set("name", name);
+        formData.set("price", price);
+        formData.set("salePrice", salePrice);
+        formData.set("category", category);
+
+        formData.set("description", description);
+        formData.set("width", width);
+        formData.set("length", length);
+        formData.set("height", height);
+        formData.set("weightAccept", weightAccept);
+
+        formData.set("isActive", isActive);
+        formData.set("isFeatured", isFeatured);
+        formData.set("isGift", isGift);
+        formData.set("giftDetail", giftDetail);
+        formData.set("isOnSale", isOnSale);
+
+        images.forEach((image) => {
+            formData.append("images", image);
+        });
+
+        const config = { headers: { "Content-Type": "multipart/form-data" } };
+
+        try {
+            setLoading(true);
+
+            const { data } = await axios.post(
+                `/api/admin/product/new`,
+                formData,
+                config
+            );
+
+            setIsSuccess(data.success);
+        } catch (error) {
+            setError(error.message);
+            console.error(error.message);
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
@@ -237,7 +279,7 @@ const NewProductPage = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    value={weigthAccept}
+                                    value={weightAccept}
                                     onChange={(e) =>
                                         setWeightAccept(e.target.value)
                                     }
