@@ -1,10 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import ProductCard from "../products/ProductCard";
+import axios from "axios";
 
 const FeaturedProducts = () => {
     const [status, setStatus] = useState("Newest");
+
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const [link, setLink] = useState(`/api/products?isActive=true`);
+
+    useEffect(() => {
+        const getProducts = async () => {
+            const { data } = await axios.get(`${process.env.SERVER_PATH}${link}`);
+            setProducts(data?.products);
+            setLoading(false);
+        };
+
+        getProducts().catch(() => {
+            console.error;
+            setLoading(false);
+        });
+
+        console.log("done");
+    }, [link]);
 
     return (
         <div className="flex flex-col w-full">

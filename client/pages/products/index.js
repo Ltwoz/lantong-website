@@ -12,7 +12,7 @@ export default function ProductsPage() {
 
     useEffect(() => {
         const getProducts = async () => {
-            const { data } = await axios.get(`http://localhost:8000${link}`);
+            const { data } = await axios.get(`${process.env.SERVER_PATH}${link}`);
             setProducts(data?.products);
             setLoading(false);
         };
