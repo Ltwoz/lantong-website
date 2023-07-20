@@ -48,7 +48,7 @@ const Sidebar = () => {
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, []);
+    }, [setIsOpen]);
 
     return (
         <AnimatePresence mode="wait">
