@@ -1,4 +1,5 @@
 import Layout from "@/components/layouts/Layout";
+import Accordian from "@/components/ui/homepage/Accordian";
 import BannerSlider from "@/components/ui/homepage/BannerSlider";
 import FeaturedProducts from "@/components/ui/homepage/FeaturedProducts";
 import Menu from "@/components/ui/homepage/Menu";
@@ -6,6 +7,9 @@ import PurchaseStep from "@/components/ui/homepage/PurchaseStep";
 import Image from "next/image";
 import Link from "next/link";
 import { FaFacebook } from "react-icons/fa";
+
+const lorem =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
 export default function Home() {
     return (
@@ -119,12 +123,15 @@ export default function Home() {
                 </section>
 
                 {/* คำถามที่พบบ่อย */}
-                <section id="purchase-step" className="bg-[#E0DADA]">
+                <section id="purchase-step" className="bg-[#F4F6F8]">
                     <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center py-20 px-4 md:px-0">
                         <h1 className="font-semibold text-[40px] text-black mb-9 text-center">
                             คำถามที่พบบ่อย
                         </h1>
-
+                        <div>
+                            <Accordian title="Lorem ipsum dolor" content={lorem} />
+                            <Accordian title="Lorem ipsum dolor" content={lorem} />
+                        </div>
                     </div>
                 </section>
             </div>
