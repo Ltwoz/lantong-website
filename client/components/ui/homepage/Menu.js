@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FaFacebookMessenger } from "react-icons/fa";
+import { FaFacebook } from "react-icons/fa";
 import { MdMail, MdPhone } from "react-icons/md";
 import { HiChatBubbleOvalLeft } from "react-icons/hi2";
 
@@ -139,7 +139,7 @@ const Menu = () => {
                     className="h-[50px] inline-flex items-center bg-[#4267B2] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
                 >
                     <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
-                        <FaFacebookMessenger className="mr-2" />
+                        <FaFacebook className="mr-2" />
                         <span className="block">{"พ่วงข้างลานทอง"}</span>
                     </div>
                 </Link>
