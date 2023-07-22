@@ -30,7 +30,7 @@ export default function Home() {
 
                 {/* สินค้าแนะนำ */}
                 <section id="featured-products" className="bg-[#B53326]">
-                    <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center py-20 px-4 md:px-0">
+                    <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center py-12 md:py-20 px-4 md:px-0">
                         <h1 className="font-semibold text-[40px] text-white mb-9 text-center">
                             เลือกซื้อสินค้าที่ได้คุณภาพผ่านการรับรองจากลานทอง
                         </h1>
@@ -40,7 +40,7 @@ export default function Home() {
 
                 {/* วิดีโอ */}
                 <section id="video" className="bg-[#E0DADA]">
-                    <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center py-20 px-4 md:px-0">
+                    <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center py-12 md:py-20 px-4 md:px-0">
                         <h1 className="font-semibold text-[40px] text-black mb-9 text-center">
                             ทำไมต้องลานทอง ?
                         </h1>
@@ -59,7 +59,7 @@ export default function Home() {
 
                 {/* ขั้นตอนการซื้อ */}
                 <section id="purchase-step" className="bg-[#E0DADA]">
-                    <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center py-20 px-4 md:px-0">
+                    <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center py-12 md:py-20 px-4 md:px-0">
                         <h1 className="font-semibold text-[40px] text-black mb-9 text-center">
                             ขั้นตอนการซื้อสินค้าจากลานทอง
                         </h1>
@@ -124,7 +124,7 @@ export default function Home() {
 
                 {/* คำถามที่พบบ่อย */}
                 <section id="purchase-step" className="bg-[#F4F6F8]">
-                    <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center py-20 px-4 md:px-0">
+                    <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center py-12 md:py-20 px-4 md:px-0">
                         <h1 className="font-semibold text-[40px] text-black mb-9 text-center">
                             คำถามที่พบบ่อย
                         </h1>
