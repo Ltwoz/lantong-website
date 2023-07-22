@@ -7,19 +7,17 @@ const DashboardNavbar = () => {
 
     return (
         <motion.div
-            id="page-main-header"
-            className={`fixed top-0 z-[9] h-20 px-6 shadow-sm flex items-center bg-white`}
+            id="page-main-navbar"
+            className={`fixed top-0 z-[9] h-20 px-6 shadow-sm flex items-center bg-white w-full`}
             animate={isOpen ? "mount" : "unmount"}
             initial={isMobile ? "unmount" : "mount"}
             exit="unmount"
             variants={{
                 unmount: {
-                    width: "100%",
                     marginLeft: 0,
                     transition: { duration: 0.5 },
                 },
                 mount: {
-                    width: isMobile ? "100%" : "calc(100%-280px)",
                     marginLeft: isMobile ? 0 : "280px",
                     transition: { duration: 0.5 },
                 },

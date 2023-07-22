@@ -69,6 +69,8 @@ const NewProductPage = () => {
             };
             reader.readAsDataURL(file);
         });
+
+        e.target.value = null;
     }
 
     function removeImage(index) {
@@ -303,7 +305,11 @@ const NewProductPage = () => {
                             <div className="col-span-4">
                                 <label
                                     htmlFor="dropzone-file"
-                                    className="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover:bg-gray-100"
+                                    className={`flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover:bg-gray-100 transition-all duration-300 ${
+                                        imagesPreview?.length > 0
+                                            ? "h-14"
+                                            : "h-40"
+                                    }`}
                                 >
                                     <span className="flex items-center space-x-2">
                                         <svg
@@ -537,7 +543,7 @@ const NewProductPage = () => {
                     <div className="col-span-12 flex items-center justify-end gap-x-4">
                         <button
                             onClick={submitForm}
-                            // disabled={loading ? true : false}
+                            disabled={loading ? true : false}
                             className="inline-flex items-center bg-[#12A53B] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
                         >
                             <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
@@ -556,8 +562,7 @@ const NewProductPage = () => {
                                     />
                                 </svg>
                                 <span className="block">
-                                    {/* {loading ? "กำลังสร้าง" : "สร้างสินค้า"} */}
-                                    สร้างสินค้า
+                                    {loading ? "กำลังสร้าง" : "สร้างสินค้า"}
                                 </span>
                             </div>
                         </button>

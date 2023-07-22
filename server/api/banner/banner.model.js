@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 
 const bannerSchema = mongoose.Schema({
+    label: {
+        type: String,
+    },
     public_id: {
         type: String,
         required: true,

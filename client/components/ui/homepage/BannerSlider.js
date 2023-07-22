@@ -19,7 +19,7 @@ const BannerSlider = () => {
                         <div className="w-full max-h-[700px] aspect-[16/6] relative flex items-center">
                             <Image
                                 alt="property-image"
-                                src={`https://dummyimage.com/1920x700`}
+                                src=/* {`https://dummyimage.com/1920x700`} */{`/banner-test.png`}
                                 unoptimized
                                 draggable="false"
                                 fill
