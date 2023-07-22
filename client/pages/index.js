@@ -42,7 +42,7 @@ export default function Home() {
                 <section id="video" className="bg-[#E0DADA]">
                     <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center py-20 px-4 md:px-0">
                         <h1 className="font-semibold text-[40px] text-black mb-9 text-center">
-                            ทำไมต้องลานทอง
+                            ทำไมต้องลานทอง ?
                         </h1>
                         <div className="overflow-hidden rounded-xl relative pb-[56.25%] w-full">
                             <iframe
@@ -129,6 +129,7 @@ export default function Home() {
                             คำถามที่พบบ่อย
                         </h1>
                         <div>
+                            <Accordian title="Lorem ipsum dolor" content={lorem} />
                             <Accordian title="Lorem ipsum dolor" content={lorem} />
                             <Accordian title="Lorem ipsum dolor" content={lorem} />
                         </div>
