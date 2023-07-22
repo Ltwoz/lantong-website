@@ -5,6 +5,7 @@ import DashboardSidebar from "./DashboardSidebar";
 import { motion } from "framer-motion";
 import { useDashboardSidebar } from "@/contexts/dashboard-sidebar-context";
 import DashboardNavbar from "./DashboardNavbar";
+import Footer from "./Footer";
 
 const Layout = ({ children, isDashboard }) => {
     const { isOpen, isMobile } = useDashboardSidebar();
@@ -67,6 +68,7 @@ const Layout = ({ children, isDashboard }) => {
                             <Sidebar />
                             {children}
                         </div>
+                        <Footer />
                     </>
                 )}
             </div>
