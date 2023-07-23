@@ -48,7 +48,7 @@ const DashboardSidebar = () => {
                                 />
                             </div>
                             <h2 className="text-lg font-semibold text-[#E32C2C]">
-                                ระบบจัดการ
+                                ระบบจัดการหลังบ้าน
                             </h2>
                         </Link>
                         <IoMdClose
@@ -68,10 +68,10 @@ const DashboardSidebar = () => {
                                     return (
                                         <li
                                             key={i}
-                                            className={`hover:bg-gray-100/90 text-[#9CA3B4] hover:text-[#2D3648] ${
+                                            className={`hover:bg-gray-100/90 hover:text-[#2D3648] ${
                                                 isActive
                                                     ? "bg-[#E2E7F0] text-[#2D3648]"
-                                                    : ""
+                                                    : "text-[#9CA3B4]"
                                             }`}
                                             onClick={(e) =>
                                                 isMobile
@@ -117,10 +117,10 @@ const DashboardSidebar = () => {
                                     return (
                                         <li
                                             key={i}
-                                            className={`hover:bg-gray-100/90 text-[#9CA3B4] hover:text-[#2D3648] ${
+                                            className={`hover:bg-gray-100/90 hover:text-[#2D3648] ${
                                                 isActive
                                                     ? "bg-[#E2E7F0] text-[#2D3648]"
-                                                    : ""
+                                                    : "text-[#9CA3B4]"
                                             }`}
                                             onClick={(e) =>
                                                 isMobile
@@ -166,10 +166,10 @@ const DashboardSidebar = () => {
                                     return (
                                         <li
                                             key={i}
-                                            className={`hover:bg-gray-100/90 text-[#9CA3B4] hover:text-[#2D3648] ${
+                                            className={`hover:bg-gray-100/90 hover:text-[#2D3648] ${
                                                 isActive
                                                     ? "bg-[#E2E7F0] text-[#2D3648]"
-                                                    : ""
+                                                    : "text-[#9CA3B4]"
                                             }`}
                                             onClick={(e) =>
                                                 isMobile
@@ -235,7 +235,12 @@ const Menus = {
         },
         {
             name: "จัดการเว็บไซต์",
-            href: `/dashboard/config`,
+            href: `/dashboard/website-config`,
+            svg: "M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3",
+        },
+        {
+            name: "จัดการแบนเนอร์",
+            href: `/dashboard/banners`,
             svg: "M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3",
         },
     ],

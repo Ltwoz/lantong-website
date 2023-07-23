@@ -15,7 +15,7 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
     await uploadMiddlewareAsync(req, res);
 
     const files = req.files;
-    const result = await uploadFile(files);
+    const result = await uploadFile(files, "products");
 
     const updateImages = [];
 
