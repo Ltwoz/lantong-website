@@ -7,13 +7,20 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
 const WebsiteCOnfigPage = () => {
+    // Post State
     const [label, setLabel] = useState("");
+    const [description, setDescription] = useState("");
+    const [isOverlay, setIsOverlay] = useState(false);
     const [banner, setBanner] = useState([]);
     const [bannerPreview, setBannerPreview] = useState([]);
+
+    // Get State
+    const [allBanners, setAllBanners] = useState([]);
 
     // CRUD State
     const [isSuccess, setIsSuccess] = useState(false);
     const [error, setError] = useState(null);
+    const [createLoading, setCreateLoading] = useState(false);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -31,6 +38,21 @@ const WebsiteCOnfigPage = () => {
             setError(null);
         }
     }, [isSuccess, error]);
+
+    useEffect(() => {
+        const getProducts = async () => {
+            const { data } = await axios.get(
+                `${process.env.NEXT_PUBLIC_SERVER_PATH}${`/api/admin/banners`}`
+            );
+            setAllBanners(data?.banners);
+            setLoading(false);
+        };
+
+        getProducts().catch(() => {
+            console.error;
+            setLoading(false);
+        });
+    }, [isSuccess]);
 
     function handleUploadImage(e) {
         const files = Array.from(e.target.files);
@@ -68,6 +90,7 @@ const WebsiteCOnfigPage = () => {
         const formData = new FormData();
 
         formData.set("label", label);
+        formData.set("description", description);
         banner.forEach((bannerItem) => {
             formData.append("banner", bannerItem);
         });
@@ -75,7 +98,7 @@ const WebsiteCOnfigPage = () => {
         const config = { headers: { "Content-Type": "multipart/form-data" } };
 
         try {
-            setLoading(true);
+            setCreateLoading(true);
 
             const { data } = await axios.post(
                 `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/banner/new`,
@@ -88,7 +111,7 @@ const WebsiteCOnfigPage = () => {
             setError(error.message);
             console.error(error.message);
         } finally {
-            setLoading(false);
+            setCreateLoading(false);
             setBanner([]);
             setBannerPreview([]);
         }
@@ -121,7 +144,7 @@ const WebsiteCOnfigPage = () => {
                         className="flex flex-col md:flex-row w-full gap-6"
                     >
                         <h3 className="font-semibold w-full md:w-1/3">
-                            รูปภาพ
+                            สร้างแบนเนอร์
                         </h3>
                         <div className="grid grid-cols-4 gap-6 w-full md:w-2/3">
                             <div className="col-span-4">
@@ -158,6 +181,7 @@ const WebsiteCOnfigPage = () => {
                                         accept=".jpeg, .jpg, .png"
                                         onChange={handleUploadImage}
                                         className="hidden"
+                                        disabled={createLoading ? true : false}
                                     />
                                 </label>
                             </div>
@@ -208,7 +232,7 @@ const WebsiteCOnfigPage = () => {
                             )}
                             <div className="col-span-4">
                                 <label className="block text-xs md:text-sm font-semibold tracking-wide">
-                                    ข้อความ
+                                    หัวข้อ
                                 </label>
                                 <input
                                     type="text"
@@ -216,6 +240,47 @@ const WebsiteCOnfigPage = () => {
                                     onChange={(e) => setLabel(e.target.value)}
                                     className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
                                 />
+                            </div>
+                            <div className="col-span-4">
+                                <label className="block text-xs md:text-sm font-semibold tracking-wide">
+                                    ข้อความ
+                                </label>
+                                <input
+                                    type="text"
+                                    value={description}
+                                    onChange={(e) =>
+                                        setDescription(e.target.value)
+                                    }
+                                    className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
+                                />
+                            </div>
+                            <div className="col-span-4 flex items-center justify-between">
+                                <div>
+                                    <h4 className="text-xs md:text-sm font-semibold tracking-wide">
+                                        ลดความสว่างของภาพ
+                                    </h4>
+                                    <p className="mt-2 text-xs md:text-sm text-gray-600">
+                                        หาก
+                                        <span className="text-green-500 font-semibold">
+                                            เปิด
+                                        </span>
+                                        จะลดความสว่างของแบนเนอร์
+                                    </p>
+                                </div>
+                                <label className="inline-flex relative items-center">
+                                    <input
+                                        type="checkbox"
+                                        className="sr-only peer"
+                                        checked={isOverlay}
+                                        readOnly
+                                    />
+                                    <div
+                                        onClick={() => {
+                                            setIsOverlay(!isOverlay);
+                                        }}
+                                        className="w-11 h-6 cursor-pointer bg-gray-300 rounded-full peer peer-focus:ring-green-300 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"
+                                    />
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -225,7 +290,7 @@ const WebsiteCOnfigPage = () => {
                     <div className="col-span-12 flex items-center justify-end gap-x-4">
                         <button
                             onClick={submitForm}
-                            disabled={loading ? true : false}
+                            disabled={createLoading ? true : false}
                             className="inline-flex items-center bg-[#12A53B] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
                         >
                             <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
@@ -244,7 +309,9 @@ const WebsiteCOnfigPage = () => {
                                     />
                                 </svg>
                                 <span className="block">
-                                    {loading ? "กำลังสร้าง" : "สร้างแบนเนอร์"}
+                                    {createLoading
+                                        ? "กำลังสร้าง"
+                                        : "สร้างแบนเนอร์"}
                                 </span>
                             </div>
                         </button>
@@ -252,14 +319,29 @@ const WebsiteCOnfigPage = () => {
                 </div>
             </section>
 
+            {/* //TODO ต้องแก้ไข */}
             {/* แบนเนอร์ทั้งหมด */}
             <section
                 id="all-banners"
                 className="w-full mb-6 flex flex-col gap-4"
             >
                 <div className="flex flex-col w-full bg-white border rounded-md gap-4 md:gap-6 p-4 md:p-6">
-                    <div className="flex flex-col md:flex-row w-full gap-6">
-                        {/*  */}
+                    <div className="grid grid-cols-4 w-full gap-6">
+                        {allBanners.length > 0 &&
+                            allBanners?.map((image, i) => (
+                                <div
+                                    key={i}
+                                    className="col-span-4 w-full aspect-[16/6] relative flex items-center rounded-lg overflow-hidden"
+                                >
+                                    <Image
+                                        alt={"preview_image"}
+                                        src={image.url}
+                                        draggable="false"
+                                        fill
+                                        className="select-none object-cover"
+                                    />
+                                </div>
+                            ))}
                     </div>
                 </div>
             </section>

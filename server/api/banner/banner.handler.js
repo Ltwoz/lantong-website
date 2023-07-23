@@ -24,8 +24,15 @@ exports.CreateBanner = catchAsyncErrors(async (req, res, next) => {
     res.status(201).json({ success: true, banner });
 });
 
-// Get Banner
+// Get All Banners
 exports.GetAllBanners = catchAsyncErrors(async (req, res, next) => {
+    const banners = await Banner.find();
+
+    res.status(200).json({ success: true, banners });
+});
+
+// Get Admin Banners
+exports.GetAdminBanners = catchAsyncErrors(async (req, res, next) => {
     const banners = await Banner.find();
 
     res.status(200).json({ success: true, banners });

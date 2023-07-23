@@ -38,9 +38,9 @@ const Footer = () => {
                 </div>
             </div>
             <hr className="w-full border-gray-500/30 my-6" />
-            <span class="block text-sm text-white/70 text-center">
+            <span className="block text-sm text-white/70 text-center">
                 © 2023{" "}
-                <a href="https://lantongshop.com" class="hover:underline">
+                <a href="https://lantongshop.com" className="hover:underline">
                     หจก.ลานทองเชียงใหม่
                 </a>
                 . สงวนลิขสิทธิ์.
