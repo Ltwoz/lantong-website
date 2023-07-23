@@ -117,7 +117,7 @@ const NewProductPage = () => {
             setLoading(true);
 
             const { data } = await axios.post(
-                `${process.env.SERVER_PATH}/api/admin/product/new`,
+                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/product/new`,
                 formData,
                 config
             );

@@ -6,7 +6,7 @@ const region = process.env.AWS_BUCKET_REGION;
 const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
 const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
-exports.uploadFile = async (files) => {
+exports.uploadFile = async (files, folder) => {
     const uploadPromises = files.map(async (file) => {
         const s3 = new AWS.S3({
             accessKeyId: accessKeyId,
@@ -18,7 +18,7 @@ exports.uploadFile = async (files) => {
         const params = {
             Bucket: bucketName,
             Body: file.buffer,
-            Key: nanoid(20),
+            Key: `${folder}/${nanoid(20)}`,
         };
 
         const uploadResult = await s3.upload(params).promise();
@@ -29,8 +29,6 @@ exports.uploadFile = async (files) => {
 };
 
 exports.deleteFiles = async (files) => {
-    console.log("files to delete s3 :", files);
-
     const deletePromises = files.map(async (file) => {
         const s3 = new AWS.S3({
             accessKeyId: accessKeyId,

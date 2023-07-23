@@ -67,6 +67,7 @@ const WebsiteCOnfigPage = () => {
 
         const formData = new FormData();
 
+        formData.set("label", label);
         banner.forEach((bannerItem) => {
             formData.append("banner", bannerItem);
         });
@@ -77,7 +78,7 @@ const WebsiteCOnfigPage = () => {
             setLoading(true);
 
             const { data } = await axios.post(
-                `${process.env.SERVER_PATH}/api/admin/banner/new`,
+                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/banner/new`,
                 formData,
                 config
             );
@@ -88,6 +89,8 @@ const WebsiteCOnfigPage = () => {
             console.error(error.message);
         } finally {
             setLoading(false);
+            setBanner([]);
+            setBannerPreview([]);
         }
     }
 
