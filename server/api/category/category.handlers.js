@@ -3,7 +3,7 @@ const Category = require("./category.model");
 
 // Create Category
 exports.createCategory = catchAsyncErrors(async (req, res, next) => {
-    const { name, products, isActive } = req.body;
+    const { name, isActive } = req.body;
 
     if (!name) {
         return res.status(400).json({ error: "You must enter name." });
@@ -11,7 +11,6 @@ exports.createCategory = catchAsyncErrors(async (req, res, next) => {
 
     const category = await Category.create({
         name,
-        products,
         isActive,
     });
 
@@ -20,6 +19,13 @@ exports.createCategory = catchAsyncErrors(async (req, res, next) => {
 
 // Get All Categories
 exports.getAllCategories = catchAsyncErrors(async (req, res, next) => {
+    const categories = await Category.find();
+
+    res.status(200).json({ success: true, categories });
+});
+
+// Get Admin Categories
+exports.getAdminCategories = catchAsyncErrors(async (req, res, next) => {
     const categories = await Category.find();
 
     res.status(200).json({ success: true, categories });
