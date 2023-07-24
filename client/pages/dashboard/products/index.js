@@ -12,6 +12,20 @@ const AdminAllProductsPage = () => {
     // CRUD State;
     const [loading, setLoading] = useState(true);
 
+    // Search State.
+    const [search, setSearch] = useState("");
+    const [debounceValue, setDebounceValue] = useState("");
+
+    // Debounce
+    useEffect(() => {
+        const debounce = setTimeout(() => {
+            setSearch(debounceValue);
+        }, 500);
+
+        return () => clearTimeout(debounce);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [debounceValue]);
+
     useEffect(() => {
         const getProducts = async () => {
             const { data } = await axios.get(
@@ -49,6 +63,34 @@ const AdminAllProductsPage = () => {
                     id="products-main"
                     className="flex flex-col w-full bg-white border rounded-md gap-4 md:gap-6 p-4 md:p-6"
                 >
+                    <div className="flex flex-row-reverse items-center justify-between">
+                        <div className="relative w-full md:w-fit">
+                            <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                <svg
+                                    className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        fillRule="evenodd"
+                                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                        clipRule="evenodd"
+                                    ></path>
+                                </svg>
+                            </div>
+                            <input
+                                type="text"
+                                placeholder="ค้นหาข้อมูลในตาราง"
+                                autoComplete="off"
+                                // value={debounceValue}
+                                // onChange={(e) =>
+                                //     setDebounceValue(e.target.value)
+                                // }
+                                className="pl-10 p-2 w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm md:text-base"
+                            />
+                        </div>
+                    </div>
                     {loading ? (
                         // <LoadingSpiner />
                         <div>Loading</div>
@@ -65,25 +107,25 @@ const AdminAllProductsPage = () => {
                                     <table className="w-full table-fixed">
                                         <thead>
                                             <tr className="bg-zinc-700 text-gray-200 text-sm leading-normal">
-                                                <th className="th-td md:w-16">
-                                                    #
+                                                <th className="th-td w-24 2xl:w-16">
+                                                    รหัสสินค้า
                                                 </th>
-                                                <th className="th-td w-44">
+                                                <th className="th-td w-52 2xl:w-44">
                                                     ชื่อสินค้า
                                                 </th>
-                                                <th className="th-td w-36">
+                                                <th className="th-td w-52 2xl:w-32">
                                                     หมวดหมู่
                                                 </th>
-                                                <th className="th-td w-20">
+                                                <th className="th-td w-20 2xl:w-14">
                                                     ราคา
                                                 </th>
-                                                <th className="th-td w-20">
+                                                <th className="th-td w-40 2xl:w-24">
                                                     วันที่
                                                 </th>
-                                                <th className="th-td !text-center w-16">
+                                                <th className="th-td !text-center w-40 2xl:w-16">
                                                     สถานะ
                                                 </th>
-                                                <th className="py-3 px-6 text-center w-[82px]">
+                                                <th className="py-3 px-6 text-center w-48 2xl:w-[82px]">
                                                     จัดการ
                                                 </th>
                                             </tr>
@@ -92,10 +134,12 @@ const AdminAllProductsPage = () => {
                                             {products?.map((product) => (
                                                 <tr
                                                     key={product._id}
-                                                    className="border-b last:border-0 border-gray-200 hover:bg-gray-100/80"
+                                                    className="border-b last:border-0 border-gray-200 hover:bg-gray-100/80 font-medium"
                                                 >
                                                     <td className="th-td">
-                                                        {product.productId}
+                                                        <span className="text-sm font-semibold px-2.5 py-0.5 rounded-md bg-zinc-600 text-zinc-200">
+                                                            {product.productId}
+                                                        </span>
                                                     </td>
                                                     <td className="th-td">
                                                         {product.name}
@@ -118,7 +162,7 @@ const AdminAllProductsPage = () => {
                                                     <td className="th-td !text-center">
                                                         <span
                                                             className={
-                                                                "text-sm font-medium px-2.5 py-0.5 rounded-full" +
+                                                                "text-sm font-medium px-2.5 py-0.5 rounded-md" +
                                                                 (product.isActive
                                                                     ? " bg-green-700 text-green-200"
                                                                     : "bg-red-700 text-red-200")
@@ -130,7 +174,7 @@ const AdminAllProductsPage = () => {
                                                         </span>
                                                     </td>
                                                     <td className="py-3 px-6 text-center">
-                                                        <div className="flex item-center justify-end gap-x-2 w-fit">
+                                                        <div className="flex item-center justify-center gap-x-2">
                                                             <Link
                                                                 href={`/properties/${product._id}`}
                                                                 className="transform hover:text-primary hover:scale-110 transition-all border hover:border-primary rounded-full p-2"
