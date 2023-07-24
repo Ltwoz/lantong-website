@@ -38,7 +38,13 @@ exports.getFilterProducts = catchAsyncErrors(async (req, res, next) => {
     const resultPerPage = 5;
     const productsCount = await Product.countDocuments();
 
-    const apiFeature = new ApiFeatures(Product.find(), req.query)
+    const apiFeature = new ApiFeatures(
+        Product.find().populate({
+            path: "category",
+            select: "name isActive",
+        }),
+        req.query
+    )
         .search()
         .filter()
         .sort();
@@ -75,9 +81,32 @@ exports.getDetailProduct = catchAsyncErrors(async (req, res, next) => {
 
 // Get All Products -- Admin
 exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
-    const products = await Product.find();
+    const resultPerPage = 5;
+    const productsCount = await Product.countDocuments();
 
-    res.status(200).json({ success: true, products });
+    const apiFeature = new ApiFeatures(
+        Product.find().populate({
+            path: "category",
+            select: "name isActive",
+        }),
+        req.query
+    )
+        .search()
+        .filter()
+        .sort();
+
+    let products = await apiFeature.query;
+
+    let filteredProductsCount = products.length;
+
+    apiFeature.pagination(resultPerPage);
+
+    res.status(200).json({
+        success: true,
+        products,
+        productsCount,
+        filteredProductsCount,
+    });
 });
 
 // Update Product -- Admin

@@ -129,6 +129,10 @@ const NewProductPage = () => {
             formData.append("images", image);
         });
 
+        for (var pair of formData.entries()) {
+            console.log(pair[0] + ", " + pair[1]);
+        }
+
         const config = { headers: { "Content-Type": "multipart/form-data" } };
 
         try {
@@ -168,7 +172,7 @@ const NewProductPage = () => {
             {/* Form สร้างสินค้า */}
             <section id="main" className="w-full mb-6 flex flex-col gap-4">
                 <div
-                    id="property-main"
+                    id="products-main"
                     className="flex flex-col w-full bg-white border rounded-md gap-4 md:gap-6 p-4 md:p-6"
                 >
                     <div
