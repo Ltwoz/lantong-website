@@ -33,11 +33,15 @@ const NewProductPage = () => {
     const [giftDetail, setGiftDetail] = useState("");
     const [isOnSale, setIsOnSale] = useState(false);
 
+    // State ของ Categories
+    const [allCategories, setAllCategories] = useState([]);
+
     // CRUD State
     const [isSuccess, setIsSuccess] = useState(false);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
+    // Toastify
     useEffect(() => {
         if (isSuccess) {
             toast.success("สร้างสำเร็จ", {
@@ -53,6 +57,20 @@ const NewProductPage = () => {
             setError(null);
         }
     }, [isSuccess, error]);
+
+    // Fetch get all categories
+    useEffect(() => {
+        const getCategories = async () => {
+            const { data } = await axios.get(
+                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/categories`
+            );
+            setAllCategories(data?.categories);
+        };
+
+        getCategories().catch(() => {
+            console.error;
+        });
+    }, []);
 
     function handleUploadImage(e) {
         const files = Array.from(e.target.files);
@@ -213,11 +231,21 @@ const NewProductPage = () => {
                                 <label className="block text-xs md:text-sm font-medium tracking-wide">
                                     หมวดหมู่
                                 </label>
-                                <select className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base">
-                                    <option value="volvo">Volvo</option>
-                                    <option value="saab">Saab</option>
-                                    <option value="mercedes">Mercedes</option>
-                                    <option value="audi">Audi</option>
+                                <select
+                                    value={category}
+                                    onChange={(e) =>
+                                        setCategory(e.target.value)
+                                    }
+                                    className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base hover:cursor-pointer"
+                                >
+                                    {allCategories?.map((categoryItem) => (
+                                        <option
+                                            key={categoryItem._id}
+                                            value={categoryItem._id}
+                                        >
+                                            {categoryItem.name}
+                                        </option>
+                                    ))}
                                 </select>
                             </div>
                         </div>

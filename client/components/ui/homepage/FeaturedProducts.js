@@ -23,8 +23,6 @@ const FeaturedProducts = () => {
             console.error;
             setLoading(false);
         });
-
-        console.log("done");
     }, [link]);
 
     return (

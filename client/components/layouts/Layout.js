@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { useDashboardSidebar } from "@/contexts/dashboard-sidebar-context";
 import DashboardNavbar from "./DashboardNavbar";
 import Footer from "./Footer";
+import { ToastContainer } from 'react-toastify';
 
 const Layout = ({ children, isDashboard }) => {
     const { isOpen, isMobile } = useDashboardSidebar();
@@ -29,6 +30,7 @@ const Layout = ({ children, isDashboard }) => {
                 <meta property="og:image" content="" />
                 <link rel="icon" href="" />
             </Head>
+            <ToastContainer toastClassName="!font-noto" />
             <div
                 id="page-wrapper"
                 className={`min-h-screen flex flex-col text-gray-900`}
