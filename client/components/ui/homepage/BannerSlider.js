@@ -34,6 +34,7 @@ const BannerSlider = () => {
                     flickPower: 100,
                     type: "loop",
                     autoplay: true,
+                    pagination: false,
                 }}
             >
                 <SplideTrack>
