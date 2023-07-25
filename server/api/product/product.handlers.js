@@ -121,6 +121,22 @@ exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
     });
 });
 
+// Get Detail Product -- Admin
+exports.getAdminDetailProduct = catchAsyncErrors(async (req, res, next) => {
+    const productId = req.params.id;
+
+    const product = await Product.findOne({ _id: productId }).populate({
+        path: "category",
+        select: "name isActive",
+    });
+
+    if (!product) {
+        return res.status(404).json({ error: "No Category found." });
+    }
+
+    res.status(200).json({ success: true, product });
+});
+
 // Update Product -- Admin
 exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
     const productId = req.params.id;

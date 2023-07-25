@@ -220,7 +220,7 @@ const AdminAllProductsPage = () => {
                                                                     </svg>
                                                                 </Link>
                                                                 <Link
-                                                                    href={`/dashboard/properties/${product._id}`}
+                                                                    href={`/dashboard/products/${product._id}`}
                                                                     className="transform hover:text-primary hover:scale-110 transition-all border hover:border-primary rounded-full p-2"
                                                                 >
                                                                     <svg
