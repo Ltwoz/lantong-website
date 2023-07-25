@@ -35,7 +35,7 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 
 // Get Filter Products
 exports.getFilterProducts = catchAsyncErrors(async (req, res, next) => {
-    const resultPerPage = 5;
+    const resultPerPage = 25;
     const productsCount = await Product.countDocuments();
 
     const apiFeature = new ApiFeatures(
@@ -55,11 +55,17 @@ exports.getFilterProducts = catchAsyncErrors(async (req, res, next) => {
 
     apiFeature.pagination(resultPerPage);
 
+    products = await apiFeature.query.clone();
+
+    const totalPageCount = Math.ceil(
+        filteredProductsCount / resultPerPage
+    );
+
     res.status(200).json({
         success: true,
         products,
-        productsCount,
         filteredProductsCount,
+        totalPageCount
     });
 });
 
@@ -81,7 +87,7 @@ exports.getDetailProduct = catchAsyncErrors(async (req, res, next) => {
 
 // Get All Products -- Admin
 exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
-    const resultPerPage = 5;
+    const resultPerPage = 25;
     const productsCount = await Product.countDocuments();
 
     const apiFeature = new ApiFeatures(
@@ -101,11 +107,17 @@ exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
 
     apiFeature.pagination(resultPerPage);
 
+    products = await apiFeature.query.clone();
+
+    const totalPageCount = Math.ceil(
+        filteredProductsCount / resultPerPage
+    );
+
     res.status(200).json({
         success: true,
         products,
-        productsCount,
         filteredProductsCount,
+        totalPageCount
     });
 });
 
