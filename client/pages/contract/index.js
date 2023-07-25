@@ -1,6 +1,8 @@
 import Layout from "@/components/layouts/Layout";
-import Accordian from "@/components/ui/contract/Accordian";
+import { useState } from "react";
 const ContractUs = () => {
+  const [expanded, setExpanded] = useState(false);
+  const toggleExpanded = () => setExpanded((current) => !current);
   return (
     <Layout>
       <div className="md:w-[1200px] mx-auto border">
@@ -18,20 +20,63 @@ const ContractUs = () => {
 
         {/* hover ให้แสดงข้อมูลทั้งหมด */}
         <div className="my-5 grid grid-cols-3 ml-[6rem]">
-          <div className="bg-[#4267B2] w-[250px] cursor-pointer ">
+          {/* Facebook */}
+          <div
+            className="bg-[#4267B2] w-[250px] cursor-pointer "
+            onClick={toggleExpanded}
+          >
             <div className="text-white text-center h-fit mt-2 mb-2 ">
               Facebook
             </div>
+            <div
+              className={`px-6 pt-0 overflow-y-scroll md:overflow-hidden transition-[max-height] duration-300 ease-in ${
+                expanded ? "max-h-50" : "max-h-0"
+              }`}
+            >
+              <p className="text-white pb-2 text-left w-[250px]">
+                ลานทองพ่วงข้าง
+              </p>
+            </div>
+          </div>
+          {/* Line */}
+          <div
+            className="bg-[#06C755] w-[250px] cursor-pointer "
+            onClick={toggleExpanded}
+          >
+            <div className="text-white text-center h-fit mt-2 mb-2 ">
+              Facebook
+            </div>
+            <div
+              className={`px-6 pt-0 overflow-y-scroll md:overflow-hidden transition-[max-height] duration-300 ease-in ${
+                expanded ? "max-h-50" : "max-h-0"
+              }`}
+            >
+              <div className="bg-[#06C755]">
+                <p className="text-white  pb-2 opacity-100 text-left w-[250px]">
+                  lantongshop
+                </p>
+              </div>
+            </div>
           </div>
 
-          <div className="bg-[#06C755] w-[250px] cursor-pointer ">
-            <div className="text-white text-center h-fit mt-2 mb-2 ">Line</div>
+          {/* Email */}
+          <div
+            className="bg-[#FF5A60] w-[250px] cursor-pointer "
+            onClick={toggleExpanded}
+          >
+            <div className="text-white text-center h-fit mt-2 mb-2 ">
+              Facebook
+            </div>
+            <div
+              className={`px-6 pt-0 overflow-y-scroll md:overflow-hidden transition-[max-height] duration-300 ease-in ${
+                expanded ? "max-h-50" : "max-h-0"
+              }`}
+            >
+              <p className="text-white pb-2 text-left w-[250px]">
+                lantongshop@gmail.com
+              </p>
+            </div>
           </div>
-
-          <div className="bg-[#FF5A60] w-[250px] cursor-pointer hover:">
-            <div className="text-white text-center h-fit mt-2 mb-2 ">Email</div>
-          </div>
-          <Accordian title={"Facebook"} content={<img src="https://static.independent.co.uk/s3fs-public/thumbnails/image/2015/07/03/20/semicolon.jpg" />} />
         </div>
 
         <div className="mx-auto">
