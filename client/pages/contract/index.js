@@ -52,7 +52,8 @@ const ContractUs = () => {
               }`}
             >
               <div className="bg-[#06C755]">
-                <p className="text-white  pb-2 opacity-100 text-left w-[250px]">
+                <img src="https://digitalpress.fra1.cdn.digitaloceanspaces.com/b7uv0cn/2023/04/ChatGPT-preview.jpg"  className="w-[118px] h-[112px] mb-2 ml-10"/>
+                <p className="text-white  pb-2 opacity-100 ml-12 w-[250px]">
                   lantongshop
                 </p>
               </div>
