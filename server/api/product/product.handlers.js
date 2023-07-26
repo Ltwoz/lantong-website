@@ -64,6 +64,7 @@ exports.getFilterProducts = catchAsyncErrors(async (req, res, next) => {
         products,
         filteredProductsCount,
         totalPageCount,
+        productsCount
     });
 });
 
@@ -114,6 +115,7 @@ exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
         products,
         filteredProductsCount,
         totalPageCount,
+        productsCount
     });
 });
 
@@ -127,7 +129,7 @@ exports.getAdminDetailProduct = catchAsyncErrors(async (req, res, next) => {
     });
 
     if (!product) {
-        return res.status(404).json({ error: "No Category found." });
+        return res.status(404).json({ error: "No Product found." });
     }
 
     res.status(200).json({ success: true, product });
@@ -145,7 +147,6 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
     let product = await Product.findById(req.params.id);
 
     const files = req.files;
-    // const result = await uploadFile(files, "products");
 
     // Images Array
     const oldImages = product.images || [];
@@ -161,7 +162,6 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
             currentImages.push(JSON.parse(image));
         }
     }
-    console.log("currentImages:", currentImages);
 
     // Check unmatched
     const unmatchedImages = oldImages.filter(
@@ -170,13 +170,12 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
                 (image) => image.public_id === img.public_id
             )
     );
-    console.log("unmatchedImages :", unmatchedImages);
 
     //Deleting Images From AWS S3
     await deleteFiles(unmatchedImages);
 
     // Upload Images
-    const result = await uploadFile(files);
+    const result = await uploadFile(files, "products");
 
     if (currentImages.length === 0) {
         for (let i = 0; i < result.length; i++) {
@@ -214,9 +213,19 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
 
 // Delete Product -- Admin
 exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
-    const productId = req.params.id;
+    const product = await Product.findById(req.params.id);
 
-    await Product.deleteOne({ _id: productId });
+    if (!product) {
+        res.status(404).json({
+            success: false,
+            message: "Product not found.",
+        });
+    }
+
+    //Deleting Images From AWS S3
+    await deleteFiles(product.images);
+
+    await product.remove();
 
     res.status(200).json({ success: true, message: "Product deleted." });
 });

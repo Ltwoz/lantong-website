@@ -99,7 +99,7 @@ const AdminAllProductsPage = () => {
                 {showDeleteModal && (
                     <DeleteModal
                         title={`ลบสินค้า ${selectedProduct.name} ?`}
-                        message={"หากลบแล้วจะไม่สามารถกู้คืนได้"}
+                        message={"สินค้านี่จะหายไปจากเว็บไซต์"}
                         buttonLabel={"ตกลง, ลบเลย!"}
                         setIsOpen={setShowDeleteModal}
                         handler={deleteHandler}
@@ -162,7 +162,7 @@ const AdminAllProductsPage = () => {
                                     </p>
                                 </div>
                             ) : (
-                                <>
+                                <div className="flex flex-col gap-4 md:gap-6">
                                     <div className="flex flex-col overflow-x-auto border rounded-md">
                                         <table className="w-full table-fixed">
                                             <thead>
@@ -198,7 +198,7 @@ const AdminAllProductsPage = () => {
                                                             className="border-b last:border-0 border-gray-200 hover:bg-gray-100/80 font-medium"
                                                         >
                                                             <td className="th-td">
-                                                                <span className="text-sm font-semibold px-2.5 py-0.5 rounded-md bg-zinc-600 text-zinc-200">
+                                                                <span className="text-sm font-semibold px-2.5 py-0.5 rounded-md bg-[#12A53B] text-zinc-100">
                                                                     {
                                                                         product.productId
                                                                     }
@@ -236,8 +236,8 @@ const AdminAllProductsPage = () => {
                                                                     className={
                                                                         "text-sm font-medium px-2.5 py-0.5 rounded-md" +
                                                                         (product.isActive
-                                                                            ? " bg-green-700 text-green-200"
-                                                                            : "bg-red-700 text-red-200")
+                                                                            ? " bg-green-600 text-green-100"
+                                                                            : "bg-red-600 text-red-100")
                                                                     }
                                                                 >
                                                                     {product.isActive
@@ -249,7 +249,7 @@ const AdminAllProductsPage = () => {
                                                                 <div className="flex item-center justify-center gap-x-2">
                                                                     <Link
                                                                         href={`/products/${product._id}`}
-                                                                        className="transform hover:text-primary hover:scale-110 transition-all border hover:border-primary rounded-full p-2"
+                                                                        className="transform hover:text-[#12A53B] hover:scale-110 transition-all border hover:border-[#12A53B] rounded-full p-2"
                                                                     >
                                                                         <svg
                                                                             xmlns="http://www.w3.org/2000/svg"
@@ -274,7 +274,7 @@ const AdminAllProductsPage = () => {
                                                                     </Link>
                                                                     <Link
                                                                         href={`/dashboard/products/${product._id}`}
-                                                                        className="transform hover:text-primary hover:scale-110 transition-all border hover:border-primary rounded-full p-2"
+                                                                        className="transform hover:text-[#12A53B] hover:scale-110 transition-all border hover:border-[#12A53B] rounded-full p-2"
                                                                     >
                                                                         <svg
                                                                             xmlns="http://www.w3.org/2000/svg"
@@ -328,13 +328,15 @@ const AdminAllProductsPage = () => {
                                             </tbody>
                                         </table>
                                     </div>
-                                    {!(
-                                        page === 0 ||
-                                        products.totalPageCount < 2
-                                    ) && (
+                                    <div className="flex flex-row justify-between items-center">
+                                        <p>
+                                            แสดง{" "}
+                                            {products?.filteredProductsCount}{" "}
+                                            จาก {products?.productsCount} รายการ
+                                        </p>
                                         <div
                                             id="pagination"
-                                            className="flex px-6 py-3 items-center justify-center md:justify-end"
+                                            className="flex items-center justify-center md:justify-end"
                                         >
                                             <Pagination
                                                 currentPage={page}
@@ -346,8 +348,8 @@ const AdminAllProductsPage = () => {
                                                 }
                                             />
                                         </div>
-                                    )}
-                                </>
+                                    </div>
+                                </div>
                             )}
                         </section>
                     )}

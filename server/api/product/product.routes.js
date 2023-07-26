@@ -19,6 +19,10 @@ router.route("/admin/product/new").post(createProduct);
 
 router.route("/admin/products").get(getAdminProducts);
 
-router.route("/admin/product/:id").get(getAdminDetailProduct).put(updateProduct).delete(deleteProduct);
+router
+    .route("/admin/product/:id")
+    .get(getAdminDetailProduct)
+    .put(updateProduct)
+    .delete(deleteProduct);
 
 module.exports = router;

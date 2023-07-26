@@ -4,11 +4,11 @@ const DeleteModal = (props) => {
     const { title, message, buttonLabel, setIsOpen, handler } = props;
     return (
         <ModalLayout setIsOpen={setIsOpen}>
-            <div className="w-[95vw] md:w-[24rem] px-6 py-4 flex flex-col items-center justify-between select-none">
-                <div className="flex w-full mt-2">
-                    <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+            <div className="w-[95vw] md:w-[24rem] px-6 py-6 flex flex-col items-center justify-between select-none">
+                <div className="flex flex-col sm:flex-row w-full gap-2">
+                    <div className="mx-auto flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-12 sm:w-12">
                         <svg
-                            className="h-6 w-6 text-red-600"
+                            className="h-12 w-12 sm:h-6 sm:w-6  text-red-600"
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
@@ -35,7 +35,7 @@ const DeleteModal = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className="mt-4 w-full flex flex-row justify-end gap-x-2">
+                <div className="mt-4 w-full flex flex-row justify-center md:justify-end gap-x-2">
                     <div
                         onClick={() => {
                             handler();
