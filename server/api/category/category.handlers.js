@@ -1,4 +1,5 @@
 const catchAsyncErrors = require("../../middleware/catchAsyncErrors");
+const ApiFeatures = require("../../utils/apiFeatures");
 const Category = require("./category.model");
 
 // Create Category
@@ -24,11 +25,36 @@ exports.getAllCategories = catchAsyncErrors(async (req, res, next) => {
     res.status(200).json({ success: true, categories });
 });
 
-// Get Admin Categories
+// Get All Categories -- Admin
 exports.getAdminCategories = catchAsyncErrors(async (req, res, next) => {
-    const categories = await Category.find();
+    const resultPerPage = 25;
+    const categoriesCount = await Category.countDocuments();
 
-    res.status(200).json({ success: true, categories });
+    const apiFeature = new ApiFeatures(
+        Category.find(),
+        req.query
+    )
+        .search()
+        .filter()
+        .sort();
+
+    let categories = await apiFeature.query;
+
+    let filteredCategoriesCount = categories.length;
+
+    apiFeature.pagination(resultPerPage);
+
+    categories = await apiFeature.query.clone();
+
+    const totalPageCount = Math.ceil(filteredCategoriesCount / resultPerPage);
+
+    res.status(200).json({
+        success: true,
+        categories,
+        filteredCategoriesCount,
+        totalPageCount,
+        categoriesCount
+    });
 });
 
 // Get Category Detail

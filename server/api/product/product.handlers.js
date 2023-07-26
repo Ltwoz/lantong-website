@@ -45,7 +45,7 @@ exports.getFilterProducts = catchAsyncErrors(async (req, res, next) => {
         }),
         req.query
     )
-        .search()
+        .search(["name", "productId"])
         .filter()
         .sort();
 
@@ -96,7 +96,7 @@ exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
         }),
         req.query
     )
-        .search()
+        .search(["name", "productId"])
         .filter()
         .sort();
 

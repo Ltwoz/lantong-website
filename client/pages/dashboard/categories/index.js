@@ -10,10 +10,10 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const AdminAllProductsPage = () => {
-    // Products State
-    const [products, setProducts] = useState([]);
-    const [selectedProduct, setSelectedProduct] = useState({});
+const AdminAllCategoriesPage = () => {
+    // Categories State
+    const [categories, setCategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState({});
 
     // CRUD State
     const [loading, setLoading] = useState(true);
@@ -58,19 +58,19 @@ const AdminAllProductsPage = () => {
     }, [isDeleted, error]);
 
     useEffect(() => {
-        let link = `/api/admin/products?keyword=${
+        let link = `/api/admin/categories?keyword=${
             keyword ? keyword : ""
         }&page=${page}`;
 
-        const getProducts = async () => {
+        const getCategories = async () => {
             const { data } = await axios.get(
                 `${process.env.NEXT_PUBLIC_SERVER_PATH}${link}`
             );
-            setProducts(data);
+            setCategories(data);
             setLoading(false);
         };
 
-        getProducts().catch(() => {
+        getCategories().catch(() => {
             console.error;
             setLoading(false);
         });
@@ -79,7 +79,7 @@ const AdminAllProductsPage = () => {
     const deleteHandler = async (e) => {
         try {
             const { data } = await axios.delete(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/product/${selectedProduct._id}`
+                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/category/${selectedCategory._id}`
             );
 
             setIsDeleted(data.success);
@@ -92,14 +92,14 @@ const AdminAllProductsPage = () => {
     return (
         <Layout isDashboard={true}>
             <Head>
-                <title>สินค้าทั้งหมด - หจก.ลานทองเชียงใหม่</title>
+                <title>หมวดหมู่ทั้งหมด - หจก.ลานทองเชียงใหม่</title>
             </Head>
             {/* Modal */}
             <AnimatePresence>
                 {showDeleteModal && (
                     <DeleteModal
-                        title={`ลบสินค้า ${selectedProduct.name} ?`}
-                        message={"สินค้านี่จะหายไปจากเว็บไซต์"}
+                        title={`ลบหมวดหมู่ ${selectedCategory.name} ?`}
+                        message={"หมวดหมู่นี่จะหายไปจากเว็บไซต์"}
                         buttonLabel={"ตกลง, ลบเลย!"}
                         setIsOpen={setShowDeleteModal}
                         handler={deleteHandler}
@@ -113,14 +113,14 @@ const AdminAllProductsPage = () => {
                     className="flex flex-col md:flex-row gap-4 py-6 items-start md:items-center justify-between"
                 >
                     <div className="flex flex-col">
-                        <h2 className="text-2xl font-bold">สินค้าทั้งหมด</h2>
+                        <h2 className="text-2xl font-bold">หมวดหมู่ทั้งหมด</h2>
                     </div>
                 </div>
             </div>
             {/* ตาราง */}
             <section id="main" className="w-full mb-6 flex flex-col gap-4">
                 <div
-                    id="products-main"
+                    id="categories-main"
                     className="flex flex-col w-full bg-white border rounded-md gap-4 md:gap-6 p-4 md:p-6"
                 >
                     <div className="flex flex-row-reverse items-center justify-between">
@@ -155,10 +155,10 @@ const AdminAllProductsPage = () => {
                         <LoadingSpiner />
                     ) : (
                         <section className="bg-white">
-                            {products?.products?.length < 1 ? (
+                            {categories?.categories?.length < 1 ? (
                                 <div className="flex items-center justify-center pb-4 pt-8 border-t">
                                     <p className="font-medium text-gray-600">
-                                        ไม่มีข้อมูลสินค้า
+                                        ไม่มีข้อมูลหมวดหมู่
                                     </p>
                                 </div>
                             ) : (
@@ -167,23 +167,17 @@ const AdminAllProductsPage = () => {
                                         <table className="w-full table-fixed">
                                             <thead>
                                                 <tr className="bg-zinc-700 text-gray-200 text-sm leading-normal">
-                                                    <th className="th-td w-24 2xl:w-16">
-                                                        รหัสสินค้า
-                                                    </th>
-                                                    <th className="th-td w-52 2xl:w-44">
-                                                        ชื่อสินค้า
+                                                    <th className="th-td w-24 2xl:w-20">
+                                                        รหัสหมวดหมู่
                                                     </th>
                                                     <th className="th-td w-52 2xl:w-32">
-                                                        หมวดหมู่
+                                                        ชื่อหมวดหมู่
                                                     </th>
                                                     <th className="th-td w-20 2xl:w-14">
-                                                        ราคา
+                                                        หมวดหมู่
                                                     </th>
                                                     <th className="th-td w-40 2xl:w-24">
                                                         วันที่
-                                                    </th>
-                                                    <th className="th-td !text-center w-40 2xl:w-16">
-                                                        สถานะ
                                                     </th>
                                                     <th className="py-3 px-6 text-center w-48 2xl:w-[82px]">
                                                         จัดการ
@@ -191,35 +185,28 @@ const AdminAllProductsPage = () => {
                                                 </tr>
                                             </thead>
                                             <tbody className="text-gray-600 text-sm md:text-base">
-                                                {products?.products?.map(
-                                                    (product) => (
+                                                {categories?.categories?.map(
+                                                    (category) => (
                                                         <tr
-                                                            key={product._id}
+                                                            key={category._id}
                                                             className="border-b last:border-0 border-gray-200 hover:bg-gray-100/80 font-medium"
                                                         >
                                                             <td className="th-td">
                                                                 <span className="text-sm font-semibold px-2.5 py-0.5 rounded-md bg-[#12A53B] text-zinc-100">
                                                                     {
-                                                                        product.productId
+                                                                        category._id
                                                                     }
                                                                 </span>
                                                             </td>
                                                             <td className="th-td">
-                                                                {product.name}
+                                                                {category.name}
                                                             </td>
                                                             <td className="th-td">
-                                                                {
-                                                                    product
-                                                                        ?.category
-                                                                        .name
-                                                                }
-                                                            </td>
-                                                            <td className="th-td">
-                                                                {product?.price}
+                                                                {category?.name}
                                                             </td>
                                                             <td className="th-td">
                                                                 {new Date(
-                                                                    product.createdAt
+                                                                    category.createdAt
                                                                 ).toLocaleString(
                                                                     "th",
                                                                     {
@@ -231,24 +218,10 @@ const AdminAllProductsPage = () => {
                                                                     }
                                                                 )}
                                                             </td>
-                                                            <td className="th-td !text-center">
-                                                                <span
-                                                                    className={
-                                                                        "text-sm font-medium px-2.5 py-0.5 rounded-md" +
-                                                                        (product.isActive
-                                                                            ? " bg-green-600 text-green-100"
-                                                                            : "bg-red-600 text-red-100")
-                                                                    }
-                                                                >
-                                                                    {product.isActive
-                                                                        ? "เปิดใช้งาน"
-                                                                        : "ปิดใช้งาน"}
-                                                                </span>
-                                                            </td>
                                                             <td className="py-3 px-6 text-center">
                                                                 <div className="flex item-center justify-center gap-x-2">
                                                                     <Link
-                                                                        href={`/products/${product._id}`}
+                                                                        href={`/categories/${category._id}`}
                                                                         className="transform hover:text-[#12A53B] hover:scale-110 transition-all border hover:border-[#12A53B] rounded-full p-2"
                                                                     >
                                                                         <svg
@@ -273,7 +246,7 @@ const AdminAllProductsPage = () => {
                                                                         </svg>
                                                                     </Link>
                                                                     <Link
-                                                                        href={`/dashboard/products/${product._id}`}
+                                                                        href={`/dashboard/categories/${category._id}`}
                                                                         className="transform hover:text-[#12A53B] hover:scale-110 transition-all border hover:border-[#12A53B] rounded-full p-2"
                                                                     >
                                                                         <svg
@@ -293,8 +266,8 @@ const AdminAllProductsPage = () => {
                                                                     </Link>
                                                                     <button
                                                                         onClick={() => {
-                                                                            setSelectedProduct(
-                                                                                product
+                                                                            setSelectedCategory(
+                                                                                category
                                                                             );
                                                                             setShowDeleteModal(
                                                                                 (
@@ -333,13 +306,13 @@ const AdminAllProductsPage = () => {
                                             แสดง{" "}
                                             <span className="font-medium">
                                                 {
-                                                    products?.filteredProductsCount
+                                                    categories?.filteredCategoriesCount
                                                 }
                                             </span>{" "}
                                             จาก
                                             <span className="font-medium">
                                                 {" "}
-                                                {products?.productsCount}
+                                                {categories?.categoriesCount}
                                             </span>{" "}
                                             รายการ
                                         </p>
@@ -350,7 +323,7 @@ const AdminAllProductsPage = () => {
                                             <Pagination
                                                 currentPage={page}
                                                 totalPage={
-                                                    products.totalPageCount
+                                                    categories.totalPageCount
                                                 }
                                                 onPageChange={(page) =>
                                                     setPage(page)
@@ -368,4 +341,4 @@ const AdminAllProductsPage = () => {
     );
 };
 
-export default AdminAllProductsPage;
+export default AdminAllCategoriesPage;
