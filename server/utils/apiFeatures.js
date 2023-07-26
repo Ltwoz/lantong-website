@@ -4,23 +4,15 @@ class ApiFeatures {
         this.queryStr = queryStr;
     }
 
-    search() {
+    search(searchFields = ["name"]) {
         const keyword = this.queryStr.keyword
             ? {
-                  $or: [
-                      {
-                          name: {
-                              $regex: this.queryStr.keyword,
-                              $options: "i",
-                          },
+                  $or: searchFields.map((field) => ({
+                      [field]: {
+                          $regex: this.queryStr.keyword,
+                          $options: "i",
                       },
-                      {
-                          productId: {
-                              $regex: this.queryStr.keyword,
-                              $options: "i",
-                          },
-                      },
-                  ],
+                  })),
               }
             : {};
 
