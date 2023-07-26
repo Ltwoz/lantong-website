@@ -7,10 +7,13 @@ import Image from "next/image";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const EditProductPage = ({ id }) => {
+    const router = useRouter();
+
     const [product, setProduct] = useState({});
 
     // State ของ Product
@@ -47,10 +50,11 @@ const EditProductPage = ({ id }) => {
     // Toastify
     useEffect(() => {
         if (isSuccess) {
-            toast.success("สร้างสำเร็จ", {
+            toast.success("แก้ไขสำเร็จ", {
                 position: toast.POSITION.BOTTOM_RIGHT,
             });
             setIsSuccess(false);
+            router.reload();
         }
 
         if (error) {
@@ -59,7 +63,7 @@ const EditProductPage = ({ id }) => {
             });
             setError(null);
         }
-    }, [isSuccess, error]);
+    }, [isSuccess, error, router]);
 
     // Fetch get all categories
     useEffect(() => {
@@ -91,7 +95,7 @@ const EditProductPage = ({ id }) => {
         });
     }, [id]);
 
-    // TODO Update Product Details State
+    // Set Product Details State
     useEffect(() => {
         setProductId(product.productId);
         setName(product.name);
@@ -167,20 +171,12 @@ const EditProductPage = ({ id }) => {
         formData.set("giftDetail", giftDetail);
         formData.set("isOnSale", isOnSale);
 
-        // images.forEach((image) => {
-        //     formData.append("images", image);
-        // });
-
         images.forEach((image) => {
             formData.append("images[]", JSON.stringify(image));
         });
         files.forEach((file) => {
             formData.append("files", file);
         });
-
-        for (var pair of formData.entries()) {
-            console.log(pair[0] + ", " + pair[1]);
-        }
 
         const config = { headers: { "Content-Type": "multipart/form-data" } };
 
