@@ -26,6 +26,7 @@ const EditProductPage = ({ id }) => {
     const [height, setHeight] = useState("");
     const [weightAccept, setWeightAccept] = useState("");
 
+    const [files, setFiles] = useState([]);
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
 
@@ -60,6 +61,20 @@ const EditProductPage = ({ id }) => {
         }
     }, [isSuccess, error]);
 
+    // Fetch get all categories
+    useEffect(() => {
+        const getCategories = async () => {
+            const { data } = await axios.get(
+                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/categories`
+            );
+            setAllCategories(data?.categories);
+        };
+
+        getCategories().catch(() => {
+            console.error;
+        });
+    }, []);
+
     // Fetch Product
     useEffect(() => {
         const getProductById = async () => {
@@ -81,13 +96,29 @@ const EditProductPage = ({ id }) => {
         setProductId(product.productId);
         setName(product.name);
         setPrice(product.price);
+        setSalePrice(product.salePrice);
+        setCategory(product.category?._id);
+        setDescription(product.description);
+        setWidth(product.width);
+        setLength(product.length);
+        setHeight(product.height);
+        setWeightAccept(product.weightAccept);
+        
+        setImages(product.images);
+        setImagesPreview(product.images);
+        
+        setIsActive(product.isActive);
+        setIsFeatured(product.isFeatured);
+        setIsGift(product.isGift);
+        setGiftDetail(product.giftDetail);
+        setIsOnSale(product.isOnSale);
     }, [product])
 
     function handleUploadImage(e) {
         const files = Array.from(e.target.files);
 
         files.forEach((file) => {
-            setImages((old) => [...old, file]);
+            setFiles((old) => [...old, file]);
 
             const reader = new FileReader();
 
@@ -136,8 +167,15 @@ const EditProductPage = ({ id }) => {
         formData.set("giftDetail", giftDetail);
         formData.set("isOnSale", isOnSale);
 
+        // images.forEach((image) => {
+        //     formData.append("images", image);
+        // });
+
         images.forEach((image) => {
-            formData.append("images", image);
+            formData.append("images[]", JSON.stringify(image));
+        });
+        files.forEach((file) => {
+            formData.append("files", file);
         });
 
         for (var pair of formData.entries()) {
@@ -149,8 +187,8 @@ const EditProductPage = ({ id }) => {
         try {
             setLoading(true);
 
-            const { data } = await axios.post(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/product/new`,
+            const { data } = await axios.put(
+                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/product/${id}`,
                 formData,
                 config
             );
@@ -167,7 +205,7 @@ const EditProductPage = ({ id }) => {
     return (
         <Layout isDashboard={true}>
             <Head>
-                <title>สร้างสินค้า - หจก.ลานทองเชียงใหม่</title>
+                <title>แก้ไขสินค้า - หจก.ลานทองเชียงใหม่</title>
             </Head>
             {/* ชื่อหน้า */}
             <div className="w-full">
@@ -605,7 +643,7 @@ const EditProductPage = ({ id }) => {
                                     />
                                 </svg>
                                 <span className="block">
-                                    {loading ? "กำลังสร้าง" : "สร้างสินค้า"}
+                                    {loading ? "กำลังแก้ไข" : "แก้ไขสินค้า"}
                                 </span>
                             </div>
                         </button>
