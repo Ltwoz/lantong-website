@@ -1,20 +1,34 @@
 const catchAsyncErrors = require("../../middleware/catchAsyncErrors");
 const ApiFeatures = require("../../utils/apiFeatures");
 const Product = require("./product.model");
+const multer = require("multer");
+const { promisify } = require("util");
+const { uploadFile } = require("../../utils/s3");
+
+// Create a multer instance and configure it
+const storage = multer.memoryStorage();
+const uploadMiddleware = multer({ storage: storage }).array("images");
+const uploadMiddlewareAsync = promisify(uploadMiddleware);
 
 // Create Product -- Admin
 exports.createProduct = catchAsyncErrors(async (req, res, next) => {
-    const { productId, name, description, price, isActive, category } =
-        req.body;
+    await uploadMiddlewareAsync(req, res);
 
-    const product = await Product.create({
-        productId,
-        name,
-        description,
-        price,
-        category,
-        isActive,
-    });
+    const files = req.files;
+    const result = await uploadFile(files, "products");
+
+    const updateImages = [];
+
+    for (let i = 0; i < result.length; i++) {
+        updateImages.push({
+            public_id: result[i].key,
+            url: result[i].Location,
+        });
+    }
+
+    req.body.images = updateImages;
+
+    const product = await Product.create(req.body);
 
     res.status(201).json({ success: true, product });
 });
@@ -39,7 +53,7 @@ exports.getFilterProducts = catchAsyncErrors(async (req, res, next) => {
         success: true,
         products,
         productsCount,
-        filteredProductsCount
+        filteredProductsCount,
     });
 });
 

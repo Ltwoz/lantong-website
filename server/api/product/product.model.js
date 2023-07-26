@@ -19,9 +19,29 @@ const productSchema = mongoose.Schema({
         required: [true, "Product price cannot be empty"],
         maxLength: [10, "Price cannot exceed 10 characters"],
     },
+    salePrice: {
+        type: Number,
+        maxLength: [10, "Sale price cannot exceed 10 characters"],
+    },
     category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Category"
+    },
+    width: {
+        type: Number,
+        required: [true, "Product width cannot be empty"],
+    },
+    length: {
+        type: Number,
+        required: [true, "Product length cannot be empty"],
+    },
+    height: {
+        type: Number,
+        required: [true, "Product length cannot be empty"],
+    },
+    weightAccept: {
+        type: Number,
+        required: [true, "Product weight cannot be empty"],
     },
     images: [
         {
@@ -38,6 +58,21 @@ const productSchema = mongoose.Schema({
     isActive: {
         type: Boolean,
         default: true
+    },
+    isFeatured: {
+        type: Boolean,
+        default: false
+    },
+    isGift: {
+        type: Boolean,
+        default: false
+    },
+    giftDetail: {
+        type: String,
+    },
+    isOnSale: {
+        type: Boolean,
+        default: false
     },
     createdAt: {
         type: Date,

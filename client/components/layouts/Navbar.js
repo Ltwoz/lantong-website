@@ -37,11 +37,11 @@ const Navbar = () => {
                     id="nav-items-group"
                     className="hidden md:flex flex-row items-center space-x-6 font-medium"
                 >
-                    <Link href="#">หน้าหลัก</Link>
-                    <Link href="#">เกี่ยวกับ</Link>
-                    <Link href="#">สินค้าของเรา</Link>
+                    <Link href="/">หน้าหลัก</Link>
+                    <Link href="/about">เกี่ยวกับ</Link>
+                    <Link href="/products">สินค้าของเรา</Link>
                     <Link href="#">ลานทองรีวิว</Link>
-                    <Link href="#">ติดต่อเรา</Link>
+                    <Link href="/contact">ติดต่อเรา</Link>
                 </div>
                 <div
                     id="hamburger"
