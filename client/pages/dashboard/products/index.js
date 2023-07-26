@@ -1,24 +1,34 @@
 import Layout from "@/components/layouts/Layout";
+import DeleteModal from "@/components/modals/delete-modal";
 import Pagination from "@/components/ui/dashboard/pagination";
 import LoadingSpiner from "@/components/ui/spiner";
 import axios from "axios";
+import { AnimatePresence } from "framer-motion";
 import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AdminAllProductsPage = () => {
     // Products State
     const [products, setProducts] = useState([]);
+    const [selectedProduct, setSelectedProduct] = useState({});
 
-    // CRUD State;
+    // CRUD State
     const [loading, setLoading] = useState(true);
+    const [isDeleted, setIsDeleted] = useState(false);
+    const [error, setError] = useState(null);
 
-    // Search State.
+    // Search State
     const [keyword, setKeyword] = useState("");
     const [debounceValue, setDebounceValue] = useState("");
 
-    // Pagination State.
+    // Pagination State
     const [page, setPage] = useState(1);
+
+    // Modal State
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     // Debounce
     useEffect(() => {
@@ -29,6 +39,23 @@ const AdminAllProductsPage = () => {
         return () => clearTimeout(debounce);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [debounceValue]);
+
+    // Toastify
+    useEffect(() => {
+        if (isDeleted) {
+            toast.success("ลบสำเร็จ", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+            setIsDeleted(false);
+        }
+
+        if (error) {
+            toast.error(error, {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+            setError(null);
+        }
+    }, [isDeleted, error]);
 
     useEffect(() => {
         let link = `/api/admin/products?keyword=${
@@ -47,13 +74,38 @@ const AdminAllProductsPage = () => {
             console.error;
             setLoading(false);
         });
-    }, [keyword, page]);
+    }, [keyword, page, isDeleted]);
+
+    const deleteHandler = async (e) => {
+        try {
+            const { data } = await axios.delete(
+                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/product/${selectedProduct._id}`
+            );
+
+            setIsDeleted(data.success);
+        } catch (error) {
+            setError(error.message);
+            console.error(error.message);
+        }
+    };
 
     return (
         <Layout isDashboard={true}>
             <Head>
                 <title>สินค้าทั้งหมด - หจก.ลานทองเชียงใหม่</title>
             </Head>
+            {/* Modal */}
+            <AnimatePresence>
+                {showDeleteModal && (
+                    <DeleteModal
+                        title={`ลบสินค้า ${selectedProduct.name} ?`}
+                        message={"หากลบแล้วจะไม่สามารถกู้คืนได้"}
+                        buttonLabel={"ตกลง, ลบเลย!"}
+                        setIsOpen={setShowDeleteModal}
+                        handler={deleteHandler}
+                    />
+                )}
+            </AnimatePresence>
             {/* ชื่อหน้า */}
             <div className="w-full">
                 <div
@@ -240,11 +292,17 @@ const AdminAllProductsPage = () => {
                                                                         </svg>
                                                                     </Link>
                                                                     <button
-                                                                        // onClick={(e) =>
-                                                                        //     deleteHandler(
-                                                                        //         product
-                                                                        //     )
-                                                                        // }
+                                                                        onClick={() => {
+                                                                            setSelectedProduct(
+                                                                                product
+                                                                            );
+                                                                            setShowDeleteModal(
+                                                                                (
+                                                                                    prev
+                                                                                ) =>
+                                                                                    !prev
+                                                                            );
+                                                                        }}
                                                                         className="transform text-red-600 hover:scale-110 transition-all border hover:border-red-600 rounded-full p-2"
                                                                     >
                                                                         <svg
