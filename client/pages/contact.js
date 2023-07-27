@@ -22,7 +22,7 @@ export default function ContactUs() {
           </div>
 
           {/* Facebook */}
-          <Link href={"##"}>
+          <Link href={"#"}>
             <div className="md:hover:bg-slate-50 max-[375px]:text-center max-[375px]:bg-[#4267B2]">
               <h1 className="mt-8 font-bold md:text-[18px] text-[28px] text-[#4267B2] max-[375px]:text-white">
                 Facebook
