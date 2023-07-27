@@ -328,18 +328,50 @@ const WebsiteCOnfigPage = () => {
                 <div className="flex flex-col w-full bg-white border rounded-md gap-4 md:gap-6 p-4 md:p-6">
                     <div className="grid grid-cols-4 w-full gap-6">
                         {allBanners.length > 0 &&
-                            allBanners?.map((image, i) => (
+                            allBanners?.map((banner, i) => (
                                 <div
                                     key={i}
                                     className="col-span-4 w-full aspect-[16/6] relative flex items-center rounded-lg overflow-hidden"
                                 >
                                     <Image
-                                        alt={"preview_image"}
-                                        src={image.url}
+                                        alt={"banner_image"}
+                                        src={banner.url}
                                         draggable="false"
                                         fill
                                         className="select-none object-cover"
                                     />
+                                    {banner.isOverlay && (
+                                        <div className="absolute z-[1] inset-0 w-full h-full overflow-hidden bg-black/50" />
+                                    )}
+                                    {(banner.label || banner.description) && (
+                                        <div className="absolute left-0 right-0 mx-auto flex flex-col text-center w-full max-w-[1200px] text-white z-[2]">
+                                            {banner.label && (
+                                                <h2 className="font-semibold text-[64px]">
+                                                    {banner.label}
+                                                </h2>
+                                            )}
+                                            {banner.description && (
+                                                <p className="font-semibold text-[32px]">
+                                                    {banner.description}
+                                                </p>
+                                            )}
+                                        </div>
+                                    )}
+                                    {/* Dropdown button */}
+                                    <div className="flex absolute top-4 right-4 z-[1]">
+                                        <button className="bg-white text-red-600 transition-all border border-transparent hover:border-red-600 rounded-xl p-1">
+                                            <svg
+                                                stroke="currentColor"
+                                                fill="currentColor"
+                                                viewBox="0 0 20 20"
+                                                stroke-width="0"
+                                                className="w-4 h-4 md:w-[26px] md:h-[26px]"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
                             ))}
                     </div>
