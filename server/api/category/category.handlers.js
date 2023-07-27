@@ -6,13 +6,14 @@ const { deleteFiles } = require("../../utils/s3");
 
 // Create Category
 exports.createCategory = catchAsyncErrors(async (req, res, next) => {
-    const { name, isActive } = req.body;
+    const { categoryId, name, isActive } = req.body;
 
     if (!name) {
         return res.status(400).json({ error: "You must enter name." });
     }
 
     const category = await Category.create({
+        categoryId,
         name,
         isActive,
     });
