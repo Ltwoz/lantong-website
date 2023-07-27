@@ -8,7 +8,7 @@ import Link from "next/link";
 export default function ContactUs() {
   return (
     <Layout>
-      <div className="md:w-[1200px] mx-auto md:flex md:border md:p-8 w-[375px]">
+      <div className="md:w-[1200px] mx-auto md:flex md:border rounded shadow md:p-8 w-full">
         <div className="md:ml-8 ">
           <h1 className="text-[36px] max-[375px]:text-center font-semibold text-[#B53326]">
             ติดต่อเรา
@@ -22,7 +22,7 @@ export default function ContactUs() {
           </div>
 
           {/* Facebook */}
-          <Link href={"##"}>
+          <Link href={"#"}>
             <div className="md:hover:bg-slate-50 max-[375px]:text-center max-[375px]:bg-[#4267B2]">
               <h1 className="mt-8 font-bold md:text-[18px] text-[28px] text-[#4267B2] max-[375px]:text-white">
                 Facebook
