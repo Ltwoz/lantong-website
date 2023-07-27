@@ -1,6 +1,8 @@
 const catchAsyncErrors = require("../../middleware/catchAsyncErrors");
 const ApiFeatures = require("../../utils/apiFeatures");
 const Category = require("./category.model");
+const Product = require("../product/product.model");
+const { deleteFiles } = require("../../utils/s3");
 
 // Create Category
 exports.createCategory = catchAsyncErrors(async (req, res, next) => {
@@ -96,7 +98,54 @@ exports.getDetailCategory = catchAsyncErrors(async (req, res, next) => {
     res.status(200).json({ success: true, category });
 });
 
-// Update a Category
-// exports.updateCategory = catchAsyncErrors(async (req, res, next) => {
-//     const categoryId = req.params.id;
-// })
+// Get Category Detail -- Admin
+exports.getAdminDetailCategory = catchAsyncErrors(async (req, res, next) => {
+    const categoryId = req.params.id;
+
+    const category = await Category.findOne({ _id: categoryId });
+
+    if (!category) {
+        return res.status(404).json({ error: "No Category found." });
+    }
+
+    res.status(200).json({ success: true, category });
+});
+
+// Update Category -- Admin
+exports.updateCategory = catchAsyncErrors(async (req, res, next) => {
+    const category = await Category.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+    });
+
+    res.status(200).json({ success: true, category });
+})
+
+// Delete Category -- Admin
+exports.deleteCategory = catchAsyncErrors(async (req, res, next) => {
+    const category = await Category.findById(req.params.id);
+
+    if (!category) {
+        res.status(404).json({
+            success: false,
+            message: "Category not found.",
+        });
+    }
+
+    // Delete products associated with the category
+    // Find products associated with the category
+    const products = await Product.find({ category: category._id });
+
+    // Deleting Images From AWS S3
+    for (let product of products) {
+        await deleteFiles(product.images);
+    }
+    // Delete from database
+    await Product.deleteMany({ category: category._id });
+
+    // Delete the category itself
+    await category.remove();
+
+    res.status(200).json({ success: true, message: "Category deleted." });
+});

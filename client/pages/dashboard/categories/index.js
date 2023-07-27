@@ -99,7 +99,7 @@ const AdminAllCategoriesPage = () => {
                 {showDeleteModal && (
                     <DeleteModal
                         title={`ลบหมวดหมู่ ${selectedCategory.name} ?`}
-                        message={"หมวดหมู่นี่จะหายไปจากเว็บไซต์"}
+                        message={"สินค้าทั้งหมดในหมวดหมู่นี้จะถูกลบด้วย"}
                         buttonLabel={"ตกลง, ลบเลย!"}
                         setIsOpen={setShowDeleteModal}
                         handler={deleteHandler}
