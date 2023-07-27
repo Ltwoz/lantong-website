@@ -337,7 +337,7 @@ const NewProductPage = () => {
                             <div className="col-span-4">
                                 <label
                                     htmlFor="dropzone-file"
-                                    className={`flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover:bg-gray-100 transition-all duration-300 ${
+                                    className={`flex flex-col items-center justify-center w-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover:bg-gray-100 transition-all duration-300 ${
                                         imagesPreview?.length > 0
                                             ? "h-14"
                                             : "h-40"
