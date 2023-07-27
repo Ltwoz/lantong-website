@@ -65,6 +65,7 @@ const NewProductPage = () => {
                 `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/categories`
             );
             setAllCategories(data?.categories);
+            setCategory(data?.categories[0]?._id);
         };
 
         getCategories().catch(() => {
