@@ -7,6 +7,7 @@ import axios from "axios";
 
 const NewCategoryPage = () => {
     // State ของ Category
+    const [categoryId, setCategoryId] = useState("");
     const [name, setName] = useState("");
     const [isActive, setIsActive] = useState(true);
 
@@ -36,6 +37,7 @@ const NewCategoryPage = () => {
 
         const formData = new FormData();
 
+        formData.set("categoryId", categoryId);
         formData.set("name", name);
         formData.set("isActive", isActive);
 
@@ -89,7 +91,18 @@ const NewCategoryPage = () => {
                             ข้อมูลทั่วไป
                         </h3>
                         <div className="grid grid-cols-4 gap-6 w-full md:w-2/3">
-                            <div className="col-span-4">
+                            <div className="col-span-4 md:col-span-2">
+                                <label className="block text-xs md:text-sm font-semibold tracking-wide">
+                                    รหัสหมวดหมู่
+                                </label>
+                                <input
+                                    type="text"
+                                    value={categoryId}
+                                    onChange={(e) => setCategoryId(e.target.value)}
+                                    className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
+                                />
+                            </div>
+                            <div className="col-span-4 md:col-span-2">
                                 <label className="block text-xs md:text-sm font-semibold tracking-wide">
                                     ชื่อหมวดหมู่
                                 </label>

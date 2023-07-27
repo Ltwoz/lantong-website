@@ -46,6 +46,32 @@ exports.getAdminCategories = catchAsyncErrors(async (req, res, next) => {
 
     categories = await apiFeature.query.clone();
 
+    // Count products in a category
+    const categoryProductsCount = await Category.aggregate([
+        {
+            $lookup: {
+                from: "products",
+                localField: "_id",
+                foreignField: "category",
+                as: "products"
+            }
+        },
+        {
+            $addFields: {
+                productsCount: { $size: "$products" }
+            }
+        }
+    ]);
+
+    // Update productsCount field to a category
+    for (let category of categoryProductsCount) {
+        await Category.findByIdAndUpdate(category._id, { productsCount: category.productsCount }, {
+            new: true,
+            runValidators: true,
+            useFindAndModify: false,
+        });
+    }
+
     const totalPageCount = Math.ceil(filteredCategoriesCount / resultPerPage);
 
     res.status(200).json({

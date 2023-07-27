@@ -170,13 +170,13 @@ const AdminAllCategoriesPage = () => {
                                                     <th className="th-td w-24 2xl:w-20">
                                                         รหัสหมวดหมู่
                                                     </th>
-                                                    <th className="th-td w-52 2xl:w-32">
+                                                    <th className="th-td w-52 2xl:w-48">
                                                         ชื่อหมวดหมู่
                                                     </th>
                                                     <th className="th-td w-20 2xl:w-14">
-                                                        หมวดหมู่
+                                                        จำนวนสินค้า
                                                     </th>
-                                                    <th className="th-td w-40 2xl:w-24">
+                                                    <th className="th-td w-40 2xl:w-16">
                                                         วันที่
                                                     </th>
                                                     <th className="py-3 px-6 text-center w-48 2xl:w-[82px]">
@@ -194,7 +194,7 @@ const AdminAllCategoriesPage = () => {
                                                             <td className="th-td">
                                                                 <span className="text-sm font-semibold px-2.5 py-0.5 rounded-md bg-[#12A53B] text-zinc-100">
                                                                     {
-                                                                        category._id
+                                                                        category.categoryId
                                                                     }
                                                                 </span>
                                                             </td>
@@ -202,7 +202,7 @@ const AdminAllCategoriesPage = () => {
                                                                 {category.name}
                                                             </td>
                                                             <td className="th-td">
-                                                                {category?.name}
+                                                                {category.productsCount}
                                                             </td>
                                                             <td className="th-td">
                                                                 {new Date(
