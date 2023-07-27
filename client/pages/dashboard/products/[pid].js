@@ -7,10 +7,15 @@ import Image from "next/image";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-const NewProductPage = () => {
+const EditProductPage = ({ id }) => {
+    const router = useRouter();
+
+    const [product, setProduct] = useState({});
+
     // State ของ Product
     const [productId, setProductId] = useState("");
     const [name, setName] = useState("");
@@ -24,6 +29,7 @@ const NewProductPage = () => {
     const [height, setHeight] = useState("");
     const [weightAccept, setWeightAccept] = useState("");
 
+    const [files, setFiles] = useState([]);
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
 
@@ -44,10 +50,11 @@ const NewProductPage = () => {
     // Toastify
     useEffect(() => {
         if (isSuccess) {
-            toast.success("สร้างสำเร็จ", {
+            toast.success("แก้ไขสำเร็จ", {
                 position: toast.POSITION.BOTTOM_RIGHT,
             });
             setIsSuccess(false);
+            router.reload();
         }
 
         if (error) {
@@ -56,7 +63,7 @@ const NewProductPage = () => {
             });
             setError(null);
         }
-    }, [isSuccess, error]);
+    }, [isSuccess, error, router]);
 
     // Fetch get all categories
     useEffect(() => {
@@ -72,11 +79,50 @@ const NewProductPage = () => {
         });
     }, []);
 
+    // Fetch Product
+    useEffect(() => {
+        const getProductById = async () => {
+            const { data } = await axios.get(
+                `${process.env.NEXT_PUBLIC_SERVER_PATH}${`/api/admin/product/${id}`}`
+            );
+            setProduct(data?.product);
+            setLoading(false);
+        };
+
+        getProductById().catch(() => {
+            console.error;
+            setLoading(false);
+        });
+    }, [id]);
+
+    // Set Product Details State
+    useEffect(() => {
+        setProductId(product.productId);
+        setName(product.name);
+        setPrice(product.price);
+        setSalePrice(product.salePrice);
+        setCategory(product.category?._id);
+        setDescription(product.description);
+        setWidth(product.width);
+        setLength(product.length);
+        setHeight(product.height);
+        setWeightAccept(product.weightAccept);
+        
+        setImages(product.images);
+        setImagesPreview(product.images);
+        
+        setIsActive(product.isActive);
+        setIsFeatured(product.isFeatured);
+        setIsGift(product.isGift);
+        setGiftDetail(product.giftDetail);
+        setIsOnSale(product.isOnSale);
+    }, [product])
+
     function handleUploadImage(e) {
         const files = Array.from(e.target.files);
 
         files.forEach((file) => {
-            setImages((old) => [...old, file]);
+            setFiles((old) => [...old, file]);
 
             const reader = new FileReader();
 
@@ -126,20 +172,19 @@ const NewProductPage = () => {
         formData.set("isOnSale", isOnSale);
 
         images.forEach((image) => {
-            formData.append("images", image);
+            formData.append("images[]", JSON.stringify(image));
         });
-
-        for (var pair of formData.entries()) {
-            console.log(pair[0] + ", " + pair[1]);
-        }
+        files.forEach((file) => {
+            formData.append("files", file);
+        });
 
         const config = { headers: { "Content-Type": "multipart/form-data" } };
 
         try {
             setLoading(true);
 
-            const { data } = await axios.post(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/product/new`,
+            const { data } = await axios.put(
+                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/product/${id}`,
                 formData,
                 config
             );
@@ -156,7 +201,7 @@ const NewProductPage = () => {
     return (
         <Layout isDashboard={true}>
             <Head>
-                <title>สร้างสินค้า - หจก.ลานทองเชียงใหม่</title>
+                <title>แก้ไขสินค้า - หจก.ลานทองเชียงใหม่</title>
             </Head>
             {/* ชื่อหน้า */}
             <div className="w-full">
@@ -165,7 +210,7 @@ const NewProductPage = () => {
                     className="flex flex-col md:flex-row gap-4 py-6 items-start md:items-center justify-between"
                 >
                     <div className="flex flex-col">
-                        <h2 className="text-2xl font-bold">สร้างสินค้า</h2>
+                        <h2 className="text-2xl font-bold">แก้ไขสินค้า {product.name}</h2>
                     </div>
                 </div>
             </div>
@@ -337,7 +382,7 @@ const NewProductPage = () => {
                             <div className="col-span-4">
                                 <label
                                     htmlFor="dropzone-file"
-                                    className={`flex flex-col items-center justify-center w-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover:bg-gray-100 transition-all duration-300 ${
+                                    className={`flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover:bg-gray-100 transition-all duration-300 ${
                                         imagesPreview?.length > 0
                                             ? "h-14"
                                             : "h-40"
@@ -594,7 +639,7 @@ const NewProductPage = () => {
                                     />
                                 </svg>
                                 <span className="block">
-                                    {loading ? "กำลังสร้าง" : "สร้างสินค้า"}
+                                    {loading ? "กำลังแก้ไข" : "แก้ไขสินค้า"}
                                 </span>
                             </div>
                         </button>
@@ -605,4 +650,14 @@ const NewProductPage = () => {
     );
 };
 
-export default NewProductPage;
+export default EditProductPage;
+
+export const getServerSideProps = async (ctx) => {
+    const id = ctx.params.pid;
+
+    return {
+        props: {
+            id,
+        },
+    };
+};

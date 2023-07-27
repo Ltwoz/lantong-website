@@ -18,3 +18,8 @@ body::-webkit-scrollbar-thumb {
     background: rgba(40, 40, 40, 0.4);
     border-radius: 20px;
 }
+
+/* Class ของ table.th, td */
+.th-td {
+    @apply py-3 px-6 text-left border-r border-gray-200
+}

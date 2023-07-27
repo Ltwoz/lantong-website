@@ -4,8 +4,13 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { useRouter } from "next/router";
 
-const NewCategoryPage = () => {
+const EditCategoryPage = ({ id }) => {
+    const router = useRouter();
+
+    const [category, setCategory] = useState({});
+
     // State ของ Category
     const [categoryId, setCategoryId] = useState("");
     const [name, setName] = useState("");
@@ -18,10 +23,11 @@ const NewCategoryPage = () => {
 
     useEffect(() => {
         if (isSuccess) {
-            toast.success("สร้างสำเร็จ", {
+            toast.success("แก้ไขสำเร็จ", {
                 position: toast.POSITION.BOTTOM_RIGHT,
             });
             setIsSuccess(false);
+            router.reload();
         }
 
         if (error) {
@@ -30,7 +36,27 @@ const NewCategoryPage = () => {
             });
             setError(null);
         }
-    }, [isSuccess, error]);
+    }, [isSuccess, error, router]);
+
+    // Fetch Category
+    useEffect(() => {
+        const getCategoryById = async () => {
+            const { data } = await axios.get(
+                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/category/${id}`
+            );
+            setCategory(data?.category);
+        };
+
+        getCategoryById().catch(() => {
+            console.error;
+        });
+    }, [id]);
+
+    useEffect(() => {
+        setCategoryId(category.categoryId);
+        setName(category.name);
+        setIsActive(category.isActive);
+    }, [category])
 
     async function submitForm(e) {
         e.preventDefault();
@@ -46,8 +72,8 @@ const NewCategoryPage = () => {
         try {
             setLoading(true);
 
-            const { data } = await axios.post(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/category/new`,
+            const { data } = await axios.put(
+                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/category/${id}`,
                 formData,
                 config
             );
@@ -64,7 +90,7 @@ const NewCategoryPage = () => {
     return (
         <Layout isDashboard={true}>
             <Head>
-                <title>สร้างหมวดหมู่ - หจก.ลานทองเชียงใหม่</title>
+                <title>แก้ไขหมวดหมู่ - หจก.ลานทองเชียงใหม่</title>
             </Head>
             {/* ชื่อหน้า */}
             <div className="w-full">
@@ -73,7 +99,7 @@ const NewCategoryPage = () => {
                     className="flex flex-col md:flex-row gap-4 py-6 items-start md:items-center justify-between"
                 >
                     <div className="flex flex-col">
-                        <h2 className="text-2xl font-bold">สร้างหมวดหมู่</h2>
+                        <h2 className="text-2xl font-bold">แก้ไขหมวดหมู่ {category.name}</h2>
                     </div>
                 </div>
             </div>
@@ -181,7 +207,7 @@ const NewCategoryPage = () => {
                                     />
                                 </svg>
                                 <span className="block">
-                                    {loading ? "กำลังสร้าง" : "สร้างหมวดหมู่"}
+                                    {loading ? "กำลังแก้ไข" : "แก้ไขหมวดหมู่"}
                                 </span>
                             </div>
                         </button>
@@ -192,4 +218,14 @@ const NewCategoryPage = () => {
     );
 };
 
-export default NewCategoryPage;
+export default EditCategoryPage;
+
+export const getServerSideProps = async (ctx) => {
+    const id = ctx.params.cid;
+
+    return {
+        props: {
+            id,
+        },
+    };
+};
