@@ -4,32 +4,38 @@ import Image from "next/image";
 export default function About() {
   return (
     <Layout>
-        <div className="relative w-1920 h-800 bg-neutral-800 flex flex-col justify-center items-center">
-  <Image
-    src="/banner-test.png"
-    alt="Banner"
-    width={1920}
-    height={800}
-    className="w-1920 h-800"
-  />
- <div className="absolute inset-0 flex flex-col justify-center items-center text-white">
-    <div className="bg-slate-100 p-4 rounded-lg" fix this shit>
-      <div className="text-4xl">เลือกพ่วงข้างทำไมต้อง</div>
-      <div className="text-7xl text-rose-500">พ่วงข้างลานทอง
-    <div className="flex justify-center items-center mt-4">
-      <div className="bg-slate-100 rounded-3xl w-52 h-16 flex justify-center items-center">
-        <div className="text-3xl text-slate-500">Button</div>
+      {/* background */}
+      <div className="relative w-1920 h-800 bg-neutral-800 flex flex-col justify-center items-center">
+        <Image
+          src="/banner-test.png"
+          alt="Banner"
+          width={1920}
+          height={800}
+          className="w-1920 h-800"
+        />
+        {/* bg of text */}
+        <div className="absolute inset-0 flex flex-col justify-center items-center text-white">
+          <div className="bg-gray-500 bg-opacity-60 p-5 rounded-xl flex flex-col justify-center items-center">
+            {/* text */}
+            <div className="text-4xl">เลือกพ่วงข้างทำไมต้อง</div>
+            <div className="text-7xl text-rose-500">พ่วงข้างลานทอง</div>
+          </div>
+          {/**/}
+          <div className="flex justify-center items-center mt-4">
+            <div className="bg-slate-100 rounded-3xl w-52 h-16 flex justify-center items-center">
+              <div className="text-3xl text-slate-500">Button</div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
-</div>
-</div>
 
-      <div className="mt-8 w-96 h-96 bg-orange-200 flex flex-col justify-center items-center">
-        <div className="w-96 h-96 bg-orange-200" />
-        <div className="w-96 h-96 px-11 pt-5 pb-96 flex flex-col justify-center items-center">
-          <div className="text-center text-black text-xl">ข้อมูลประวัติความเป็นมาของลานทอง</div>
+      {/* Centered content */}
+      <div className="min-h-screen w-screen flex justify-center items-center bg-orange-200">
+        <div className="mt-8 w-96 h-96 flex flex-col justify-center items-center">
+          <div className="w-96 h-96 bg-orange-200"></div>
+          <div className="w-96 h-96 px-11 pt-5 pb-96 flex flex-col justify-center items-center">
+            <div className="text-center text-black text-xl">ข้อมูลประวัติความเป็นมาของลานทอง</div>
+          </div>
         </div>
       </div>
 
