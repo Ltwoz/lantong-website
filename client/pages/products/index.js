@@ -58,7 +58,7 @@ export default function ProductsPage() {
         setLink(
             `/api/products?isActive=true&keyword=${keyword}${
                 category && `&category=${category}`
-            }`
+            }&price[gte]=${price[0]}&price[lte]=${price[1]}`
         );
     }
 
@@ -80,7 +80,7 @@ export default function ProductsPage() {
                         {/* Filter Form */}
                         <form
                             autoComplete="off"
-                            className="border-2 border-[#2D3648] rounded p-10 w-full md:w-[309px] grid grid-cols-4 gap-4 h-fit flex-shrink-0"
+                            className="border-2 border-[#2D3648] rounded p-8 w-full md:w-[309px] grid grid-cols-4 gap-4 h-fit flex-shrink-0"
                         >
                             <div className="col-span-4">
                                 <label className="block text-xs md:text-sm font-medium tracking-wide">
@@ -89,6 +89,7 @@ export default function ProductsPage() {
                                 <input
                                     type="text"
                                     value={keyword}
+                                    placeholder="ค้นหาชื่อสินค้า"
                                     onChange={(e) => setKeyword(e.target.value)}
                                     className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
                                 />
@@ -102,9 +103,9 @@ export default function ProductsPage() {
                                     onChange={(e) =>
                                         setCategory(e.target.value)
                                     }
-                                    className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base hover:cursor-pointer"
+                                    className="mt-1 p-2 block w-full bg-white rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base hover:cursor-pointer"
                                 >
-                                    <option value=""></option>
+                                    <option value="">ทั้งหมด</option>
                                     {allCategories?.map((categoryItem) => (
                                         <option
                                             key={categoryItem._id}
