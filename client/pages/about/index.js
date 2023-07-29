@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function About() {
   return (
     <Layout>
-      <div className="max-w-[1920px] h-[2950px] relative bg-neutral-700">
+      <div className="max-w-[1920px] h-[2950px] relative bg-neutral-700 w-{}">
         {/* banner */}
         <Image className="max-w-[1920px] h-[806px] left-0 top-0 absolute" src="/about_banner.png" width={1920} height={806} />
 
