@@ -1,7 +1,7 @@
 import Layout from "@/components/layouts/Layout";
 import DeleteModal from "@/components/modals/delete-modal";
 import Pagination from "@/components/ui/dashboard/pagination";
-import LoadingSpiner from "@/components/ui/spiner";
+import LoadingSpiner from "@/components/ui/Spiner";
 import axios from "axios";
 import { AnimatePresence } from "framer-motion";
 import Head from "next/head";

@@ -2,7 +2,8 @@ import ProductCard from "@/components/ui/products/ProductCard";
 import Layout from "@/components/layouts/Layout";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import LoadingSpiner from "@/components/ui/spiner";
+import LoadingSpiner from "@/components/ui/Spiner";
+import RangeSlider from "@/components/ui/RangeSlider";
 
 export default function ProductsPage() {
     // Products State
@@ -125,6 +126,9 @@ export default function ProductsPage() {
                                         placeholder="สูงสุด"
                                     />
                                 </div>
+                            </div>
+                            <div className="col-span-4">
+                                <RangeSlider />
                             </div>
                             <div className="col-span-4 flex items-center justify-start gap-x-4">
                                 <button
