@@ -7,12 +7,13 @@ import LoadingSpiner from "@/components/ui/Spiner";
 export default function ProductsPage() {
     // Products State
     const [products, setProducts] = useState([]);
-    const [link, setLink] = useState(`/api/products?isActive=true`);
+    const [link, setLink] = useState(`/api/products?isActive=true&sort=latest`);
 
     // Filter State
     const [keyword, setKeyword] = useState("");
     const [category, setCategory] = useState("");
-    const [price, setPrice] = useState([0, 25000]);
+    const [price, setPrice] = useState([0, 50000]);
+    const [sort, setSort] = useState("latest");
 
     // CRUD State
     const [firstLoad, setFirstLoad] = useState(true);
@@ -27,7 +28,7 @@ export default function ProductsPage() {
             const { data } = await axios.get(
                 `${process.env.NEXT_PUBLIC_SERVER_PATH}${link}`
             );
-            setProducts(data?.products);
+            setProducts(data);
             setLoading(false);
             setFirstLoad(false);
         };
@@ -52,13 +53,22 @@ export default function ProductsPage() {
         });
     }, []);
 
+    useEffect(() => {
+        setLink(
+            `/api/products?isActive=true&keyword=${keyword}${
+                category && `&category=${category}`
+            }&price[gte]=${price[0]}&price[lte]=${price[1]}&sort=${sort}`
+        );
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [sort]);
+
     function onSubmitFilter(e) {
         e.preventDefault();
 
         setLink(
             `/api/products?isActive=true&keyword=${keyword}${
                 category && `&category=${category}`
-            }&price[gte]=${price[0]}&price[lte]=${price[1]}`
+            }&price[gte]=${price[0]}&price[lte]=${price[1]}&sort=${sort}`
         );
     }
 
@@ -70,7 +80,7 @@ export default function ProductsPage() {
 
     return (
         <Layout>
-            <div className="mx-auto max-w-[1200px] px-4 md:px-0 flex flex-col md:flex-row gap-4 md:gap-6 py-10">
+            <div className="min-h-screen mx-auto max-w-[1200px] px-4 md:px-0 flex flex-col md:flex-row gap-4 md:gap-6 py-10">
                 {firstLoad ? (
                     <div className="w-full flex justify-center items-center">
                         <LoadingSpiner />
@@ -126,7 +136,9 @@ export default function ProductsPage() {
                                         min={0}
                                         max={50000}
                                         value={price[0]}
-                                        onChange={(e) => handlePriceChange(0, e.target.value)}
+                                        onChange={(e) =>
+                                            handlePriceChange(0, e.target.value)
+                                        }
                                         step={1000}
                                         className="p-2 w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
                                         placeholder="ต่ำสุด"
@@ -136,7 +148,9 @@ export default function ProductsPage() {
                                         min={0}
                                         max={50000}
                                         value={price[1]}
-                                        onChange={(e) => handlePriceChange(1, e.target.value)}
+                                        onChange={(e) =>
+                                            handlePriceChange(1, e.target.value)
+                                        }
                                         step={1000}
                                         className="p-2 w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
                                         placeholder="สูงสุด"
@@ -168,27 +182,62 @@ export default function ProductsPage() {
                                 </button>
                             </div>
                         </form>
-                        {/* Products Grid */}
-                        {loading ? (
-                            <div className="flex justify-center items-center w-full">
-                                <LoadingSpiner />
+                        {/* Main Content */}
+                        <div className="flex flex-col w-full gap-4">
+                            {/* Sort Dropdown */}
+                            <div className="flex justify-between items-center">
+                                <h3>
+                                    พบสินค้า {products?.filteredProductsCount}{" "}
+                                    ชิ้น
+                                </h3>
+                                <div className="flex items-center gap-4">
+                                    <span>เรียงตาม</span>
+                                    <select
+                                        onChange={(e) =>
+                                            setSort(e.target.value)
+                                        }
+                                        className="py-1 px-2 block w-32 bg-white rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base hover:cursor-pointer"
+                                    >
+                                        <option value="latest">
+                                            อัพเดทล่าสุด
+                                        </option>
+                                        <option value="oldest">
+                                            สินค้าเก่าสุด
+                                        </option>
+                                        <option value="highestPrice">
+                                            ราคาสูงสุด
+                                        </option>
+                                        <option value="lowestPrice">
+                                            ราคาต่ำสุด
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
-                        ) : (
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6">
-                                {products?.length !== 0 ? (
-                                    products.map((product, i) => (
-                                        <ProductCard
-                                            key={i}
-                                            product={product}
-                                        />
-                                    ))
-                                ) : (
-                                    <div className="text-center">
-                                        ไม่พบสินค้า
-                                    </div>
-                                )}
-                            </div>
-                        )}
+                            <hr className="mb-2 mt-2" />
+                            {/* Products Grid */}
+                            {loading ? (
+                                <div className="flex justify-center items-center w-full">
+                                    <LoadingSpiner />
+                                </div>
+                            ) : (
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6">
+                                    {products?.products?.length !== 0 ? (
+                                        products?.products?.map(
+                                            (product, i) => (
+                                                <ProductCard
+                                                    key={i}
+                                                    product={product}
+                                                />
+                                            )
+                                        )
+                                    ) : (
+                                        <div className="text-center col-span-3">
+                                            ไม่พบสินค้า
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                        </div>
                     </>
                 )}
             </div>
