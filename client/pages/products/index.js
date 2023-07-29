@@ -3,7 +3,6 @@ import Layout from "@/components/layouts/Layout";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import LoadingSpiner from "@/components/ui/Spiner";
-import RangeSlider from "@/components/ui/RangeSlider";
 
 export default function ProductsPage() {
     // Products State
@@ -63,6 +62,12 @@ export default function ProductsPage() {
         );
     }
 
+    function handlePriceChange(index, value) {
+        const newPrice = [...price];
+        newPrice[index] = parseInt(value, 10);
+        setPrice(newPrice);
+    }
+
     return (
         <Layout>
             <div className="mx-auto max-w-[1200px] px-4 md:px-0 flex flex-col md:flex-row gap-4 md:gap-6 py-10">
@@ -116,19 +121,26 @@ export default function ProductsPage() {
                                 </label>
                                 <div className="flex flex-row mt-1 w-full space-x-4">
                                     <input
-                                        type="text"
+                                        type="number"
+                                        min={0}
+                                        max={50000}
+                                        value={price[0]}
+                                        onChange={(e) => handlePriceChange(0, e.target.value)}
+                                        step={1000}
                                         className="p-2 w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
                                         placeholder="ต่ำสุด"
                                     />
                                     <input
-                                        type="text"
+                                        type="number"
+                                        min={0}
+                                        max={50000}
+                                        value={price[1]}
+                                        onChange={(e) => handlePriceChange(1, e.target.value)}
+                                        step={1000}
                                         className="p-2 w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
                                         placeholder="สูงสุด"
                                     />
                                 </div>
-                            </div>
-                            <div className="col-span-4">
-                                <RangeSlider />
                             </div>
                             <div className="col-span-4 flex items-center justify-start gap-x-4">
                                 <button
