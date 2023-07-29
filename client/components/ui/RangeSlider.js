@@ -53,7 +53,7 @@ const MultiRangeSlider = ({ min = 0, max=25000, onChange }) => {
                     setMinVal(value);
                     minValRef.current = value;
                 }}
-                className="thumb z-[3] pointer-events-none absolute h-0 w-full"
+                className="thumb z-[3] pointer-events-none absolute top-0 bottom-0 my-auto h-0 w-full"
                 style={{ zIndex: minVal > max - 100 && "5" }}
             />
             <input
@@ -66,14 +66,14 @@ const MultiRangeSlider = ({ min = 0, max=25000, onChange }) => {
                     setMaxVal(value);
                     maxValRef.current = value;
                 }}
-                className="thumb z-[4] pointer-events-none absolute h-0 w-full"
+                className="thumb z-[4] pointer-events-none absolute top-0 bottom-0 my-auto h-0 w-full"
             />
 
             <div className="relative w-full">
-                <div className="absolute rounded h-2 bg-zinc-300 w-full z-[1] bottom-[-4px]" />
+                <div className="absolute rounded h-2 bg-zinc-300 w-full z-[1] top-0 bottom-0 my-auto" />
                 <div
                     ref={range}
-                    className="absolute rounded bg-zinc-700 h-2 z-[2] bottom-[-4px]"
+                    className="absolute rounded bg-zinc-700 h-2 z-[2] top-0 bottom-0 my-auto"
                 />
             </div>
         </div>

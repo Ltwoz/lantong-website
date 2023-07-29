@@ -27,7 +27,7 @@ body::-webkit-scrollbar-thumb {
 /* Class ของ Range Slider */
 :root {
     --THUMB-COLOR: rgb(63,63,70);
-    --THUMB-SIZE: 16px;
+    --THUMB-SIZE: 20px;
 }
 
 /* Removing the default appearance */
