@@ -29,6 +29,76 @@ const ProductDetails = ({ product }) => {
                 <meta name="description" content={product.description} />
             </Head>
             <section className="min-h-screen mx-auto max-w-[1200px] px-4 md:px-0 flex flex-col gap-4 md:gap-6 py-10">
+                {/* Breadcrumb */}
+                <nav className="flex" aria-label="Breadcrumb">
+                    <ol className="inline-flex items-center space-x-1 md:space-x-3">
+                        <li className="inline-flex items-center">
+                            <Link
+                                href="/"
+                                className="inline-flex items-center text-sm font-medium text-gray-600 hover:text-[#E32C2C]"
+                            >
+                                <svg
+                                    className="w-3 h-3 mr-2.5"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                >
+                                    <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+                                </svg>
+                                หน้าหลัก
+                            </Link>
+                        </li>
+                        <li>
+                            <div className="flex items-center">
+                                <svg
+                                    className="w-3 h-3 text-gray-700 mx-1"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 6 10"
+                                >
+                                    <path
+                                        stroke="currentColor"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="m1 9 4-4-4-4"
+                                    />
+                                </svg>
+                                <Link
+                                    href="/products"
+                                    className="ml-1 text-sm font-medium text-gray-600 hover:text-[#E32C2C] md:ml-2"
+                                >
+                                    สินค้าของเรา
+                                </Link>
+                            </div>
+                        </li>
+                        <li aria-current="page">
+                            <div className="flex items-center">
+                                <svg
+                                    className="w-3 h-3 text-gray-700 mx-1"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 6 10"
+                                >
+                                    <path
+                                        stroke="currentColor"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="m1 9 4-4-4-4"
+                                    />
+                                </svg>
+                                <span className="ml-1 text-sm font-medium text-gray-600 md:ml-2">
+                                    {product?.name}
+                                </span>
+                            </div>
+                        </li>
+                    </ol>
+                </nav>
+
                 {/* รูป & ชื่อสินค้า */}
                 <div className="flex flex-col md:flex-row w-full gap-6 justify-between">
                     <div className="w-full flex flex-col rounded-md overflow-hidden gap-2">
