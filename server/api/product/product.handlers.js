@@ -78,7 +78,7 @@ exports.getDetailProduct = catchAsyncErrors(async (req, res, next) => {
     });
 
     if (!product) {
-        return res.status(404).json({ error: "No Category found." });
+        return res.status(404).json({ error: "No Product found." });
     }
 
     res.status(200).json({ success: true, product });

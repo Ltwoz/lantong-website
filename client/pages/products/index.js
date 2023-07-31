@@ -3,6 +3,7 @@ import Layout from "@/components/layouts/Layout";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import LoadingSpiner from "@/components/ui/Spiner";
+import Head from "next/head";
 
 export default function ProductsPage() {
     // Products State
@@ -80,7 +81,10 @@ export default function ProductsPage() {
 
     return (
         <Layout>
-            <div className="min-h-screen mx-auto max-w-[1200px] px-4 md:px-0 flex flex-col md:flex-row gap-4 md:gap-6 py-10">
+            <Head>
+                <title>สินค้าทั้งหมด - หจก.ลานทองเชียงใหม่</title>
+            </Head>
+            <section className="min-h-screen mx-auto max-w-[1200px] px-4 md:px-0 flex flex-col md:flex-row gap-4 md:gap-6 py-10">
                 {firstLoad ? (
                     <div className="w-full flex justify-center items-center">
                         <LoadingSpiner />
@@ -240,7 +244,7 @@ export default function ProductsPage() {
                         </div>
                     </>
                 )}
-            </div>
+            </section>
         </Layout>
     );
 }

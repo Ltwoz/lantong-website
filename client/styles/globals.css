@@ -26,7 +26,7 @@ body::-webkit-scrollbar-thumb {
 
 /* Class ของ Range Slider */
 :root {
-    --THUMB-COLOR: rgb(63,63,70);
+    --THUMB-COLOR: rgb(63, 63, 70);
     --THUMB-SIZE: 20px;
 }
 
@@ -65,4 +65,9 @@ body::-webkit-scrollbar-thumb {
     margin-top: 4px;
     pointer-events: all;
     position: relative;
+}
+
+/* Splide.js Class */
+.splide__slide.is-active {
+    opacity: 1;
 }

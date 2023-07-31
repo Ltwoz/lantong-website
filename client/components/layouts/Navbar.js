@@ -13,7 +13,7 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="w-full mx-auto px-4 md:px-4 py-4 md:py-4 bg-white">
+        <nav className="w-full mx-auto px-4 md:px-4 py-4 md:py-4 bg-white border-b shadow">
             <div className="flex flex-row justify-between items-center">
                 <div id="logo">
                     <Link
