@@ -4,6 +4,9 @@ const {
     getAllCategories,
     getDetailCategory,
     getAdminCategories,
+    getAdminDetailCategory,
+    updateCategory,
+    deleteCategory,
 } = require("./category.handlers");
 
 const router = express.Router();
@@ -16,6 +19,6 @@ router.route("/admin/categories").get(getAdminCategories);
 
 router.route("/admin/category/new").post(createCategory);
 
-//todo put, delete, get by id
+router.route("/admin/category/:id").get(getAdminDetailCategory).put(updateCategory).delete(deleteCategory);
 
 module.exports = router;

@@ -4,13 +4,15 @@ class ApiFeatures {
         this.queryStr = queryStr;
     }
 
-    search() {
+    search(searchFields = ["name"]) {
         const keyword = this.queryStr.keyword
             ? {
-                  name: {
-                      $regex: this.queryStr.keyword,
-                      $options: "i",
-                  },
+                  $or: searchFields.map((field) => ({
+                      [field]: {
+                          $regex: this.queryStr.keyword,
+                          $options: "i",
+                      },
+                  })),
               }
             : {};
 
@@ -46,27 +48,27 @@ class ApiFeatures {
     }
 
     sort() {
-        let sortVal = {}
+        let sortVal = {};
 
         switch (this.queryStr.sort) {
             case "latest":
-                sortVal = {createdAt: -1}
-                break
+                sortVal = { createdAt: -1 };
+                break;
             case "oldest":
-                sortVal = {createdAt: 1}
-                break
+                sortVal = { createdAt: 1 };
+                break;
             case "highestPrice":
-                sortVal = {price: -1}
-                break
+                sortVal = { price: -1 };
+                break;
             case "lowestPrice":
-                sortVal = {price: 1}
-                break
+                sortVal = { price: 1 };
+                break;
             default:
-                break
+                break;
         }
 
-        this.query = this.query.sort(sortVal)
-        return this
+        this.query = this.query.sort(sortVal);
+        return this;
     }
 }
 

@@ -3,15 +3,15 @@ const ApiFeatures = require("../../utils/apiFeatures");
 const Product = require("./product.model");
 const multer = require("multer");
 const { promisify } = require("util");
-const { uploadFile } = require("../../utils/s3");
-
-// Create a multer instance and configure it
-const storage = multer.memoryStorage();
-const uploadMiddleware = multer({ storage: storage }).array("images");
-const uploadMiddlewareAsync = promisify(uploadMiddleware);
+const { uploadFile, deleteFiles } = require("../../utils/s3");
 
 // Create Product -- Admin
 exports.createProduct = catchAsyncErrors(async (req, res, next) => {
+    // Create a multer instance and configure it
+    const storage = multer.memoryStorage();
+    const uploadMiddleware = multer({ storage: storage }).array("images");
+    const uploadMiddlewareAsync = promisify(uploadMiddleware);
+
     await uploadMiddlewareAsync(req, res);
 
     const files = req.files;
@@ -35,11 +35,17 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 
 // Get Filter Products
 exports.getFilterProducts = catchAsyncErrors(async (req, res, next) => {
-    const resultPerPage = 5;
+    const resultPerPage = 25;
     const productsCount = await Product.countDocuments();
 
-    const apiFeature = new ApiFeatures(Product.find(), req.query)
-        .search()
+    const apiFeature = new ApiFeatures(
+        Product.find().populate({
+            path: "category",
+            select: "name isActive",
+        }),
+        req.query
+    )
+        .search(["name", "productId"])
         .filter()
         .sort();
 
@@ -49,11 +55,16 @@ exports.getFilterProducts = catchAsyncErrors(async (req, res, next) => {
 
     apiFeature.pagination(resultPerPage);
 
+    products = await apiFeature.query.clone();
+
+    const totalPageCount = Math.ceil(filteredProductsCount / resultPerPage);
+
     res.status(200).json({
         success: true,
         products,
-        productsCount,
         filteredProductsCount,
+        totalPageCount,
+        productsCount
     });
 });
 
@@ -75,16 +86,123 @@ exports.getDetailProduct = catchAsyncErrors(async (req, res, next) => {
 
 // Get All Products -- Admin
 exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
-    const products = await Product.find();
+    const resultPerPage = 25;
+    const productsCount = await Product.countDocuments();
 
-    res.status(200).json({ success: true, products });
+    const apiFeature = new ApiFeatures(
+        Product.find().populate({
+            path: "category",
+            select: "name isActive",
+        }),
+        req.query
+    )
+        .search(["name", "productId"])
+        .filter()
+        .sort();
+
+    let products = await apiFeature.query;
+
+    let filteredProductsCount = products.length;
+
+    apiFeature.pagination(resultPerPage);
+
+    products = await apiFeature.query.clone();
+
+    const totalPageCount = Math.ceil(filteredProductsCount / resultPerPage);
+
+    res.status(200).json({
+        success: true,
+        products,
+        filteredProductsCount,
+        totalPageCount,
+        productsCount
+    });
+});
+
+// Get Detail Product -- Admin
+exports.getAdminDetailProduct = catchAsyncErrors(async (req, res, next) => {
+    const productId = req.params.id;
+
+    const product = await Product.findOne({ _id: productId }).populate({
+        path: "category",
+        select: "name isActive",
+    });
+
+    if (!product) {
+        return res.status(404).json({ error: "No Product found." });
+    }
+
+    res.status(200).json({ success: true, product });
 });
 
 // Update Product -- Admin
 exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
-    const productId = req.params.id;
+    // Create a multer instance and configure it
+    const storage = multer.memoryStorage();
+    const uploadMiddleware = multer({ storage: storage }).array("files");
+    const uploadMiddlewareAsync = promisify(uploadMiddleware);
 
-    const product = await Product.findByIdAndUpdate(productId, req.body, {
+    await uploadMiddlewareAsync(req, res);
+
+    let product = await Product.findById(req.params.id);
+
+    const files = req.files;
+
+    // Images Array
+    const oldImages = product.images || [];
+    const currentImages = [];
+    const updateImages = [];
+
+    console.log(files);
+
+    // JSON Parse images if it's not undefined
+    if (req.body.images !== undefined) {
+        for (let i = 0; i < req.body.images.length; i++) {
+            const image = req.body.images[i];
+            currentImages.push(JSON.parse(image));
+        }
+    }
+
+    // Check unmatched
+    const unmatchedImages = oldImages.filter(
+        (img) =>
+            !currentImages.some(
+                (image) => image.public_id === img.public_id
+            )
+    );
+
+    //Deleting Images From AWS S3
+    await deleteFiles(unmatchedImages);
+
+    // Upload Images
+    const result = await uploadFile(files, "products");
+
+    if (currentImages.length === 0) {
+        for (let i = 0; i < result.length; i++) {
+            updateImages.push({
+                public_id: result[i].key,
+                url: result[i].Location,
+            });
+        }
+    } else {
+        // Push current images and push new images (if have)
+        for (let i = 0; i < currentImages.length; i++) {
+            updateImages.push({
+                public_id: currentImages[i].public_id,
+                url: currentImages[i].url,
+            });
+        }
+        for (let i = 0; i < result.length; i++) {
+            updateImages.push({
+                public_id: result[i].key,
+                url: result[i].Location,
+            });
+        }
+    }
+
+    req.body.images = updateImages;
+
+    product = await Product.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true,
         useFindAndModify: false,
@@ -95,9 +213,19 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
 
 // Delete Product -- Admin
 exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
-    const productId = req.params.id;
+    const product = await Product.findById(req.params.id);
 
-    await Product.deleteOne({ _id: productId });
+    if (!product) {
+        res.status(404).json({
+            success: false,
+            message: "Product not found.",
+        });
+    }
+
+    //Deleting Images From AWS S3
+    await deleteFiles(product.images);
+
+    await product.remove();
 
     res.status(200).json({ success: true, message: "Product deleted." });
 });
