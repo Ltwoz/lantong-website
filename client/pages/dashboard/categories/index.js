@@ -1,6 +1,6 @@
 import Layout from "@/components/layouts/Layout";
 import DeleteModal from "@/components/modals/delete-modal";
-import Pagination from "@/components/ui/dashboard/pagination";
+import Pagination from "@/components/ui/Pagination";
 import LoadingSpiner from "@/components/ui/Spiner";
 import axios from "axios";
 import { AnimatePresence } from "framer-motion";
@@ -301,7 +301,7 @@ const AdminAllCategoriesPage = () => {
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div className="flex flex-row justify-between items-center">
+                                    <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                                         <p>
                                             แสดง{" "}
                                             <span className="font-medium">
@@ -323,7 +323,7 @@ const AdminAllCategoriesPage = () => {
                                             <Pagination
                                                 currentPage={page}
                                                 totalPage={
-                                                    categories.totalPageCount
+                                                    categories?.totalPageCount
                                                 }
                                                 onPageChange={(page) =>
                                                     setPage(page)
