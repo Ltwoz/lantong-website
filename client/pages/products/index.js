@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import LoadingSpiner from "@/components/ui/Spiner";
 import Head from "next/head";
+import Pagination from "@/components/ui/Pagination";
 
 export default function ProductsPage() {
     // Products State
@@ -22,6 +23,9 @@ export default function ProductsPage() {
 
     // Categories State
     const [allCategories, setAllCategories] = useState([]);
+
+    // Pagination State
+    const [page, setPage] = useState(1);
 
     useEffect(() => {
         setLoading(true);
@@ -58,10 +62,10 @@ export default function ProductsPage() {
         setLink(
             `/api/products?isActive=true&keyword=${keyword}${
                 category && `&category=${category}`
-            }&price[gte]=${price[0]}&price[lte]=${price[1]}&sort=${sort}`
+            }&price[gte]=${price[0]}&price[lte]=${price[1]}&sort=${sort}&page=${page}`
         );
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [sort]);
+    }, [sort, page]);
 
     function onSubmitFilter(e) {
         e.preventDefault();
@@ -69,7 +73,7 @@ export default function ProductsPage() {
         setLink(
             `/api/products?isActive=true&keyword=${keyword}${
                 category && `&category=${category}`
-            }&price[gte]=${price[0]}&price[lte]=${price[1]}&sort=${sort}`
+            }&price[gte]=${price[0]}&price[lte]=${price[1]}&sort=${sort}&page=${page}`
         );
     }
 
@@ -241,6 +245,19 @@ export default function ProductsPage() {
                                     )}
                                 </div>
                             )}
+                            {/* Pagination */}
+                            <div
+                                id="pagination"
+                                className="flex my-4 items-center justify-center"
+                            >
+                                <Pagination
+                                    currentPage={page}
+                                    totalPage={products?.totalPageCount}
+                                    onPageChange={(page) =>
+                                        setPage(page)
+                                    }
+                                />
+                            </div>
                         </div>
                     </>
                 )}
