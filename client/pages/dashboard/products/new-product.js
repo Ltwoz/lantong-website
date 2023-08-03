@@ -6,7 +6,7 @@ import "react-quill/dist/quill.snow.css";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
+import instanceApi from "@/config/axios-config";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -61,8 +61,8 @@ const NewProductPage = () => {
     // Fetch get all categories
     useEffect(() => {
         const getCategories = async () => {
-            const { data } = await axios.get(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/categories`
+            const { data } = await instanceApi.get(
+                `/api/admin/categories`
             );
             setAllCategories(data?.categories);
             setCategory(data?.categories[0]?._id);
@@ -139,8 +139,8 @@ const NewProductPage = () => {
         try {
             setLoading(true);
 
-            const { data } = await axios.post(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/product/new`,
+            const { data } = await instanceApi.post(
+                `/api/admin/product/new`,
                 formData,
                 config
             );

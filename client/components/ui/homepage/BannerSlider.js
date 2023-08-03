@@ -1,3 +1,4 @@
+import instanceApi from "@/config/axios-config";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import axios from "axios";
@@ -11,8 +12,8 @@ const BannerSlider = () => {
 
     useEffect(() => {
         const getProducts = async () => {
-            const { data } = await axios.get(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}${`/api/banners`}`
+            const { data } = await instanceApi.get(
+                `/api/banners`
             );
             setAllBanners(data?.banners);
             setLoading(false);

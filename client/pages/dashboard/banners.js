@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
+import instanceApi from "@/config/axios-config";
 
 const WebsiteCOnfigPage = () => {
     // Post State
@@ -41,8 +41,8 @@ const WebsiteCOnfigPage = () => {
 
     useEffect(() => {
         const getProducts = async () => {
-            const { data } = await axios.get(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}${`/api/admin/banners`}`
+            const { data } = await instanceApi.get(
+                `/api/admin/banners`
             );
             setAllBanners(data?.banners);
             setLoading(false);
@@ -100,8 +100,8 @@ const WebsiteCOnfigPage = () => {
         try {
             setCreateLoading(true);
 
-            const { data } = await axios.post(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/banner/new`,
+            const { data } = await instanceApi.post(
+                `/api/admin/banner/new`,
                 formData,
                 config
             );

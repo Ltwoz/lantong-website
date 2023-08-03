@@ -1,10 +1,10 @@
 import ProductCard from "@/components/ui/products/ProductCard";
 import Layout from "@/components/layouts/Layout";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import LoadingSpiner from "@/components/ui/Spiner";
 import Head from "next/head";
 import Pagination from "@/components/ui/Pagination";
+import instanceApi from "@/config/axios-config";
 
 export default function ProductsPage() {
     // Products State
@@ -30,8 +30,8 @@ export default function ProductsPage() {
     useEffect(() => {
         setLoading(true);
         const getProducts = async () => {
-            const { data } = await axios.get(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}${link}`
+            const { data } = await instanceApi.get(
+                `${link}`
             );
             setProducts(data);
             setLoading(false);
@@ -47,8 +47,8 @@ export default function ProductsPage() {
     // Fetch get all categories
     useEffect(() => {
         const getCategories = async () => {
-            const { data } = await axios.get(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/categories`
+            const { data } = await instanceApi.get(
+                `/api/categories`
             );
             setAllCategories(data?.categories);
         };

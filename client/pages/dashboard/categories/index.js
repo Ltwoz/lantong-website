@@ -2,7 +2,7 @@ import Layout from "@/components/layouts/Layout";
 import DeleteModal from "@/components/modals/delete-modal";
 import Pagination from "@/components/ui/Pagination";
 import LoadingSpiner from "@/components/ui/Spiner";
-import axios from "axios";
+import instanceApi from "@/config/axios-config";
 import { AnimatePresence } from "framer-motion";
 import Head from "next/head";
 import Link from "next/link";
@@ -63,9 +63,7 @@ const AdminAllCategoriesPage = () => {
         }&page=${page}`;
 
         const getCategories = async () => {
-            const { data } = await axios.get(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}${link}`
-            );
+            const { data } = await instanceApi.get(`${link}`);
             setCategories(data);
             setLoading(false);
         };
@@ -78,8 +76,8 @@ const AdminAllCategoriesPage = () => {
 
     const deleteHandler = async (e) => {
         try {
-            const { data } = await axios.delete(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/category/${selectedCategory._id}`
+            const { data } = await instanceApi.delete(
+                `/api/admin/category/${selectedCategory._id}`
             );
 
             setIsDeleted(data.success);
@@ -202,7 +200,9 @@ const AdminAllCategoriesPage = () => {
                                                                 {category.name}
                                                             </td>
                                                             <td className="th-td">
-                                                                {category.productsCount}
+                                                                {
+                                                                    category.productsCount
+                                                                }
                                                             </td>
                                                             <td className="th-td">
                                                                 {new Date(

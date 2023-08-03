@@ -3,8 +3,8 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
 import { useRouter } from "next/router";
+import instanceApi from "@/config/axios-config";
 
 const EditCategoryPage = ({ id }) => {
     const router = useRouter();
@@ -41,8 +41,8 @@ const EditCategoryPage = ({ id }) => {
     // Fetch Category
     useEffect(() => {
         const getCategoryById = async () => {
-            const { data } = await axios.get(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/category/${id}`
+            const { data } = await instanceApi.get(
+                `/api/admin/category/${id}`
             );
             setCategory(data?.category);
         };
@@ -72,8 +72,8 @@ const EditCategoryPage = ({ id }) => {
         try {
             setLoading(true);
 
-            const { data } = await axios.put(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/category/${id}`,
+            const { data } = await instanceApi.put(
+                `/api/admin/category/${id}`,
                 formData,
                 config
             );

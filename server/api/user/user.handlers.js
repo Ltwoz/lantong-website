@@ -1,6 +1,7 @@
 const catchAsyncErrors = require("../../middleware/catchAsyncErrors");
 const User = require("./user.model");
 const sendToken = require("../../utils/jwtToken");
+const ErrorHandler = require("../../utils/errorHandler");
 
 // Register a User
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
@@ -22,19 +23,19 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
     // checking if user has given password and email both
 
     if (!email || !password) {
-        return next(new ErrorHander("Please Enter Email & Password", 400));
+        return next(new ErrorHandler("Please Enter Email & Password", 400));
     }
 
     const user = await User.findOne({ email }).select("+password");
 
     if (!user) {
-        return next(new ErrorHander("Invalid email or password", 401));
+        return next(new ErrorHandler("Invalid email or password", 401));
     }
 
     const isPasswordMatched = await user.comparePassword(password);
 
     if (!isPasswordMatched) {
-        return next(new ErrorHander("Invalid email or password", 401));
+        return next(new ErrorHandler("Invalid email or password", 401));
     }
 
     sendToken(user, 200, res);
@@ -73,11 +74,11 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
     const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
 
     if (!isPasswordMatched) {
-        return next(new ErrorHander("Old password is incorrect", 400));
+        return next(new ErrorHandler("Old password is incorrect", 400));
     }
 
     if (req.body.newPassword !== req.body.confirmPassword) {
-        return next(new ErrorHander("password does not match", 400));
+        return next(new ErrorHandler("password does not match", 400));
     }
 
     user.password = req.body.newPassword;
@@ -122,7 +123,7 @@ exports.getSingleUser = catchAsyncErrors(async (req, res, next) => {
 
     if (!user) {
         return next(
-            new ErrorHander(`User does not exist with Id: ${req.params.id}`)
+            new ErrorHandler(`User does not exist with Id: ${req.params.id}`)
         );
     }
 
@@ -157,7 +158,7 @@ exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
 
     if (!user) {
         return next(
-            new ErrorHander(
+            new ErrorHandler(
                 `User does not exist with Id: ${req.params.id}`,
                 400
             )

@@ -1,7 +1,7 @@
 import Layout from "@/components/layouts/Layout";
+import instanceApi from "@/config/axios-config";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
-import axios from "axios";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -245,8 +245,8 @@ export default ProductDetails;
 export const getServerSideProps = async (ctx) => {
     try {
         const id = ctx.params.pid;
-        const { data } = await axios.get(
-            `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/product/${id}`
+        const { data } = await instanceApi.get(
+            `/api/product/${id}`
         );
 
         return {
