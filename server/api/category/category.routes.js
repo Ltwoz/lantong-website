@@ -8,6 +8,10 @@ const {
     updateCategory,
     deleteCategory,
 } = require("./category.handlers");
+const {
+    isAuthenticatedUser,
+    authorizeRoles,
+} = require("../../middleware/auth");
 
 const router = express.Router();
 
@@ -15,10 +19,18 @@ router.route("/categories").get(getAllCategories);
 
 router.route("/category/:id").get(getDetailCategory);
 
-router.route("/admin/categories").get(getAdminCategories);
+router
+    .route("/admin/categories")
+    .get(isAuthenticatedUser, authorizeRoles("admin"), getAdminCategories);
 
-router.route("/admin/category/new").post(createCategory);
+router
+    .route("/admin/category/new")
+    .post(isAuthenticatedUser, authorizeRoles("admin"), createCategory);
 
-router.route("/admin/category/:id").get(getAdminDetailCategory).put(updateCategory).delete(deleteCategory);
+router
+    .route("/admin/category/:id")
+    .get(isAuthenticatedUser, authorizeRoles("admin"), getAdminDetailCategory)
+    .put(isAuthenticatedUser, authorizeRoles("admin"), updateCategory)
+    .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteCategory);
 
 module.exports = router;
