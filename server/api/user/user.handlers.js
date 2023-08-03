@@ -54,7 +54,6 @@ exports.logout = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Forgot Password
-// Get Reset Password Token
 // Reset Password
 
 // Get User Detail
