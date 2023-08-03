@@ -31,7 +31,7 @@ const Menus = [
 ];
 
 const Sidebar = () => {
-    const { status, user } = useUser();
+    const { status, user, logout } = useUser();
     const { isOpen, setIsOpen } = useSidebar();
     const router = useRouter();
     const sidebarRef = useRef(null);
@@ -68,6 +68,12 @@ const Sidebar = () => {
         e.stopPropagation();
         setShowMenu(!showMenu);
     };
+
+    const logoutHandler = (e) => {
+        e.preventDefault();
+
+        logout();
+    }
 
     const AuthButton =
         status === "authenticated" ? (
@@ -138,7 +144,7 @@ const Sidebar = () => {
                     )}
                     <div className="py-1">
                         <button
-                            // onClick={logoutHandler}
+                            onClick={logoutHandler}
                             className="text-red-600 w-full text-left px-4 py-2 text-sm hover:bg-primary/10"
                         >
                             ออกจากระบบ
