@@ -3,6 +3,7 @@ import DeleteModal from "@/components/modals/delete-modal";
 import Pagination from "@/components/ui/Pagination";
 import LoadingSpiner from "@/components/ui/Spiner";
 import NoPermission from "@/components/ui/custom-pages/403";
+import instanceApi from "@/config/axios-config";
 import { useUser } from "@/contexts/user-context";
 import { AnimatePresence } from "framer-motion";
 import Head from "next/head";
