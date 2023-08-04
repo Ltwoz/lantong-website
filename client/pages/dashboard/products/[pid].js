@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 import instanceApi from "@/config/axios-config";
+import NoPermission from "@/components/ui/custom-pages/403";
+import { useUser } from "@/contexts/user-context";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -192,6 +194,14 @@ const EditProductPage = ({ id }) => {
         } finally {
             setLoading(false);
         }
+    }
+
+    const { user, isAuthenticated } = useUser();
+
+    if (!user || user.role !== "admin" || !isAuthenticated) {
+        return (
+           <NoPermission />
+        );
     }
 
     return (

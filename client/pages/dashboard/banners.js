@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import instanceApi from "@/config/axios-config";
+import NoPermission from "@/components/ui/custom-pages/403";
+import { useUser } from "@/contexts/user-context";
 
 const WebsiteCOnfigPage = () => {
     // Post State
@@ -115,6 +117,14 @@ const WebsiteCOnfigPage = () => {
             setBanner([]);
             setBannerPreview([]);
         }
+    }
+
+    const { user, isAuthenticated } = useUser();
+
+    if (!user || user.role !== "admin" || !isAuthenticated) {
+        return (
+           <NoPermission />
+        );
     }
 
     return (

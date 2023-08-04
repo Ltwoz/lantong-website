@@ -7,6 +7,8 @@ import Image from "next/image";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import instanceApi from "@/config/axios-config";
+import { useUser } from "@/contexts/user-context";
+import NoPermission from "@/components/ui/custom-pages/403";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -152,6 +154,14 @@ const NewProductPage = () => {
         } finally {
             setLoading(false);
         }
+    }
+
+    const { user, isAuthenticated } = useUser();
+
+    if (!user || user.role !== "admin" || !isAuthenticated) {
+        return (
+           <NoPermission />
+        );
     }
 
     return (

@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import instanceApi from "@/config/axios-config";
+import { useUser } from "@/contexts/user-context";
+import NoPermission from "@/components/ui/custom-pages/403";
 
 const NewCategoryPage = () => {
     // State ของ Category
@@ -59,6 +61,14 @@ const NewCategoryPage = () => {
         } finally {
             setLoading(false);
         }
+    }
+
+    const { user, isAuthenticated } = useUser();
+
+    if (!user || user.role !== "admin" || !isAuthenticated) {
+        return (
+           <NoPermission />
+        );
     }
 
     return (

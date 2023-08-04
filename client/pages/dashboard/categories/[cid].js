@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 import instanceApi from "@/config/axios-config";
+import { useUser } from "@/contexts/user-context";
+import NoPermission from "@/components/ui/custom-pages/403";
 
 const EditCategoryPage = ({ id }) => {
     const router = useRouter();
@@ -85,6 +87,14 @@ const EditCategoryPage = ({ id }) => {
         } finally {
             setLoading(false);
         }
+    }
+
+    const { user, isAuthenticated } = useUser();
+
+    if (!user || user.role !== "admin" || !isAuthenticated) {
+        return (
+           <NoPermission />
+        );
     }
 
     return (

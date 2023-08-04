@@ -2,7 +2,9 @@ import Layout from "@/components/layouts/Layout";
 import DeleteModal from "@/components/modals/delete-modal";
 import Pagination from "@/components/ui/Pagination";
 import LoadingSpiner from "@/components/ui/Spiner";
+import NoPermission from "@/components/ui/custom-pages/403";
 import instanceApi from "@/config/axios-config";
+import { useUser } from "@/contexts/user-context";
 import { AnimatePresence } from "framer-motion";
 import Head from "next/head";
 import Link from "next/link";
@@ -86,6 +88,14 @@ const AdminAllCategoriesPage = () => {
             console.error(error.message);
         }
     };
+
+    const { user, isAuthenticated } = useUser();
+
+    if (!user || user.role !== "admin" || !isAuthenticated) {
+        return (
+           <NoPermission />
+        );
+    }
 
     return (
         <Layout isDashboard={true}>
