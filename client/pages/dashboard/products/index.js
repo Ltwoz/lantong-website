@@ -107,7 +107,7 @@ const AdminAllProductsPage = () => {
                 {showDeleteModal && (
                     <DeleteModal
                         title={`ลบสินค้า ${selectedProduct.name} ?`}
-                        message={"สินค้านี่จะหายไปจากเว็บไซต์"}
+                        message={"สินค้านี้จะหายไปจากเว็บไซต์"}
                         buttonLabel={"ตกลง, ลบเลย!"}
                         setIsOpen={setShowDeleteModal}
                         handler={deleteHandler}
