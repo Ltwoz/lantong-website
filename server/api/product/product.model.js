@@ -63,6 +63,17 @@ const productSchema = mongoose.Schema({
         type: Boolean,
         default: false
     },
+    isPopular: {
+        type: Boolean,
+        default: false
+    },
+    isPromotion: {
+        type: Boolean,
+        default: false
+    },
+    promotionDetail: {
+        type: String,
+    },
     isGift: {
         type: Boolean,
         default: false
