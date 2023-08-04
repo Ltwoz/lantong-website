@@ -23,7 +23,7 @@ export default function Login() {
             toast.success("เข้าสู่ระบบ", {
                 position: toast.POSITION.BOTTOM_RIGHT,
             });
-            
+
             router.push("/")
         }
 
@@ -61,7 +61,7 @@ export default function Login() {
                             <div className="">
                                 <input
                                     className=" w-full text-sm px-4 py-3 bg-white focus:bg-gray-50 border  border-gray-200 rounded-lg focus:outline-none focus:border-primary"
-                                    placeholder="อัเมล"
+                                    placeholder="อีเมล"
                                     type="text"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}

@@ -1,4 +1,5 @@
 import Layout from "@/components/layouts/Layout";
+import { REGISTER_FAIL } from "@/constants/user-constants";
 import { useUser } from "@/contexts/user-context";
 import Head from "next/head";
 import Image from "next/image";
@@ -9,22 +10,25 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Register() {
-    const { register, isAuthenticated, error, clearErrors } = useUser();
+    const { register, isAuthenticated, error, clearErrors, dispatch } =
+        useUser();
 
     const router = useRouter();
 
     // Auth State
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     // Toastify
     useEffect(() => {
         if (isAuthenticated) {
-            toast.success("เข้าสู่ระบบ", {
+            toast.success("ลงทะเบียนสำเร็จ", {
                 position: toast.POSITION.BOTTOM_RIGHT,
             });
 
-            router.push("/")
+            router.push("/");
         }
 
         if (error) {
@@ -35,10 +39,28 @@ export default function Register() {
         }
     }, [isAuthenticated, error, clearErrors, router]);
 
-    async function loginSubmit(e) {
+    async function registerSubmit(e) {
         e.preventDefault();
 
-        register(email, password);
+        if (!name || !email || !password || !confirmPassword) {
+            return dispatch({
+                type: REGISTER_FAIL,
+                payload: "กรุณากรอกข้อมูลให้ครบ",
+            });
+        }
+
+        if (password !== confirmPassword) {
+            return dispatch({
+                type: REGISTER_FAIL,
+                payload: "รหัสผ่านไม่ตรงกัน",
+            });
+        }
+
+        register({
+            name,
+            email,
+            password,
+        });
     }
 
     return (
@@ -58,14 +80,23 @@ export default function Register() {
                     >
                         <div className="mb-7 text-center">
                             <h3 className="font-semibold text-2xl text-gray-800">
-                                เข้าสู่ระบบ
+                                ลงทะเบียน
                             </h3>
                         </div>
-                        <form className="space-y-4" onSubmit={loginSubmit}>
+                        <form className="space-y-4" onSubmit={registerSubmit}>
                             <div className="">
                                 <input
                                     className=" w-full text-sm px-4 py-3 bg-white focus:bg-gray-50 border  border-gray-200 rounded-lg focus:outline-none focus:border-primary"
-                                    placeholder="อัเมล"
+                                    placeholder="ชื่อผู้ใช้"
+                                    type="text"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                />
+                            </div>
+                            <div className="">
+                                <input
+                                    className=" w-full text-sm px-4 py-3 bg-white focus:bg-gray-50 border  border-gray-200 rounded-lg focus:outline-none focus:border-primary"
+                                    placeholder="อีเมล"
                                     type="text"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
@@ -82,15 +113,17 @@ export default function Register() {
                                     }
                                 />
                             </div>
-
-                            {/* <div className="flex items-center justify-end text-sm">
-                                <a
-                                    href="#"
-                                    className="text-[#BC1F1F] hover:brightness-95 hover:underline"
-                                >
-                                    ลืมรหัสผ่าน ?
-                                </a>
-                            </div> */}
+                            <div className="relative">
+                                <input
+                                    className="text-sm px-4 py-3 rounded-lg w-full bg-white focus:bg-gray-50 border border-gray-200 focus:outline-none focus:border-primary"
+                                    placeholder="ยืนยันรหัสผ่าน"
+                                    type="confirm-password"
+                                    value={confirmPassword}
+                                    onChange={(e) =>
+                                        setConfirmPassword(e.target.value)
+                                    }
+                                />
+                            </div>
 
                             <div>
                                 <button
@@ -99,19 +132,19 @@ export default function Register() {
                                 >
                                     <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-3 px-4">
                                         <span className="block tracking-wide">
-                                            เข้าสู่ระบบ
+                                            ลงทะเบียน
                                         </span>
                                     </div>
                                 </button>
                             </div>
                         </form>
                         <p className="text-gray-400 text-center text-sm mt-8">
-                            ยังไม่มีบัญชี ?{" "}
+                            มีบัญชีอยู่แล้ว ?{" "}
                             <Link
                                 href="/auth/register"
                                 className="text-sm ml-1 text-[#BC1F1F] hover:brightness-95 hover:underline"
                             >
-                                ลงทะเบียน
+                                เข้าสู่ระบบ
                             </Link>
                         </p>
                     </div>
