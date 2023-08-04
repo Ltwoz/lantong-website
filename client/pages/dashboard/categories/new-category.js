@@ -3,7 +3,9 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
+import instanceApi from "@/config/axios-config";
+import { useUser } from "@/contexts/user-context";
+import NoPermission from "@/components/ui/custom-pages/403";
 
 const NewCategoryPage = () => {
     // State ของ Category
@@ -46,8 +48,8 @@ const NewCategoryPage = () => {
         try {
             setLoading(true);
 
-            const { data } = await axios.post(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/category/new`,
+            const { data } = await instanceApi.post(
+                `/api/admin/category/new`,
                 formData,
                 config
             );
@@ -59,6 +61,14 @@ const NewCategoryPage = () => {
         } finally {
             setLoading(false);
         }
+    }
+
+    const { user, isAuthenticated } = useUser();
+
+    if (!user || user.role !== "admin" || !isAuthenticated) {
+        return (
+           <NoPermission />
+        );
     }
 
     return (
@@ -98,7 +108,9 @@ const NewCategoryPage = () => {
                                 <input
                                     type="text"
                                     value={categoryId}
-                                    onChange={(e) => setCategoryId(e.target.value)}
+                                    onChange={(e) =>
+                                        setCategoryId(e.target.value)
+                                    }
                                     className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
                                 />
                             </div>

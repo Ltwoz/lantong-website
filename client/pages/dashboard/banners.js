@@ -4,7 +4,9 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
+import instanceApi from "@/config/axios-config";
+import NoPermission from "@/components/ui/custom-pages/403";
+import { useUser } from "@/contexts/user-context";
 
 const WebsiteCOnfigPage = () => {
     // Post State
@@ -41,8 +43,8 @@ const WebsiteCOnfigPage = () => {
 
     useEffect(() => {
         const getProducts = async () => {
-            const { data } = await axios.get(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}${`/api/admin/banners`}`
+            const { data } = await instanceApi.get(
+                `/api/admin/banners`
             );
             setAllBanners(data?.banners);
             setLoading(false);
@@ -100,8 +102,8 @@ const WebsiteCOnfigPage = () => {
         try {
             setCreateLoading(true);
 
-            const { data } = await axios.post(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/banner/new`,
+            const { data } = await instanceApi.post(
+                `/api/admin/banner/new`,
                 formData,
                 config
             );
@@ -115,6 +117,14 @@ const WebsiteCOnfigPage = () => {
             setBanner([]);
             setBannerPreview([]);
         }
+    }
+
+    const { user, isAuthenticated } = useUser();
+
+    if (!user || user.role !== "admin" || !isAuthenticated) {
+        return (
+           <NoPermission />
+        );
     }
 
     return (

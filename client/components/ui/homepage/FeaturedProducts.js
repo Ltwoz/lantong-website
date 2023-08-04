@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import ProductCard from "../products/ProductCard";
-import axios from "axios";
+import instanceApi from "@/config/axios-config";
 
 const FeaturedProducts = () => {
     const [status, setStatus] = useState("newest");
@@ -24,8 +24,8 @@ const FeaturedProducts = () => {
         }`;
 
         const getProducts = async () => {
-            const { data } = await axios.get(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}${link}`
+            const { data } = await instanceApi.get(
+                `${link}`
             );
             setProducts(data?.products);
             setLoading(false);

@@ -2,7 +2,8 @@ import Layout from "@/components/layouts/Layout";
 import DeleteModal from "@/components/modals/delete-modal";
 import Pagination from "@/components/ui/Pagination";
 import LoadingSpiner from "@/components/ui/Spiner";
-import axios from "axios";
+import NoPermission from "@/components/ui/custom-pages/403";
+import { useUser } from "@/contexts/user-context";
 import { AnimatePresence } from "framer-motion";
 import Head from "next/head";
 import Link from "next/link";
@@ -63,9 +64,7 @@ const AdminAllProductsPage = () => {
         }&page=${page}`;
 
         const getProducts = async () => {
-            const { data } = await axios.get(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}${link}`
-            );
+            const { data } = await instanceApi.get(`${link}`);
             setProducts(data);
             setLoading(false);
         };
@@ -78,8 +77,8 @@ const AdminAllProductsPage = () => {
 
     const deleteHandler = async (e) => {
         try {
-            const { data } = await axios.delete(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/product/${selectedProduct._id}`
+            const { data } = await instanceApi.delete(
+                `/api/admin/product/${selectedProduct._id}`
             );
 
             setIsDeleted(data.success);
@@ -88,6 +87,14 @@ const AdminAllProductsPage = () => {
             console.error(error.message);
         }
     };
+
+    const { user, isAuthenticated } = useUser();
+
+    if (!user || user.role !== "admin" || !isAuthenticated) {
+        return (
+           <NoPermission />
+        );
+    }
 
     return (
         <Layout isDashboard={true}>

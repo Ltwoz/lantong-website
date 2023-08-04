@@ -6,8 +6,10 @@ import "react-quill/dist/quill.snow.css";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
 import { useRouter } from "next/router";
+import instanceApi from "@/config/axios-config";
+import NoPermission from "@/components/ui/custom-pages/403";
+import { useUser } from "@/contexts/user-context";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -68,9 +70,7 @@ const EditProductPage = ({ id }) => {
     // Fetch get all categories
     useEffect(() => {
         const getCategories = async () => {
-            const { data } = await axios.get(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/categories`
-            );
+            const { data } = await instanceApi.get(`/api/admin/categories`);
             setAllCategories(data?.categories);
         };
 
@@ -82,9 +82,7 @@ const EditProductPage = ({ id }) => {
     // Fetch Product
     useEffect(() => {
         const getProductById = async () => {
-            const { data } = await axios.get(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}${`/api/admin/product/${id}`}`
-            );
+            const { data } = await instanceApi.get(`/api/admin/product/${id}`);
             setProduct(data?.product);
             setLoading(false);
         };
@@ -107,16 +105,16 @@ const EditProductPage = ({ id }) => {
         setLength(product.length);
         setHeight(product.height);
         setWeightAccept(product.weightAccept);
-        
+
         setImages(product.images);
         setImagesPreview(product.images);
-        
+
         setIsActive(product.isActive);
         setIsFeatured(product.isFeatured);
         setIsGift(product.isGift);
         setGiftDetail(product.giftDetail);
         setIsOnSale(product.isOnSale);
-    }, [product])
+    }, [product]);
 
     function handleUploadImage(e) {
         const files = Array.from(e.target.files);
@@ -183,8 +181,8 @@ const EditProductPage = ({ id }) => {
         try {
             setLoading(true);
 
-            const { data } = await axios.put(
-                `${process.env.NEXT_PUBLIC_SERVER_PATH}/api/admin/product/${id}`,
+            const { data } = await instanceApi.put(
+                `/api/admin/product/${id}`,
                 formData,
                 config
             );
@@ -196,6 +194,14 @@ const EditProductPage = ({ id }) => {
         } finally {
             setLoading(false);
         }
+    }
+
+    const { user, isAuthenticated } = useUser();
+
+    if (!user || user.role !== "admin" || !isAuthenticated) {
+        return (
+           <NoPermission />
+        );
     }
 
     return (
@@ -210,7 +216,9 @@ const EditProductPage = ({ id }) => {
                     className="flex flex-col md:flex-row gap-4 py-6 items-start md:items-center justify-between"
                 >
                     <div className="flex flex-col">
-                        <h2 className="text-2xl font-bold">แก้ไขสินค้า {product.name}</h2>
+                        <h2 className="text-2xl font-bold">
+                            แก้ไขสินค้า {product.name}
+                        </h2>
                     </div>
                 </div>
             </div>

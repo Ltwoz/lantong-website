@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./utils/db");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -14,7 +15,7 @@ process.on("uncaughtException", (err) => {
 });
 
 const corsOptions = {
-    // origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "https://lantongshop.vercel.app", process.env.CLIENT_PATH],
     credentials: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 };
@@ -24,6 +25,7 @@ dotenv.config({ path: ".env.local" });
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb" }));
+app.use(cookieParser());
 app.use(cors(corsOptions));
 
 connectDB().then(() => {

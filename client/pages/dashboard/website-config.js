@@ -1,7 +1,17 @@
 import Layout from "@/components/layouts/Layout";
+import NoPermission from "@/components/ui/custom-pages/403";
+import { useUser } from "@/contexts/user-context";
 import Head from "next/head";
 
 const WebsiteConfigPage = () => {
+    const { user, isAuthenticated } = useUser();
+
+    if (!user || user.role !== "admin" || !isAuthenticated) {
+        return (
+           <NoPermission />
+        );
+    }
+
     return (
         <Layout isDashboard={true}>
             <Head>
