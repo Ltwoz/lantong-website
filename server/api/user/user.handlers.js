@@ -2,6 +2,7 @@ const catchAsyncErrors = require("../../middleware/catchAsyncErrors");
 const User = require("./user.model");
 const sendToken = require("../../utils/jwtToken");
 const ErrorHandler = require("../../utils/errorHandler");
+const ApiFeatures = require("../../utils/apiFeatures");
 
 // Register a User
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
@@ -124,11 +125,29 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
 
 // Get all users -- Admin
 exports.getAllUser = catchAsyncErrors(async (req, res, next) => {
-    const users = await User.find();
+    const resultPerPage = 20;
+    const usersCount = await User.countDocuments();
+
+    const apiFeature = new ApiFeatures(User.find(), req.query)
+        .filter()
+        .findUser();
+
+    let users = await apiFeature.query;
+
+    let fiteredUsersCount = users.length;
+
+    apiFeature.pagination(resultPerPage);
+
+    users = await apiFeature.query.clone();
+
+    const totalPageCount = Math.ceil(fiteredUsersCount / resultPerPage);
 
     res.status(200).json({
         success: true,
         users,
+        fiteredUsersCount,
+        totalPageCount,
+        usersCount,
     });
 });
 
