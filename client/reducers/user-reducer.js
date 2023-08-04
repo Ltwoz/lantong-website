@@ -17,6 +17,9 @@ const UserReducer = (state, action) => {
     switch (action.type) {
         case LOGIN_REQUEST:
         case REGISTER_REQUEST:
+            return {
+                isAuthenticated: false,
+            };
         case LOAD_USER_REQUEST:
             return {
                 loading: true,

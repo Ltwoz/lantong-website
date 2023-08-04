@@ -30,7 +30,7 @@ export default function Login() {
             toast.error(error, {
                 position: toast.POSITION.BOTTOM_RIGHT,
             });
-            clearErrors();
+            // clearErrors();
         }
     }, [isAuthenticated, error, clearErrors]);
 
@@ -38,10 +38,6 @@ export default function Login() {
         e.preventDefault();
 
         login(email, password);
-
-        if (isAuthenticated) {
-            router.back();
-        }
     }
 
     return (
@@ -82,14 +78,15 @@ export default function Login() {
                                 />
                             </div>
 
-                            <div className="flex items-center justify-end text-sm">
+                            {/* <div className="flex items-center justify-end text-sm">
                                 <a
                                     href="#"
                                     className="text-[#BC1F1F] hover:brightness-95 hover:underline"
                                 >
                                     ลืมรหัสผ่าน ?
                                 </a>
-                            </div>
+                            </div> */}
+
                             <div>
                                 <button
                                     type="submit"

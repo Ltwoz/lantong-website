@@ -23,19 +23,28 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
     // checking if user has given password and email both
 
     if (!email || !password) {
-        return next(new ErrorHandler("Please Enter Email & Password", 400));
+        return res.status(400).json({
+            success: false,
+            message: "Please Enter Email & Password",
+        });
     }
 
     const user = await User.findOne({ email }).select("+password");
 
     if (!user) {
-        return next(new ErrorHandler("Invalid email or password", 401));
+        return res.status(401).json({
+            success: false,
+            message: "Invalid email or password",
+        });
     }
 
     const isPasswordMatched = await user.comparePassword(password);
 
     if (!isPasswordMatched) {
-        return next(new ErrorHandler("Invalid email or password", 401));
+        return res.status(401).json({
+            success: false,
+            message: "Invalid email or password",
+        });
     }
 
     sendToken(user, 200, res);
@@ -74,11 +83,17 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
     const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
 
     if (!isPasswordMatched) {
-        return next(new ErrorHandler("Old password is incorrect", 400));
+        return res.status(400).json({
+            success: false,
+            message: "Old password is incorrect",
+        });
     }
 
     if (req.body.newPassword !== req.body.confirmPassword) {
-        return next(new ErrorHandler("password does not match", 400));
+        return res.status(400).json({
+            success: false,
+            message: "password does not match",
+        });
     }
 
     user.password = req.body.newPassword;
@@ -122,9 +137,10 @@ exports.getSingleUser = catchAsyncErrors(async (req, res, next) => {
     const user = await User.findById(req.params.id);
 
     if (!user) {
-        return next(
-            new ErrorHandler(`User does not exist with Id: ${req.params.id}`)
-        );
+        return res.status(400).json({
+            success: false,
+            message: `User does not exist with Id: ${req.params.id}`,
+        });
     }
 
     res.status(200).json({
@@ -157,12 +173,10 @@ exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
     const user = await User.findById(req.params.id);
 
     if (!user) {
-        return next(
-            new ErrorHandler(
-                `User does not exist with Id: ${req.params.id}`,
-                400
-            )
-        );
+        return res.status(400).json({
+            success: false,
+            message: `User does not exist with Id: ${req.params.id}`,
+        });
     }
 
     await user.remove();

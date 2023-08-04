@@ -75,7 +75,7 @@ export const UserContextProvider = (props) => {
         } catch (error) {
             dispatch({
                 type: REGISTER_FAIL,
-                payload: error.response.data.message,
+                payload: error?.response?.data?.message,
             });
         }
     };
@@ -89,7 +89,7 @@ export const UserContextProvider = (props) => {
         } catch (error) {
             dispatch({
                 type: LOGOUT_FAIL,
-                payload: error.response.data.message,
+                payload: error?.response?.data?.message,
             });
         }
     };
@@ -109,7 +109,7 @@ export const UserContextProvider = (props) => {
             } catch (error) {
                 dispatch({
                     type: LOAD_USER_FAIL,
-                    payload: error.response.data.message,
+                    payload: error?.response?.data?.message,
                 });
             }
         };
