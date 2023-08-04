@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function Login() {
-    const { login, isAuthenticated, error, clearErrors } = useUser();
+export default function Register() {
+    const { register, isAuthenticated, error, clearErrors } = useUser();
 
     const router = useRouter();
 
@@ -23,7 +23,7 @@ export default function Login() {
             toast.success("เข้าสู่ระบบ", {
                 position: toast.POSITION.BOTTOM_RIGHT,
             });
-            
+
             router.push("/")
         }
 
@@ -38,20 +38,24 @@ export default function Login() {
     async function loginSubmit(e) {
         e.preventDefault();
 
-        login(email, password);
+        register(email, password);
     }
 
     return (
         <Layout>
             <Head>
-                <title>เข้าสู่ระบบ - หจก.ลานทองเชียงใหม่</title>
+                <title>ลงทะเบียน - หจก.ลานทองเชียงใหม่</title>
             </Head>
             <div className="flex justify-center mx-auto md:max-w-[1200px] w-full h-fit md:h-[800px] p-4 md:px-0 md:py-20">
                 <div className="flex flex-row border w-full rounded-lg overflow-hidden">
-                    <div id="login-banner" className="hidden md:block w-1/2 bg-gray-600">
-
-                    </div>
-                    <div id="login-form" className="w-full md:w-1/2 p-6 md:px-24 md:py-0 bg-white flex flex-col justify-center">
+                    <div
+                        id="login-banner"
+                        className="hidden md:block w-1/2 bg-gray-600"
+                    ></div>
+                    <div
+                        id="login-form"
+                        className="w-full md:w-1/2 p-6 md:px-24 md:py-0 bg-white flex flex-col justify-center"
+                    >
                         <div className="mb-7 text-center">
                             <h3 className="font-semibold text-2xl text-gray-800">
                                 เข้าสู่ระบบ

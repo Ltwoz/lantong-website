@@ -37,8 +37,6 @@ export const UserContextProvider = (props) => {
 
             const config = {
                 headers: { "Content-Type": "application/json" },
-                withCredentials: true,
-                credentials: "include",
             };
 
             const { data } = await instanceApi.post(
