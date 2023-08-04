@@ -31,8 +31,11 @@ const NewProductPage = () => {
 
     const [isActive, setIsActive] = useState(true);
     const [isFeatured, setIsFeatured] = useState(false);
+    const [isPopular, setIsPopular] = useState(false);
     const [isGift, setIsGift] = useState(false);
     const [giftDetail, setGiftDetail] = useState("");
+    const [isPromotion, setIsPromotion] = useState(false);
+    const [promotionDetail, setPromotionDetail] = useState("");
     const [isOnSale, setIsOnSale] = useState(false);
 
     // State ของ Categories
@@ -63,9 +66,7 @@ const NewProductPage = () => {
     // Fetch get all categories
     useEffect(() => {
         const getCategories = async () => {
-            const { data } = await instanceApi.get(
-                `/api/admin/categories`
-            );
+            const { data } = await instanceApi.get(`/api/admin/categories`);
             setAllCategories(data?.categories);
             setCategory(data?.categories[0]?._id);
         };
@@ -124,8 +125,11 @@ const NewProductPage = () => {
 
         formData.set("isActive", isActive);
         formData.set("isFeatured", isFeatured);
+        formData.set("isPopular", isPopular);
         formData.set("isGift", isGift);
         formData.set("giftDetail", giftDetail);
+        formData.set("isPromotion", isPromotion);
+        formData.set("promotionDetail", promotionDetail);
         formData.set("isOnSale", isOnSale);
 
         images.forEach((image) => {
@@ -159,9 +163,7 @@ const NewProductPage = () => {
     const { user, isAuthenticated } = useUser();
 
     if (!user || user.role !== "admin" || !isAuthenticated) {
-        return (
-           <NoPermission />
-        );
+        return <NoPermission />;
     }
 
     return (
@@ -481,19 +483,64 @@ const NewProductPage = () => {
                                     />
                                 </label>
                             </div>
-                            <div className="col-span-4 md:col-span-2">
-                                <label className="block text-xs md:text-sm font-semibold tracking-wide">
-                                    ของแถมที่ได้รับ
+                            {isGift && (
+                                <div className="col-span-4 md:col-span-2">
+                                    <label className="block text-xs md:text-sm font-semibold tracking-wide">
+                                        ของแถมที่ได้รับ
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={giftDetail}
+                                        onChange={(e) =>
+                                            setGiftDetail(e.target.value)
+                                        }
+                                        className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
+                                    />
+                                </div>
+                            )}
+                            <div className="col-span-4 flex items-center justify-between">
+                                <div>
+                                    <h4 className="text-xs md:text-sm font-semibold tracking-wide">
+                                        มีโปรโมชั่น
+                                    </h4>
+                                    <p className="mt-2 text-xs md:text-sm text-gray-600">
+                                        หาก
+                                        <span className="text-green-500 font-semibold">
+                                            เปิด
+                                        </span>
+                                        จะสามารถใส่โปรโมชั่นให้สินค้านี้ได้
+                                    </p>
+                                </div>
+                                <label className="inline-flex relative items-center">
+                                    <input
+                                        type="checkbox"
+                                        className="sr-only peer"
+                                        checked={isPromotion}
+                                        readOnly
+                                    />
+                                    <div
+                                        onClick={() => {
+                                            setIsPromotion(!isPromotion);
+                                        }}
+                                        className="w-11 h-6 cursor-pointer bg-gray-300 rounded-full peer peer-focus:ring-green-300 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"
+                                    />
                                 </label>
-                                <input
-                                    type="text"
-                                    value={giftDetail}
-                                    onChange={(e) =>
-                                        setGiftDetail(e.target.value)
-                                    }
-                                    className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
-                                />
                             </div>
+                            {isPromotion && (
+                                <div className="col-span-4 md:col-span-2">
+                                    <label className="block text-xs md:text-sm font-semibold tracking-wide">
+                                        โปรโมชั่นของสินค้า
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={promotionDetail}
+                                        onChange={(e) =>
+                                            setPromotionDetail(e.target.value)
+                                        }
+                                        className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
+                                    />
+                                </div>
+                            )}
                             <div className="col-span-4 flex items-center justify-between">
                                 <div>
                                     <h4 className="text-xs md:text-sm font-semibold tracking-wide">
@@ -517,6 +564,34 @@ const NewProductPage = () => {
                                     <div
                                         onClick={() => {
                                             setIsFeatured(!isFeatured);
+                                        }}
+                                        className="w-11 h-6 cursor-pointer bg-gray-300 rounded-full peer peer-focus:ring-green-300 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"
+                                    />
+                                </label>
+                            </div>
+                            <div className="col-span-4 flex items-center justify-between">
+                                <div>
+                                    <h4 className="text-xs md:text-sm font-semibold tracking-wide">
+                                        สินค้ายอดนิยม
+                                    </h4>
+                                    <p className="mt-2 text-xs md:text-sm text-gray-600">
+                                        หาก
+                                        <span className="text-green-500 font-semibold">
+                                            เปิด
+                                        </span>
+                                        จะแสดงสินค้านี้ในสินค้ายอดนิยม
+                                    </p>
+                                </div>
+                                <label className="inline-flex relative items-center">
+                                    <input
+                                        type="checkbox"
+                                        className="sr-only peer"
+                                        checked={isPopular}
+                                        readOnly
+                                    />
+                                    <div
+                                        onClick={() => {
+                                            setIsPopular(!isPopular);
                                         }}
                                         className="w-11 h-6 cursor-pointer bg-gray-300 rounded-full peer peer-focus:ring-green-300 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"
                                     />
