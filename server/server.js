@@ -15,7 +15,7 @@ process.on("uncaughtException", (err) => {
 });
 
 const corsOptions = {
-    origin: "https://lantongshop.vercel.app",
+    origin: ["http://localhost:3000", "https://lantongshop.vercel.app"],
     credentials: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 };
@@ -23,6 +23,7 @@ const corsOptions = {
 // Config
 dotenv.config({ path: ".env.local" });
 
+app.set('trust proxy', 1)
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb" }));
 app.use(cookieParser());
