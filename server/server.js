@@ -15,7 +15,7 @@ process.on("uncaughtException", (err) => {
 });
 
 const corsOptions = {
-    origin: ["http://localhost:3000", "https://lantongshop.vercel.app"],
+    origin: ["http://localhost:3000", "https://lantongshop.vercel.app", process.env.CLIENT_PATH],
     credentials: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 };
