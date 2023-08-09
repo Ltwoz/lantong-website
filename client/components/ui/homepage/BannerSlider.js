@@ -60,12 +60,12 @@ const BannerSlider = () => {
                                     {(banner.label || banner.description) && (
                                         <div className="absolute left-0 right-0 mx-auto flex flex-col text-center w-full max-w-[1200px] text-white z-[2]">
                                             {banner.label && (
-                                                <h2 className="font-semibold text-[64px]">
+                                                <h2 className="font-semibold text-lg md:text-[64px]">
                                                     {banner.label}
                                                 </h2>
                                             )}
                                             {banner.description && (
-                                                <p className="font-semibold text-[32px]">
+                                                <p className="font-semibold text-md md:text-[32px]">
                                                     {banner.description}
                                                 </p>
                                             )}
