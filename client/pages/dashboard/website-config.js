@@ -1,15 +1,28 @@
 import Layout from "@/components/layouts/Layout";
+import { ColorPicker } from "@/components/ui/ColorPicker";
 import NoPermission from "@/components/ui/custom-pages/403";
 import { useUser } from "@/contexts/user-context";
 import Head from "next/head";
+import { useState } from "react";
+import dynamic from "next/dynamic";
+import "react-quill/dist/quill.snow.css";
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const WebsiteConfigPage = () => {
+    const [title, setTitle] = useState("");
+    const [name, setName] = useState("");
+    const [desc, setDesc] = useState("");
+    const [facebookUrl, setFacebookUrl] = useState("");
+    const [lineUrl, setLineUrl] = useState("");
+    const [primaryColor, setPrimaryColor] = useState("");
+    const [aboutBg, setAboutBg] = useState([]);
+    const [aboutDetail, setAboutDetail] = useState("");
+
     const { user, isAuthenticated } = useUser();
 
     if (!user || user.role !== "admin" || !isAuthenticated) {
-        return (
-           <NoPermission />
-        );
+        return <NoPermission />;
     }
 
     return (
@@ -39,19 +52,98 @@ const WebsiteConfigPage = () => {
                         className="flex flex-col md:flex-row w-full gap-6"
                     >
                         <h3 className="font-semibold w-full md:w-1/3">
-                            รูปภาพ
+                            ข้อมูลทั่วไป
+                        </h3>
+                        <div className="grid grid-cols-4 gap-6 w-full md:w-2/3">
+                            <div className="col-span-4 md:col-span-2">
+                                <label className="block text-xs md:text-sm font-semibold tracking-wide">
+                                    ชื่อเว็บไซต์
+                                </label>
+                                <input
+                                    type="text"
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                    className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
+                                />
+                            </div>
+                            <div className="col-span-4 md:col-span-2">
+                                <label className="block text-xs md:text-sm font-semibold tracking-wide">
+                                    ชื่อร้านค้า
+                                </label>
+                                <input
+                                    type="text"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
+                                />
+                            </div>
+                            <div className="col-span-4">
+                                <label className="block text-xs md:text-sm font-semibold tracking-wide">
+                                    รายละเอียด
+                                </label>
+                                <input
+                                    type="text"
+                                    value={desc}
+                                    onChange={(e) => setDesc(e.target.value)}
+                                    className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
+                                />
+                            </div>
+                            <div className="col-span-4">
+                                <label className="block text-xs md:text-sm font-semibold tracking-wide">
+                                    เกี่ยวกับร้าน
+                                </label>
+                                <ReactQuill
+                                    value={aboutDetail}
+                                    onChange={(value) => setAboutDetail(value)}
+                                    className="mt-1"
+                                />
+                            </div>
+                            <div className="col-span-4 md:col-span-2">
+                                <label className="block text-xs md:text-sm font-semibold tracking-wide">
+                                    Facebook URL
+                                </label>
+                                <input
+                                    type="text"
+                                    value={facebookUrl}
+                                    onChange={(e) => setFacebookUrl(e.target.value)}
+                                    className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
+                                />
+                            </div>
+                            <div className="col-span-4 md:col-span-2">
+                                <label className="block text-xs md:text-sm font-semibold tracking-wide">
+                                    Line URL
+                                </label>
+                                <input
+                                    type="text"
+                                    value={lineUrl}
+                                    onChange={(e) => setLineUrl(e.target.value)}
+                                    className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr className="w-full" />
+
+                    <div
+                        tag="form-sections"
+                        className="flex flex-col md:flex-row w-full gap-6"
+                    >
+                        <h3 className="font-semibold w-full md:w-1/3">
+                            การแสดงผล
                         </h3>
                         <div className="grid grid-cols-4 gap-6 w-full md:w-2/3">
                             <div className="col-span-4">
                                 <label className="block text-xs md:text-sm font-semibold tracking-wide">
-                                    ข้อความ
+                                    สีหลัก ({primaryColor})
                                 </label>
-                                <input
-                                    type="text"
-                                    // value={label}
-                                    // onChange={(e) => setLabel(e.target.value)}
-                                    className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
-                                />
+                                <div className="mt-1">
+                                    <ColorPicker 
+                                        color={primaryColor}
+                                        onChange={setPrimaryColor}
+                                        type="hex"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
