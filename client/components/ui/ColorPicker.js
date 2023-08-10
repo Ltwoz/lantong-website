@@ -49,7 +49,7 @@ export const ColorPicker = ({ color, onChange, type }) => {
 
             {isOpen && (
                 <div
-                    className="absolute w-full p-3 bg-[#fefefe] z-50 top-[calc(100%+8px)] left-0 rounded-md border shadow-md"
+                    className="absolute w-fit p-3 bg-[#fefefe] z-50 bottom-[calc(100%+8px)] left-0 rounded-md border shadow-md"
                     ref={popover}
                 >
                     {type === "hex" ? (
