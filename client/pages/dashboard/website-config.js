@@ -123,9 +123,16 @@ const WebsiteConfigPage = () => {
         );
         formData.set("style", JSON.stringify({ primary_color: primaryColor }));
         formData.set("about_detail", aboutDetail);
-        aboutBg.forEach((file) => {
-            formData.append("about_bg", file);
-        });
+        
+        if (aboutBg[0]?.public_id) {
+            aboutBg.forEach((image) => {
+                formData.append("about_bg[]", JSON.stringify(image));
+            });
+        } else {
+            aboutBg.forEach((file) => {
+                formData.append("about_bg", file);
+            });
+        }
 
         const config = { headers: { "Content-Type": "multipart/form-data" } };
 
