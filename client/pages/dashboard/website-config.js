@@ -9,6 +9,7 @@ import "react-quill/dist/quill.snow.css";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import instanceApi from "@/config/axios-config";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -51,9 +52,8 @@ const WebsiteConfigPage = () => {
 
     useEffect(() => {
         const getWebsiteConfig = async () => {
-            const { data } = await instanceApi.get(
-                `/api/website-config`
-            );
+            const { data } = await instanceApi.get(`/api/website-config`);
+            console.log(data);
             setConfig(data?.config);
             setLoading(false);
         };
@@ -74,7 +74,7 @@ const WebsiteConfigPage = () => {
         setAboutBg(config.about_bg);
         setAboutBgPreview(config.about_bg);
         setAboutDetail(config.about_detail);
-    }, [config])
+    }, [config]);
 
     function handleUploadImage(e) {
         const files = Array.from(e.target.files);
@@ -104,6 +104,49 @@ const WebsiteConfigPage = () => {
         const newImages = [...aboutBg];
         newImages.splice(index, 1);
         setAboutBg(newImages);
+    }
+
+    async function submitForm(e) {
+        e.preventDefault();
+
+        const formData = new FormData();
+
+        formData.set("website_title", title);
+        formData.set("website_name", name);
+        formData.set("website_desc", desc);
+        formData.set(
+            "social",
+            JSON.stringify({
+                facebook_url: facebookUrl,
+                line_url: lineUrl,
+            })
+        );
+        formData.set("style", JSON.stringify({ primary_color: primaryColor }));
+        formData.set("about_detail", aboutDetail);
+        aboutBg.forEach((file) => {
+            formData.append("about_bg", file);
+        });
+
+        const config = { headers: { "Content-Type": "multipart/form-data" } };
+
+        try {
+            setLoading(true);
+
+            const { data } = await instanceApi.patch(
+                `/api/admin/website-config/update`,
+                formData,
+                config
+            );
+
+            setIsSuccess(data.success);
+        } catch (error) {
+            setError(error.message);
+            console.error(error.message);
+        } finally {
+            setLoading(false);
+            setAboutBg([]);
+            setAboutBgPreview([]);
+        }
     }
 
     const { user, isAuthenticated } = useUser();
@@ -176,13 +219,15 @@ const WebsiteConfigPage = () => {
                                 />
                             </div>
                             <div className="col-span-4">
-                                <label className="block text-xs md:text-sm font-semibold tracking-wide">
+                                <label className="mb-1 block text-xs md:text-sm font-semibold tracking-wide">
                                     รูปเกี่ยวกับร้าน
                                 </label>
                                 <label
                                     htmlFor="dropzone-file"
-                                    className={`flex flex-col items-center justify-center w-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover:bg-gray-100 transition-all duration-300 ${
-                                        aboutBg?.length > 0 ? "h-14" : "h-40"
+                                    className={`flex flex-col items-center justify-center overflow-hidden w-full border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover:bg-gray-100 transition-all duration-300 ${
+                                        aboutBg?.length > 0
+                                            ? "h-0"
+                                            : "h-40 border-2"
                                     }`}
                                 >
                                     <span className="flex items-center space-x-2">
@@ -210,12 +255,11 @@ const WebsiteConfigPage = () => {
                                         accept=".jpeg, .jpg, .png"
                                         onChange={handleUploadImage}
                                         className="hidden"
+                                        disabled={loading ? true : false}
                                     />
                                 </label>
-                            </div>
-                            {aboutBgPreview?.length > 0 && (
-                                <div className="col-span-4">
-                                    {aboutBgPreview?.map((image, i) => (
+                                {aboutBgPreview?.length > 0 &&
+                                    aboutBgPreview?.map((image, i) => (
                                         <div
                                             key={i}
                                             className="w-full aspect-[16/6] relative flex items-center rounded-lg overflow-hidden"
@@ -256,8 +300,7 @@ const WebsiteConfigPage = () => {
                                             </div>
                                         </div>
                                     ))}
-                                </div>
-                            )}
+                            </div>
                             <div className="col-span-4">
                                 <label className="block text-xs md:text-sm font-semibold tracking-wide">
                                     เกี่ยวกับร้าน
@@ -324,8 +367,8 @@ const WebsiteConfigPage = () => {
 
                     <div className="col-span-12 flex items-center justify-end gap-x-4">
                         <button
-                            // onClick={submitForm}
-                            // disabled={loading ? true : false}
+                            onClick={submitForm}
+                            disabled={loading ? true : false}
                             className="inline-flex items-center bg-[#12A53B] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
                         >
                             <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
@@ -344,8 +387,7 @@ const WebsiteConfigPage = () => {
                                     />
                                 </svg>
                                 <span className="block">
-                                    {/* {loading ? "กำลังสร้าง" : "แก้ไข"} */}
-                                    แก้ไข
+                                    {loading ? "กำลังแก้ไข" : "แก้ไข"}
                                 </span>
                             </div>
                         </button>
