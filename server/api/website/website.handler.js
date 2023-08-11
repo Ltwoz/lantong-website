@@ -41,8 +41,6 @@ exports.updateWebsiteConfig = catchAsyncErrors(async (req, res, next) => {
             )
     );
 
-    console.log(unmatchedImages);
-
     //Deleting Images From AWS S3
     await deleteFiles(unmatchedImages);
 
