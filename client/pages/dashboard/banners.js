@@ -42,7 +42,7 @@ const WebsiteCOnfigPage = () => {
     }, [isSuccess, error]);
 
     useEffect(() => {
-        const getProducts = async () => {
+        const getBanners = async () => {
             const { data } = await instanceApi.get(
                 `/api/admin/banners`
             );
@@ -50,7 +50,7 @@ const WebsiteCOnfigPage = () => {
             setLoading(false);
         };
 
-        getProducts().catch(() => {
+        getBanners().catch(() => {
             console.error;
             setLoading(false);
         });
