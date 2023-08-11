@@ -141,7 +141,7 @@ export default function Register() {
                         <p className="text-gray-400 text-center text-sm mt-8">
                             มีบัญชีอยู่แล้ว ?{" "}
                             <Link
-                                href="/auth/register"
+                                href="/auth/login"
                                 className="text-sm ml-1 text-[#BC1F1F] hover:brightness-95 hover:underline"
                             >
                                 เข้าสู่ระบบ
