@@ -159,24 +159,24 @@ const NewProductPage = () => {
             return false;
         }
 
-        // const config = { headers: { "Content-Type": "multipart/form-data" } };
+        const config = { headers: { "Content-Type": "multipart/form-data" } };
 
-        // try {
-        //     setLoading(true);
+        try {
+            setLoading(true);
 
-        //     const { data } = await instanceApi.post(
-        //         `/api/admin/product/new`,
-        //         formData,
-        //         config
-        //     );
+            const { data } = await instanceApi.post(
+                `/api/admin/product/new`,
+                formData,
+                config
+            );
 
-        //     setIsSuccess(data.success);
-        // } catch (error) {
-        //     setError(error.message);
-        //     console.error(error.message);
-        // } finally {
-        //     setLoading(false);
-        // }
+            setIsSuccess(data.success);
+        } catch (error) {
+            setError(error.message);
+            console.error(error.message);
+        } finally {
+            setLoading(false);
+        }
     }
 
     const { user, isAuthenticated } = useUser();
