@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { z } from "zod";
 
 export default function Register() {
     const { register, isAuthenticated, error, clearErrors, dispatch } =
@@ -20,6 +21,21 @@ export default function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+
+    const validateSchema = z
+        .object({
+            name: z.string().min(1, { message: "ใส่ชื่อผู้ใช้" }),
+            email: z.string().email({ message: "อีเมลไม่ถูกต้อง" }),
+            password: z
+                .string()
+                .min(8, { message: "รหัสผ่านต้อง 8 ตัวขึ้นไป" }),
+            confirmPassword: z
+                .string(),
+        })
+        .refine((data) => data.password === data.confirmPassword, {
+            message: "รหัสผ่านไม่ตรงกัน",
+            path: ["confirmpassword"],
+        });
 
     // Toastify
     useEffect(() => {
@@ -49,18 +65,27 @@ export default function Register() {
             });
         }
 
-        if (password !== confirmPassword) {
-            return dispatch({
-                type: REGISTER_FAIL,
-                payload: "รหัสผ่านไม่ตรงกัน",
-            });
-        }
-
-        register({
+        const validatedForm = validateSchema.safeParse({
             name,
             email,
             password,
+            confirmPassword
         });
+
+        if (!validatedForm.success) {
+            validatedForm.error.issues.map((err) => {
+                toast.error(err.message, {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
+            })
+            return false;
+        }
+
+        // register({
+        //     name,
+        //     email,
+        //     password,
+        // });
     }
 
     return (
@@ -97,7 +122,7 @@ export default function Register() {
                                 <input
                                     className=" w-full text-sm px-4 py-3 bg-white focus:bg-gray-50 border  border-gray-200 rounded-lg focus:outline-none focus:border-primary"
                                     placeholder="อีเมล"
-                                    type="text"
+                                    type="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
@@ -117,7 +142,7 @@ export default function Register() {
                                 <input
                                     className="text-sm px-4 py-3 rounded-lg w-full bg-white focus:bg-gray-50 border border-gray-200 focus:outline-none focus:border-primary"
                                     placeholder="ยืนยันรหัสผ่าน"
-                                    type="confirm-password"
+                                    type="password"
                                     value={confirmPassword}
                                     onChange={(e) =>
                                         setConfirmPassword(e.target.value)
