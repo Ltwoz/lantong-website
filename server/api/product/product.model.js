@@ -22,6 +22,7 @@ const productSchema = mongoose.Schema({
     salePrice: {
         type: Number,
         maxLength: [10, "Sale price cannot exceed 10 characters"],
+        default: 0
     },
     category: {
         type: mongoose.Schema.Types.ObjectId,
@@ -29,19 +30,19 @@ const productSchema = mongoose.Schema({
     },
     width: {
         type: Number,
-        required: [true, "Product width cannot be empty"],
+        default: 0
     },
     length: {
         type: Number,
-        required: [true, "Product length cannot be empty"],
+        default: 0
     },
     height: {
         type: Number,
-        required: [true, "Product length cannot be empty"],
+        default: 0
     },
     weightAccept: {
         type: Number,
-        required: [true, "Product weight cannot be empty"],
+        default: 0
     },
     images: [
         {

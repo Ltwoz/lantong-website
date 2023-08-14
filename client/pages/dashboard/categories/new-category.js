@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import instanceApi from "@/config/axios-config";
 import { useUser } from "@/contexts/user-context";
 import NoPermission from "@/components/ui/custom-pages/403";
+import { z } from "zod";
 
 const NewCategoryPage = () => {
     // State ของ Category
@@ -17,6 +18,11 @@ const NewCategoryPage = () => {
     const [isSuccess, setIsSuccess] = useState(false);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+
+    const validateSchema = z.object({
+        categoryId: z.string().min(1, { message: "ใส่รหัสหมวดหมู่" }),
+        name: z.string().min(1, { message: "ใส่ชื่อหมวดหมู่" }),
+    });
 
     useEffect(() => {
         if (isSuccess) {
@@ -43,6 +49,19 @@ const NewCategoryPage = () => {
         formData.set("name", name);
         formData.set("isActive", isActive);
 
+        const data = Object.fromEntries(formData);
+
+        const validatedForm = validateSchema.safeParse(data);
+
+        if (!validatedForm.success) {
+            validatedForm.error.issues.map((err) => {
+                toast.error(err.message, {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
+            })
+            return false;
+        }
+
         const config = { headers: { "Content-Type": "application/json" } };
 
         try {
@@ -66,9 +85,7 @@ const NewCategoryPage = () => {
     const { user, isAuthenticated } = useUser();
 
     if (!user || user.role !== "admin" || !isAuthenticated) {
-        return (
-           <NoPermission />
-        );
+        return <NoPermission />;
     }
 
     return (
