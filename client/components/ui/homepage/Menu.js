@@ -150,7 +150,7 @@ const Menu = () => {
                     </Link>
                 </div>
             </div>
-            <div className="border-l border-[#D3D3D3]"></div>
+            <div className="hidden xl:block border-l border-[#D3D3D3]"></div>
             {/* Social */}
             <div className="flex flex-col md:w-[320px] flex-shrink-0 gap-[10px]">
                 <Link
