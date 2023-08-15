@@ -65,6 +65,7 @@ const AdminAllCategoriesPage = () => {
         }&page=${page}`;
 
         const getCategories = async () => {
+            setLoading(true);
             const { data } = await instanceApi.get(`${link}`);
             setCategories(data);
             setLoading(false);

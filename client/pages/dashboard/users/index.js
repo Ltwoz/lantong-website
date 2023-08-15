@@ -65,6 +65,7 @@ const AdminAllUsersPage = () => {
         }&page=${page}`;
 
         const getUsers = async () => {
+            setLoading(true);
             const { data } = await instanceApi.get(`${link}`);
             setUsers(data);
             setLoading(false);

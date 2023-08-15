@@ -65,6 +65,7 @@ const AdminAllProductsPage = () => {
         }&page=${page}`;
 
         const getProducts = async () => {
+            setLoading(true);
             const { data } = await instanceApi.get(`${link}`);
             setProducts(data);
             setLoading(false);

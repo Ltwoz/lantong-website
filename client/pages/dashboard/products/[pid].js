@@ -59,7 +59,7 @@ const EditProductPage = ({ id }) => {
                 position: toast.POSITION.BOTTOM_RIGHT,
             });
             setIsSuccess(false);
-            router.reload();
+            router.replace(`/dashboard/products/${id}`);
         }
 
         if (error) {
@@ -68,7 +68,7 @@ const EditProductPage = ({ id }) => {
             });
             setError(null);
         }
-    }, [isSuccess, error, router]);
+    }, [isSuccess, error, router, id]);
 
     // Fetch get all categories
     useEffect(() => {

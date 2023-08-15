@@ -29,7 +29,7 @@ const EditUserPage = ({ id }) => {
                 position: toast.POSITION.BOTTOM_RIGHT,
             });
             setIsSuccess(false);
-            router.reload();
+            router.replace(`/dashboard/users/${id}`);
         }
 
         if (error) {
@@ -38,7 +38,7 @@ const EditUserPage = ({ id }) => {
             });
             setError(null);
         }
-    }, [isSuccess, error, router]);
+    }, [isSuccess, error, router, id]);
 
     // Fetch Category
     useEffect(() => {
