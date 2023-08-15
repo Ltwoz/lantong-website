@@ -29,7 +29,7 @@ const EditCategoryPage = ({ id }) => {
                 position: toast.POSITION.BOTTOM_RIGHT,
             });
             setIsSuccess(false);
-            router.reload();
+            router.replace(`/dashboard/categories/${id}`);
         }
 
         if (error) {
@@ -38,7 +38,7 @@ const EditCategoryPage = ({ id }) => {
             });
             setError(null);
         }
-    }, [isSuccess, error, router]);
+    }, [isSuccess, error, router, id]);
 
     // Fetch Category
     useEffect(() => {

@@ -46,12 +46,12 @@ export default function Login() {
             <Head>
                 <title>เข้าสู่ระบบ - หจก.ลานทองเชียงใหม่</title>
             </Head>
-            <div className="flex justify-center mx-auto md:max-w-[1200px] w-full h-fit md:h-[800px] p-4 md:px-0 md:py-20">
+            <div className="flex justify-center mx-auto xl:max-w-[1200px] w-full md:w-1/2 xl:w-full h-fit xl:h-[800px] p-4 xl:px-0 xl:py-20">
                 <div className="flex flex-row border w-full rounded-lg overflow-hidden">
-                    <div id="login-banner" className="hidden md:block w-1/2 bg-gray-600">
+                    <div id="login-banner" className="hidden xl:block w-1/2 bg-gray-600">
 
                     </div>
-                    <div id="login-form" className="w-full md:w-1/2 p-6 md:px-24 md:py-0 bg-white flex flex-col justify-center">
+                    <div id="login-form" className="w-full xl:w-1/2 p-6 xl:px-24 xl:py-0 bg-white flex flex-col justify-center">
                         <div className="mb-7 text-center">
                             <h3 className="font-semibold text-2xl text-gray-800">
                                 เข้าสู่ระบบ

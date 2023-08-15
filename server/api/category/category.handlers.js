@@ -30,7 +30,7 @@ exports.getAllCategories = catchAsyncErrors(async (req, res, next) => {
 
 // Get All Categories -- Admin
 exports.getAdminCategories = catchAsyncErrors(async (req, res, next) => {
-    const resultPerPage = 25;
+    const resultPerPage = 20;
     const categoriesCount = await Category.countDocuments();
 
     const apiFeature = new ApiFeatures(
@@ -48,32 +48,6 @@ exports.getAdminCategories = catchAsyncErrors(async (req, res, next) => {
     apiFeature.pagination(resultPerPage);
 
     categories = await apiFeature.query.clone();
-
-    // Count products in a category
-    const categoryProductsCount = await Category.aggregate([
-        {
-            $lookup: {
-                from: "products",
-                localField: "_id",
-                foreignField: "category",
-                as: "products"
-            }
-        },
-        {
-            $addFields: {
-                productsCount: { $size: "$products" }
-            }
-        }
-    ]);
-
-    // Update productsCount field to a category
-    for (let category of categoryProductsCount) {
-        await Category.findByIdAndUpdate(category._id, { productsCount: category.productsCount }, {
-            new: true,
-            runValidators: true,
-            useFindAndModify: false,
-        });
-    }
 
     const totalPageCount = Math.ceil(filteredCategoriesCount / resultPerPage);
 

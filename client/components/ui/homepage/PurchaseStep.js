@@ -1,9 +1,9 @@
 const PurchaseStep = () => {
     return (
-        <>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-9 justify-center w-full">
+        <div className="w-full overflow-auto">
+            <div className="flex xl:grid xl:grid-cols-4 gap-4 xl:gap-9 justify-center w-fit">
                 {/* Card ขั้นตอน 1 */}
-                <div className="relative bg-white border border-[#D3D3D3] rounded-lg overflow-hidden h-[300px]">
+                <div className="relative w-[273px] xl:w-full bg-white border border-[#D3D3D3] rounded-lg overflow-hidden h-[300px]">
                     <div className="flex justify-center items-center absolute top-0 right-0 rounded-bl-[20px] bg-[#D3D3D3] w-[47px]">
                         <p className="text-[#606060] text-xl font-bold">1</p>
                     </div>
@@ -22,7 +22,7 @@ const PurchaseStep = () => {
                                 />
                             </svg>
                         </div>
-                        <h4 className="text-lg">Lorem ipsum dolor</h4>
+                        <h4 className="text-lg font-semibold">ค้นหาสินค้า</h4>
                         <p className="text-sm">
                             Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit, sed do eiusmod tempor incididunt ut labore et
@@ -31,7 +31,7 @@ const PurchaseStep = () => {
                     </div>
                 </div>
                 {/* Card ขั้นตอน 2 */}
-                <div className="relative bg-white border border-[#D3D3D3] rounded-lg overflow-hidden h-[300px]">
+                <div className="relative w-[273px] xl:w-full bg-white border border-[#D3D3D3] rounded-lg overflow-hidden h-[300px]">
                     <div className="flex justify-center items-center absolute top-0 right-0 rounded-bl-[20px] bg-[#D3D3D3] w-[47px]">
                         <p className="text-[#606060] text-xl font-bold">2</p>
                     </div>
@@ -50,7 +50,7 @@ const PurchaseStep = () => {
                                 />
                             </svg>
                         </div>
-                        <h4 className="text-lg">Lorem ipsum dolor</h4>
+                        <h4 className="text-lg font-semibold">ติดต่อลานทอง</h4>
                         <p className="text-sm">
                             Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit, sed do eiusmod tempor incididunt ut labore et
@@ -59,7 +59,7 @@ const PurchaseStep = () => {
                     </div>
                 </div>
                 {/* Card ขั้นตอน 3 */}
-                <div className="relative bg-white border border-[#D3D3D3] rounded-lg overflow-hidden h-[300px]">
+                <div className="relative w-[273px] xl:w-full bg-white border border-[#D3D3D3] rounded-lg overflow-hidden h-[300px]">
                     <div className="flex justify-center items-center absolute top-0 right-0 rounded-bl-[20px] bg-[#D3D3D3] w-[47px]">
                         <p className="text-[#606060] text-xl font-bold">3</p>
                     </div>
@@ -78,7 +78,7 @@ const PurchaseStep = () => {
                                 />
                             </svg>
                         </div>
-                        <h4 className="text-lg">Lorem ipsum dolor</h4>
+                        <h4 className="text-lg font-semibold">ชำระเงิน</h4>
                         <p className="text-sm">
                             Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit, sed do eiusmod tempor incididunt ut labore et
@@ -87,7 +87,7 @@ const PurchaseStep = () => {
                     </div>
                 </div>
                 {/* Card ขั้นตอน 4 */}
-                <div className="relative bg-white border border-[#D3D3D3] rounded-lg overflow-hidden h-[300px]">
+                <div className="relative w-[273px] xl:w-full bg-white border border-[#D3D3D3] rounded-lg overflow-hidden h-[300px]">
                     <div className="flex justify-center items-center absolute top-0 right-0 rounded-bl-[20px] bg-[#D3D3D3] w-[47px]">
                         <p className="text-[#606060] text-xl font-bold">4</p>
                     </div>
@@ -106,7 +106,7 @@ const PurchaseStep = () => {
                                 />
                             </svg>
                         </div>
-                        <h4 className="text-lg">Lorem ipsum dolor</h4>
+                        <h4 className="text-lg font-semibold">รอรับรถได้เลย</h4>
                         <p className="text-sm">
                             Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit, sed do eiusmod tempor incididunt ut labore et
@@ -115,7 +115,7 @@ const PurchaseStep = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

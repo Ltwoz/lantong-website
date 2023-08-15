@@ -6,7 +6,7 @@ import { HiChatBubbleOvalLeft } from "react-icons/hi2";
 
 const Menu = () => {
     return (
-        <div className="flex flex-col md:flex-row w-full md:w-[1200px] p-6 gap-[10px] bg-white rounded-xl shadow-md mx-auto">
+        <div className="flex flex-col xl:flex-row w-full md:w-[60%] xl:w-[1200px] p-4 xl:p-6 gap-[10px] bg-white md:rounded-xl shadow-md mx-auto">
             {/* Filter */}
             <div className="flex flex-col gap-4 w-full h-fit">
                 {/* Search Bar */}
@@ -32,108 +32,167 @@ const Menu = () => {
                             className="pl-10 pr-24 p-3 block w-full rounded-md border focus:outline-none bg-white/80 backdrop-blur-sm border-gray-300 focus:border-blue-600 shadow-sm text-base"
                         />
                     </div>
-                    <button className="inline-flex items-center bg-[#FF5A60] rounded-md transition-all overflow-hidden flex-shrink-0 md:w-[120px]">
+                    <button className="inline-flex items-center bg-[#FF5A60] rounded-md transition-all overflow-hidden flex-shrink-0 xl:w-[120px]">
                         <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
                             <span className="block">ค้นหา</span>
                         </div>
                     </button>
                 </div>
-                <div className="grid grid-cols-4 gap-3">
-                    <div
-                        alt="grid-items"
-                        className="col-span-4 md:col-span-1 flex justify-between p-3 rounded-lg gap-[10px] bg-[#173559]"
+                <div className="flex flex-row xl:flex-wrap gap-3 overflow-auto">
+                    <Link
+                        href={`/products`}
+                        className="p-3 flex-shrink-0 xl:flex-grow w-[150px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
-                        <p className="text-white font-semibold">
+                        <p className="text-sm xl:text-base text-white font-semibold max-w-[70px]">
                             มอเตอร์ไซค์ ใหม่
                         </p>
-                        <div className="w-[76px] h-[76px] relative flex flex-shrink-0 items-center rounded-lg overflow-hidden">
-                            <Image
-                                alt="property-image"
-                                src={`https://dummyimage.com/100x100`}
-                                unoptimized
-                                draggable="false"
-                                fill
-                                className="select-none object-cover"
-                            />
+                        <div className="absolute right-1 bottom-1">
+                            <div className="w-[70px] h-[65px] xl:w-[96px] xl:h-[80px] relative flex flex-shrink-0 items-center overflow-hidden">
+                                <Image
+                                    alt="property-image"
+                                    src={`https://www.pngkit.com/png/full/244-2448133_wave100-honda-wave-100-ncx-2017.png`}
+                                    unoptimized
+                                    draggable="false"
+                                    fill
+                                    className="select-none object-scale-down"
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <div
-                        alt="grid-items"
-                        className="col-span-4 md:col-span-1 flex justify-between p-3 rounded-lg gap-[10px] bg-[#173559]"
+                    </Link>
+                    <Link
+                        href={`/products`}
+                        className="p-3 flex-shrink-0 xl:flex-grow w-[150px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
-                        <p className="text-white font-semibold">
+                        <p className="text-sm xl:text-base text-white font-semibold max-w-[70px]">
                             มอเตอร์ไซค์ มีพ่วงข้าง
                         </p>
-                        <div className="w-[76px] h-[76px] relative flex flex-shrink-0 items-center rounded-lg overflow-hidden">
-                            <Image
-                                alt="property-image"
-                                src={`https://dummyimage.com/100x100`}
-                                unoptimized
-                                draggable="false"
-                                fill
-                                className="select-none object-cover"
-                            />
+                        <div className="absolute right-1 bottom-1">
+                            <div className="w-[70px] h-[65px] xl:w-[96px] xl:h-[80px] relative flex flex-shrink-0 items-center overflow-hidden">
+                                <Image
+                                    alt="property-image"
+                                    src={`/menu-c2.png`}
+                                    unoptimized
+                                    draggable="false"
+                                    fill
+                                    className="select-none object-scale-down"
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <div
-                        alt="grid-items"
-                        className="col-span-4 md:col-span-1 flex justify-between p-3 rounded-lg gap-[10px] bg-[#173559]"
+                    </Link>
+                    <Link
+                        href={`/products`}
+                        className="p-3 flex-shrink-0 xl:flex-grow w-[150px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
-                        <p className="text-white font-semibold">
+                        <p className="text-sm xl:text-base text-white font-semibold max-w-[70px]">
                             พ่วงข้าง ขายของ
                         </p>
-                        <div className="w-[76px] h-[76px] relative flex flex-shrink-0 items-center rounded-lg overflow-hidden">
-                            <Image
-                                alt="property-image"
-                                src={`https://dummyimage.com/100x100`}
-                                unoptimized
-                                draggable="false"
-                                fill
-                                className="select-none object-cover"
-                            />
+                        <div className="absolute right-1 bottom-1">
+                            <div className="w-[70px] h-[65px] xl:w-[96px] xl:h-[80px] relative flex flex-shrink-0 items-center overflow-hidden">
+                                <Image
+                                    alt="property-image"
+                                    src={`/menu-c3.png`}
+                                    unoptimized
+                                    draggable="false"
+                                    fill
+                                    className="select-none object-scale-down"
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <div
-                        alt="grid-items"
-                        className="col-span-4 md:col-span-1 flex justify-between p-3 rounded-lg gap-[10px] bg-[#173559]"
+                    </Link>
+                    <Link
+                        href={`/products`}
+                        className="p-3 flex-shrink-0 xl:flex-grow w-[150px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
-                        <p className="text-white font-semibold">
+                        <p className="text-sm xl:text-base text-white font-semibold max-w-[70px]">
                             พ่วงข้าง วินเทจ
                         </p>
-                        <div className="w-[76px] h-[76px] relative flex flex-shrink-0 items-center rounded-lg overflow-hidden">
-                            <Image
-                                alt="property-image"
-                                src={`https://dummyimage.com/100x100`}
-                                unoptimized
-                                draggable="false"
-                                fill
-                                className="select-none object-cover"
-                            />
+                        <div className="absolute right-1 bottom-1">
+                            <div className="w-[70px] h-[65px] xl:w-[96px] xl:h-[80px] relative flex flex-shrink-0 items-center overflow-hidden">
+                                <Image
+                                    alt="property-image"
+                                    src={`/menu-c4.png`}
+                                    unoptimized
+                                    draggable="false"
+                                    fill
+                                    className="select-none object-scale-down"
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <div
-                        alt="grid-items"
-                        className="col-span-4 md:col-span-1 flex justify-between p-3 rounded-lg gap-[10px] bg-[#173559]"
+                    </Link>
+                    <Link
+                        href={`/products`}
+                        className="p-3 flex-shrink-0 xl:flex-grow w-[150px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
-                        <p className="text-white font-semibold">
+                        <p className="text-sm xl:text-base text-white font-semibold max-w-[70px]">
                             พ่วงข้าง รถบรรทุก
                         </p>
-                        <div className="w-[76px] h-[76px] relative flex flex-shrink-0 items-center rounded-lg overflow-hidden">
-                            <Image
-                                alt="property-image"
-                                src={`https://dummyimage.com/100x100`}
-                                unoptimized
-                                draggable="false"
-                                fill
-                                className="select-none object-cover"
-                            />
+                        <div className="absolute right-1 bottom-1">
+                            <div className="w-[70px] h-[65px] xl:w-[96px] xl:h-[80px] relative flex flex-shrink-0 items-center overflow-hidden">
+                                <Image
+                                    alt="property-image"
+                                    src={`/menu-c5.png`}
+                                    unoptimized
+                                    draggable="false"
+                                    fill
+                                    className="select-none object-scale-down"
+                                />
+                            </div>
                         </div>
-                    </div>
+                    </Link>
+                    <Link
+                        href={`/products`}
+                        className="p-3 flex-shrink-0 xl:flex-grow w-[150px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
+                    >
+                        <p className="text-sm xl:text-base text-white font-semibold max-w-[70px]">
+                            รถเข็น
+                        </p>
+                        <div className="absolute right-1 bottom-1">
+                            <div className="w-[70px] h-[65px] xl:w-[96px] xl:h-[80px] relative flex flex-shrink-0 items-center overflow-hidden">
+                                <Image
+                                    alt="property-image"
+                                    src={`/menu-c6.png`}
+                                    unoptimized
+                                    draggable="false"
+                                    fill
+                                    className="select-none object-scale-down"
+                                />
+                            </div>
+                        </div>
+                    </Link>
+                    <Link
+                        href={`/products`}
+                        className="p-3 flex-shrink-0 xl:flex-grow w-[150px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
+                    >
+                        <p className="text-sm xl:text-base text-white font-semibold max-w-[70px]">
+                            ไซด์คาร์
+                        </p>
+                        <div className="absolute right-1 bottom-1">
+                            <div className="w-[70px] h-[65px] xl:w-[96px] xl:h-[80px] relative flex flex-shrink-0 items-center overflow-hidden">
+                                <Image
+                                    alt="property-image"
+                                    src={`/menu-c7.png`}
+                                    unoptimized
+                                    draggable="false"
+                                    fill
+                                    className="select-none object-scale-down"
+                                />
+                            </div>
+                        </div>
+                    </Link>
+                    {/* Default */}
+                    <Link
+                        href={"/products"}
+                        className="p-3 flex-shrink-0 xl:flex-grow w-[140px] h-[90px] xl:w-[190px] xl:h-[100px] flex justify-center items-center relative rounded-lg gap-[10px] bg-[#4E4E4E]"
+                    >
+                        <p className="text-sm xl:text-base text-white font-semibold">
+                            หมวดหมู่ทั้งหมด
+                        </p>
+                    </Link>
                 </div>
             </div>
-            <div className="border-l border-[#D3D3D3]"></div>
+            <div className="hidden xl:block border-l border-[#D3D3D3]"></div>
             {/* Social */}
-            <div className="flex flex-col md:w-[320px] flex-shrink-0 gap-[10px]">
+            <div className="flex flex-col xl:w-[320px] flex-shrink-0 gap-[10px]">
                 <Link
                     href={"#"}
                     className="h-[50px] inline-flex items-center bg-[#4267B2] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
@@ -168,6 +227,15 @@ const Menu = () => {
                     <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
                         <MdPhone className="mr-2" />
                         <span className="block">{"081 952 1342"}</span>
+                    </div>
+                </Link>
+                <Link
+                    href={"#"}
+                    className="h-[50px] inline-flex items-center bg-[#4E4E4E] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
+                >
+                    <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
+                        <MdPhone className="mr-2" />
+                        <span className="block">{"053 876 109"}</span>
                     </div>
                 </Link>
             </div>

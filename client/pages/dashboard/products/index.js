@@ -65,6 +65,7 @@ const AdminAllProductsPage = () => {
         }&page=${page}`;
 
         const getProducts = async () => {
+            setLoading(true);
             const { data } = await instanceApi.get(`${link}`);
             setProducts(data);
             setLoading(false);
@@ -175,8 +176,8 @@ const AdminAllProductsPage = () => {
                                         <table className="w-full table-fixed">
                                             <thead>
                                                 <tr className="bg-zinc-700 text-gray-200 text-sm leading-normal">
-                                                    <th className="th-td w-24 2xl:w-16">
-                                                        รหัสสินค้า
+                                                    <th className="th-td w-36 2xl:w-16">
+                                                        รหัส
                                                     </th>
                                                     <th className="th-td w-52 2xl:w-44">
                                                         ชื่อสินค้า
@@ -184,10 +185,10 @@ const AdminAllProductsPage = () => {
                                                     <th className="th-td w-52 2xl:w-32">
                                                         หมวดหมู่
                                                     </th>
-                                                    <th className="th-td w-20 2xl:w-14">
+                                                    <th className="th-td w-32 2xl:w-14">
                                                         ราคา
                                                     </th>
-                                                    <th className="th-td w-40 2xl:w-24">
+                                                    <th className="th-td !text-center w-40 2xl:w-24">
                                                         วันที่
                                                     </th>
                                                     <th className="th-td !text-center w-40 2xl:w-16">
@@ -225,7 +226,7 @@ const AdminAllProductsPage = () => {
                                                             <td className="th-td">
                                                                 {product?.price}
                                                             </td>
-                                                            <td className="th-td">
+                                                            <td className="th-td !text-center">
                                                                 {new Date(
                                                                     product.createdAt
                                                                 ).toLocaleString(

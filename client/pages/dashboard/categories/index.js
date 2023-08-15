@@ -65,6 +65,7 @@ const AdminAllCategoriesPage = () => {
         }&page=${page}`;
 
         const getCategories = async () => {
+            setLoading(true);
             const { data } = await instanceApi.get(`${link}`);
             setCategories(data);
             setLoading(false);
@@ -175,16 +176,16 @@ const AdminAllCategoriesPage = () => {
                                         <table className="w-full table-fixed">
                                             <thead>
                                                 <tr className="bg-zinc-700 text-gray-200 text-sm leading-normal">
-                                                    <th className="th-td w-24 2xl:w-20">
-                                                        รหัสหมวดหมู่
+                                                    <th className="th-td w-36 2xl:w-20">
+                                                        รหัส
                                                     </th>
                                                     <th className="th-td w-52 2xl:w-48">
                                                         ชื่อหมวดหมู่
                                                     </th>
-                                                    <th className="th-td w-20 2xl:w-14">
+                                                    <th className="th-td !text-center w-40 2xl:w-14">
                                                         จำนวนสินค้า
                                                     </th>
-                                                    <th className="th-td w-40 2xl:w-16">
+                                                    <th className="th-td !text-center w-40 2xl:w-16">
                                                         วันที่
                                                     </th>
                                                     <th className="py-3 px-6 text-center w-48 2xl:w-[82px]">
@@ -209,12 +210,12 @@ const AdminAllCategoriesPage = () => {
                                                             <td className="th-td">
                                                                 {category.name}
                                                             </td>
-                                                            <td className="th-td">
+                                                            <td className="th-td !text-center">
                                                                 {
                                                                     category.productsCount
                                                                 }
                                                             </td>
-                                                            <td className="th-td">
+                                                            <td className="th-td !text-center">
                                                                 {new Date(
                                                                     category.createdAt
                                                                 ).toLocaleString(
@@ -230,31 +231,6 @@ const AdminAllCategoriesPage = () => {
                                                             </td>
                                                             <td className="py-3 px-6 text-center">
                                                                 <div className="flex item-center justify-center gap-x-2">
-                                                                    <Link
-                                                                        href={`/categories/${category._id}`}
-                                                                        className="transform hover:text-[#12A53B] hover:scale-110 transition-all border hover:border-[#12A53B] rounded-full p-2"
-                                                                    >
-                                                                        <svg
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            fill="none"
-                                                                            viewBox="0 0 24 24"
-                                                                            stroke="currentColor"
-                                                                            className="w-5 h-5"
-                                                                        >
-                                                                            <path
-                                                                                strokeLinecap="round"
-                                                                                strokeLinejoin="round"
-                                                                                strokeWidth="2"
-                                                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                                                                            />
-                                                                            <path
-                                                                                strokeLinecap="round"
-                                                                                strokeLinejoin="round"
-                                                                                strokeWidth="2"
-                                                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                                                                            />
-                                                                        </svg>
-                                                                    </Link>
                                                                     <Link
                                                                         href={`/dashboard/categories/${category._id}`}
                                                                         className="transform hover:text-[#12A53B] hover:scale-110 transition-all border hover:border-[#12A53B] rounded-full p-2"

@@ -88,7 +88,7 @@ export default function ProductsPage() {
             <Head>
                 <title>สินค้าทั้งหมด - หจก.ลานทองเชียงใหม่</title>
             </Head>
-            <section className="min-h-screen mx-auto max-w-[1200px] px-4 md:px-0 flex flex-col md:flex-row gap-4 md:gap-6 py-10">
+            <section className="min-h-screen mx-auto max-w-[1200px] px-4 xl:px-0 flex flex-col md:flex-row gap-4 xl:gap-6 py-10">
                 {firstLoad ? (
                     <div className="w-full flex justify-center items-center">
                         <LoadingSpiner />
@@ -98,7 +98,7 @@ export default function ProductsPage() {
                         {/* Filter Form */}
                         <form
                             autoComplete="off"
-                            className="border-2 border-[#2D3648] rounded p-8 w-full md:w-[309px] grid grid-cols-4 gap-4 h-fit flex-shrink-0"
+                            className="border-2 border-[#2D3648] rounded p-8 w-full md:w-fit xl:w-[309px] grid grid-cols-4 gap-4 h-fit flex-shrink-0"
                         >
                             <div className="col-span-4">
                                 <label className="block text-xs md:text-sm font-medium tracking-wide">
@@ -109,7 +109,7 @@ export default function ProductsPage() {
                                     value={keyword}
                                     placeholder="ค้นหาชื่อสินค้า"
                                     onChange={(e) => setKeyword(e.target.value)}
-                                    className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
+                                    className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm xl:text-base"
                                 />
                             </div>
                             <div className="col-span-4">
@@ -121,7 +121,7 @@ export default function ProductsPage() {
                                     onChange={(e) =>
                                         setCategory(e.target.value)
                                     }
-                                    className="mt-1 p-2 block w-full bg-white rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base hover:cursor-pointer"
+                                    className="mt-1 p-2 block w-full bg-white rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm xl:text-base hover:cursor-pointer"
                                 >
                                     <option value="">ทั้งหมด</option>
                                     {allCategories?.map((categoryItem) => (
@@ -148,7 +148,7 @@ export default function ProductsPage() {
                                             handlePriceChange(0, e.target.value)
                                         }
                                         step={1000}
-                                        className="p-2 w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
+                                        className="p-2 w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm xl:text-base"
                                         placeholder="ต่ำสุด"
                                     />
                                     <input
@@ -160,7 +160,7 @@ export default function ProductsPage() {
                                             handlePriceChange(1, e.target.value)
                                         }
                                         step={1000}
-                                        className="p-2 w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
+                                        className="p-2 w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm xl:text-base"
                                         placeholder="สูงสุด"
                                     />
                                 </div>
@@ -204,7 +204,7 @@ export default function ProductsPage() {
                                         onChange={(e) =>
                                             setSort(e.target.value)
                                         }
-                                        className="py-1 px-2 block w-32 bg-white rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base hover:cursor-pointer"
+                                        className="py-1 px-2 block w-32 bg-white rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm xl:text-base hover:cursor-pointer"
                                     >
                                         <option value="latest">
                                             อัพเดทล่าสุด
@@ -228,7 +228,7 @@ export default function ProductsPage() {
                                     <LoadingSpiner />
                                 </div>
                             ) : (
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 xl:gap-6">
                                     {products?.products?.length !== 0 ? (
                                         products?.products?.map(
                                             (product, i) => (

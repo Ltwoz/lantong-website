@@ -49,7 +49,7 @@ const Navbar = () => {
                         } select-none transition-all`}
                         onClick={handleMenuClick}
                     >
-                        <div className="flex flex-row items-center gap-2 md:mr-6">
+                        <div className="flex flex-row items-center gap-2 xl:mr-6">
                             <div className="aspect-square w-7 h-7 relative overflow-hidden rounded-full">
                                 <Image
                                     alt="avatar"
@@ -66,12 +66,12 @@ const Navbar = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="inline-flex items-center md:mr-1">
+                        <div className="inline-flex items-center xl:mr-1">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
                                 className={
-                                    "h-5 md:h-3 w-5 md:w-3 transition duration-200" +
+                                    "h-5 xl:h-3 w-5 xl:w-3 transition duration-200" +
                                     (showMenu ? " -rotate-180" : "")
                                 }
                                 fill="none"
@@ -90,7 +90,7 @@ const Navbar = () => {
 
                 <div
                     id="menu"
-                    className={`absolute right-4 md:right-6 top-[calc(100%-10px)] md:top-[calc(100%+4px)] z-[99] mt-2 w-44 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5`}
+                    className={`absolute right-4 xl:right-6 top-[calc(100%-10px)] xl:top-[calc(100%+4px)] z-[99] mt-2 w-44 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5`}
                     style={{ display: showMenu ? "" : "none" }}
                 >
                     {/* <div className="py-1">
@@ -141,7 +141,7 @@ const Navbar = () => {
         );
 
     return (
-        <nav className="relative w-full mx-auto px-4 md:px-4 py-4 md:py-4 bg-white border-b shadow h-[73px]">
+        <nav className="relative w-full mx-auto px-4 py-4 bg-white border-b shadow xl:h-[73px]">
             <div className="flex flex-row justify-between items-center">
                 <div id="logo">
                     <Link
@@ -158,14 +158,14 @@ const Navbar = () => {
                                 className="object-cover"
                             />
                         </div>
-                        <h2 className="text-xl md:text-3xl font-semibold text-[#E32C2C]">
+                        <h2 className="text-xl md:text-2xl xl:text-3xl font-semibold text-[#E32C2C]">
                             หจก.ลานทองเชียงใหม่
                         </h2>
                     </Link>
                 </div>
                 <div
                     id="nav-items-group"
-                    className="hidden md:flex flex-row items-center space-x-6 font-medium"
+                    className="hidden xl:flex flex-row items-center space-x-6 font-medium"
                 >
                     <Link href="/">หน้าหลัก</Link>
                     <Link href="/about">เกี่ยวกับ</Link>
@@ -176,7 +176,7 @@ const Navbar = () => {
                 </div>
                 <div
                     id="hamburger"
-                    className="flex md:hidden w-8 h-8"
+                    className="flex xl:hidden w-8 h-8"
                     onClick={handleOnclick}
                 >
                     <svg

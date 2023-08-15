@@ -8,7 +8,6 @@ const categorySchema = mongoose.Schema({
     name: {
         type: String,
         required: [true, "Category name cannot be empty"],
-        trim: true,
     },
     productsCount: {
         type: Number,

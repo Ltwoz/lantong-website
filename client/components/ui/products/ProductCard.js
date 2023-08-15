@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function ProductCard({product}) {
+export default function ProductCard({ product }) {
     return (
         <Link href={`/products/${product?._id}`}>
             <div className="w-full bg-white border rounded-lg overflow-hidden">
@@ -9,7 +9,11 @@ export default function ProductCard({product}) {
                     <div className="absolute z-[1] right-0 bottom-0 left-0 w-full h-[60%] overflow-hidden bg-gradient-to-t from-black/80 to-white/0 opacity-100" />
                     <Image
                         alt="property-image"
-                        src={product?.images[0]?.url ? product?.images[0]?.url :`https://dummyimage.com/273x273`}
+                        src={
+                            product?.images[0]?.url
+                                ? product?.images[0]?.url
+                                : `https://dummyimage.com/273x273`
+                        }
                         unoptimized
                         draggable="false"
                         fill
@@ -29,8 +33,14 @@ export default function ProductCard({product}) {
                     </h1>
                     <hr />
                     <div className="flex items-center justify-between">
-                        <p className="font-semibold text-xl">#{product?.productId}</p>
-                        <p className="font-semibold text-xl">{product?.price.toLocaleString()}฿</p>
+                        <p className="font-semibold text-xl">
+                            #{product?.productId}
+                        </p>
+                        <p className="font-semibold text-xl">
+                            {product?.price === 0
+                                ? "ราคาพิเศษ"
+                                : `${product?.price.toLocaleString()}฿`}
+                        </p>
                     </div>
                 </div>
             </div>

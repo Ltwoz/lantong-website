@@ -17,9 +17,9 @@ const FeaturedProducts = () => {
                 : status === "featured"
                 ? "&isFeatured=true"
                 : status === "popular"
-                ? "&sort=popular"
+                ? "&isPopular=true"
                 : status === "promotion"
-                ? "&sort=promotion"
+                ? "&isPromotion=true"
                 : null
         }`;
 
@@ -39,7 +39,7 @@ const FeaturedProducts = () => {
 
     return (
         <div className="flex flex-col w-full">
-            <div className="w-full mx-auto grid grid-cols-1 md:grid-cols-4 space-x-2 rounded-lg p-1 bg-white/80 backdrop-blur-sm mb-9">
+            <div className="w-full mx-auto grid grid-cols-1 md:grid-cols-4 space-x-2 rounded-lg p-1 text-white bg-[#3A3A3A] backdrop-blur-sm mb-9">
                 <div>
                     <input
                         type="radio"
@@ -111,27 +111,23 @@ const FeaturedProducts = () => {
             </div>
             {/* Grid สินค้า */}
             {products?.length < 1 ? (
-                <div className="flex items-center justify-center pb-4 pt-8 border-t">
-                    <p className="font-medium text-gray-600">
+                <div className="flex items-center justify-center border-t min-h-[340.55px] xl:min-h-[360.77px]">
+                    <p className="font-medium text-white">
                         ไม่มีข้อมูลสินค้า
                     </p>
                 </div>
             ) : (
                 <Splide
-                    className="mb-10"
+                    className=""
                     hasTrack={false}
                     options={{
                         mediaQuery: "max",
                         perPage: 4,
                         gap: "1.5rem",
                         flickPower: 100,
-                        arrows: false,
+                        arrows: true,
                         pagination: false,
                         breakpoints: {
-                            1024: {
-                                perPage: 2,
-                                gap: "1.5rem",
-                            },
                             768:
                                 // properties.length === 1
                                 //     ? {
