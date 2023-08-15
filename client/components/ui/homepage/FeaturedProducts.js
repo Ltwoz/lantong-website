@@ -17,9 +17,9 @@ const FeaturedProducts = () => {
                 : status === "featured"
                 ? "&isFeatured=true"
                 : status === "popular"
-                ? "&sort=popular"
+                ? "&isPopular=true"
                 : status === "promotion"
-                ? "&sort=promotion"
+                ? "&isPromotion=true"
                 : null
         }`;
 
@@ -111,14 +111,14 @@ const FeaturedProducts = () => {
             </div>
             {/* Grid สินค้า */}
             {products?.length < 1 ? (
-                <div className="flex items-center justify-center pb-4 pt-8 border-t">
-                    <p className="font-medium text-gray-600">
+                <div className="flex items-center justify-center border-t xl:min-h-[360.77px]">
+                    <p className="font-medium text-white">
                         ไม่มีข้อมูลสินค้า
                     </p>
                 </div>
             ) : (
                 <Splide
-                    className="mb-10"
+                    className=""
                     hasTrack={false}
                     options={{
                         mediaQuery: "max",
