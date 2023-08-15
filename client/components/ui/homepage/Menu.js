@@ -41,12 +41,12 @@ const Menu = () => {
                 <div className="flex flex-row xl:flex-wrap gap-3 overflow-auto">
                     <Link
                         href={`/products`}
-                        className="p-3 flex-shrink-0 xl:flex-grow w-[140px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
+                        className="p-3 flex-shrink-0 xl:flex-grow w-[150px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
-                        <p className="text-sm xl:text-base text-white font-semibold max-w-[85px]">
+                        <p className="text-sm xl:text-base text-white font-semibold max-w-[70px]">
                             มอเตอร์ไซค์ ใหม่
                         </p>
-                        <div className="absolute right-0 bottom-0">
+                        <div className="absolute right-1 bottom-1">
                             <div className="w-[70px] h-[65px] xl:w-[96px] xl:h-[80px] relative flex flex-shrink-0 items-center overflow-hidden">
                                 <Image
                                     alt="property-image"
@@ -61,16 +61,16 @@ const Menu = () => {
                     </Link>
                     <Link
                         href={`/products`}
-                        className="p-3 flex-shrink-0 xl:flex-grow w-[140px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
+                        className="p-3 flex-shrink-0 xl:flex-grow w-[150px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
-                        <p className="text-sm xl:text-base text-white font-semibold max-w-[85px]">
-                            มอเตอร์ไซค์ ใหม่
+                        <p className="text-sm xl:text-base text-white font-semibold max-w-[70px]">
+                            มอเตอร์ไซค์ มีพ่วงข้าง
                         </p>
-                        <div className="absolute right-0 bottom-0">
+                        <div className="absolute right-1 bottom-1">
                             <div className="w-[70px] h-[65px] xl:w-[96px] xl:h-[80px] relative flex flex-shrink-0 items-center overflow-hidden">
                                 <Image
                                     alt="property-image"
-                                    src={`https://www.pngkit.com/png/full/244-2448133_wave100-honda-wave-100-ncx-2017.png`}
+                                    src={`/menu-c2.png`}
                                     unoptimized
                                     draggable="false"
                                     fill
@@ -81,16 +81,16 @@ const Menu = () => {
                     </Link>
                     <Link
                         href={`/products`}
-                        className="p-3 flex-shrink-0 xl:flex-grow w-[140px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
+                        className="p-3 flex-shrink-0 xl:flex-grow w-[150px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
-                        <p className="text-sm xl:text-base text-white font-semibold max-w-[85px]">
-                            มอเตอร์ไซค์ ใหม่
+                        <p className="text-sm xl:text-base text-white font-semibold max-w-[70px]">
+                            พ่วงข้าง ขายของ
                         </p>
-                        <div className="absolute right-0 bottom-0">
+                        <div className="absolute right-1 bottom-1">
                             <div className="w-[70px] h-[65px] xl:w-[96px] xl:h-[80px] relative flex flex-shrink-0 items-center overflow-hidden">
                                 <Image
                                     alt="property-image"
-                                    src={`https://www.pngkit.com/png/full/244-2448133_wave100-honda-wave-100-ncx-2017.png`}
+                                    src={`/menu-c3.png`}
                                     unoptimized
                                     draggable="false"
                                     fill
@@ -101,16 +101,16 @@ const Menu = () => {
                     </Link>
                     <Link
                         href={`/products`}
-                        className="p-3 flex-shrink-0 xl:flex-grow w-[140px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
+                        className="p-3 flex-shrink-0 xl:flex-grow w-[150px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
-                        <p className="text-sm xl:text-base text-white font-semibold max-w-[85px]">
-                            มอเตอร์ไซค์ ใหม่
+                        <p className="text-sm xl:text-base text-white font-semibold max-w-[70px]">
+                            พ่วงข้าง วินเทจ
                         </p>
-                        <div className="absolute right-0 bottom-0">
+                        <div className="absolute right-1 bottom-1">
                             <div className="w-[70px] h-[65px] xl:w-[96px] xl:h-[80px] relative flex flex-shrink-0 items-center overflow-hidden">
                                 <Image
                                     alt="property-image"
-                                    src={`https://www.pngkit.com/png/full/244-2448133_wave100-honda-wave-100-ncx-2017.png`}
+                                    src={`/menu-c4.png`}
                                     unoptimized
                                     draggable="false"
                                     fill
@@ -121,16 +121,56 @@ const Menu = () => {
                     </Link>
                     <Link
                         href={`/products`}
-                        className="p-3 flex-shrink-0 xl:flex-grow w-[140px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
+                        className="p-3 flex-shrink-0 xl:flex-grow w-[150px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
-                        <p className="text-sm xl:text-base text-white font-semibold max-w-[85px]">
-                            มอเตอร์ไซค์ ใหม่
+                        <p className="text-sm xl:text-base text-white font-semibold max-w-[70px]">
+                            พ่วงข้าง รถบรรทุก
                         </p>
-                        <div className="absolute right-0 bottom-0">
+                        <div className="absolute right-1 bottom-1">
                             <div className="w-[70px] h-[65px] xl:w-[96px] xl:h-[80px] relative flex flex-shrink-0 items-center overflow-hidden">
                                 <Image
                                     alt="property-image"
-                                    src={`https://www.pngkit.com/png/full/244-2448133_wave100-honda-wave-100-ncx-2017.png`}
+                                    src={`/menu-c5.png`}
+                                    unoptimized
+                                    draggable="false"
+                                    fill
+                                    className="select-none object-scale-down"
+                                />
+                            </div>
+                        </div>
+                    </Link>
+                    <Link
+                        href={`/products`}
+                        className="p-3 flex-shrink-0 xl:flex-grow w-[150px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
+                    >
+                        <p className="text-sm xl:text-base text-white font-semibold max-w-[70px]">
+                            รถเข็น
+                        </p>
+                        <div className="absolute right-1 bottom-1">
+                            <div className="w-[70px] h-[65px] xl:w-[96px] xl:h-[80px] relative flex flex-shrink-0 items-center overflow-hidden">
+                                <Image
+                                    alt="property-image"
+                                    src={`/menu-c6.png`}
+                                    unoptimized
+                                    draggable="false"
+                                    fill
+                                    className="select-none object-scale-down"
+                                />
+                            </div>
+                        </div>
+                    </Link>
+                    <Link
+                        href={`/products`}
+                        className="p-3 flex-shrink-0 xl:flex-grow w-[150px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
+                    >
+                        <p className="text-sm xl:text-base text-white font-semibold max-w-[70px]">
+                            ไซด์คาร์
+                        </p>
+                        <div className="absolute right-1 bottom-1">
+                            <div className="w-[70px] h-[65px] xl:w-[96px] xl:h-[80px] relative flex flex-shrink-0 items-center overflow-hidden">
+                                <Image
+                                    alt="property-image"
+                                    src={`/menu-c7.png`}
                                     unoptimized
                                     draggable="false"
                                     fill
