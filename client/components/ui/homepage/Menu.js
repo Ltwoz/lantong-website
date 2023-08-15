@@ -6,7 +6,7 @@ import { HiChatBubbleOvalLeft } from "react-icons/hi2";
 
 const Menu = () => {
     return (
-        <div className="flex flex-col md:flex-row w-full xl:w-[1200px] p-4 xl:p-6 gap-[10px] bg-white xl:rounded-xl shadow-md mx-auto">
+        <div className="flex flex-col xl:flex-row w-full md:w-[60%] xl:w-[1200px] p-4 xl:p-6 gap-[10px] bg-white md:rounded-xl shadow-md mx-auto">
             {/* Filter */}
             <div className="flex flex-col gap-4 w-full h-fit">
                 {/* Search Bar */}
@@ -32,7 +32,7 @@ const Menu = () => {
                             className="pl-10 pr-24 p-3 block w-full rounded-md border focus:outline-none bg-white/80 backdrop-blur-sm border-gray-300 focus:border-blue-600 shadow-sm text-base"
                         />
                     </div>
-                    <button className="inline-flex items-center bg-[#FF5A60] rounded-md transition-all overflow-hidden flex-shrink-0 md:w-[120px]">
+                    <button className="inline-flex items-center bg-[#FF5A60] rounded-md transition-all overflow-hidden flex-shrink-0 xl:w-[120px]">
                         <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
                             <span className="block">ค้นหา</span>
                         </div>
@@ -152,7 +152,7 @@ const Menu = () => {
             </div>
             <div className="hidden xl:block border-l border-[#D3D3D3]"></div>
             {/* Social */}
-            <div className="flex flex-col md:w-[320px] flex-shrink-0 gap-[10px]">
+            <div className="flex flex-col xl:w-[320px] flex-shrink-0 gap-[10px]">
                 <Link
                     href={"#"}
                     className="h-[50px] inline-flex items-center bg-[#4267B2] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"

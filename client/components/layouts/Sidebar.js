@@ -77,17 +77,17 @@ const Sidebar = () => {
 
     const AuthButton =
         status === "authenticated" ? (
-            <div className="relative md:flex text-left items-center">
+            <div className="relative xl:flex text-left items-center">
                 <div className="flex items-center px-[1px]">
                     <div
-                        className={`w-full md:hover:cursor-pointer flex justify-between items-center rounded-md md:px-3 py-2 text-gray-700 md:ring-1 md:hover:ring-primary/50 md:hover:bg-primary/5 ${
+                        className={`w-full xl:hover:cursor-pointer flex justify-between items-center rounded-md px-3 py-2 text-gray-700 xl:ring-1 xl:hover:ring-primary/50 xl:hover:bg-primary/5 ${
                             showMenu
-                                ? "md:ring-primary/50 md:bg-primary/5"
-                                : "md:ring-transparent"
+                                ? "xl:ring-primary/50 xl:bg-primary/5"
+                                : "xl:ring-transparent"
                         } select-none transition-all`}
                         onClick={handleMenuClick}
                     >
-                        <div className="flex flex-row items-center gap-2 md:mr-6">
+                        <div className="flex flex-row items-center gap-2 xl:mr-6">
                             <div className="aspect-square w-7 h-7 relative overflow-hidden rounded-full">
                                 <Image
                                     alt="avatar"
@@ -104,7 +104,7 @@ const Sidebar = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="inline-flex items-center md:mr-1">
+                        <div className="inline-flex items-center xl:mr-1">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
@@ -159,7 +159,7 @@ const Sidebar = () => {
         ) : (
             <Link
                 href="/auth/login"
-                className="w-fit inline-flex items-center bg-[#BC1F1F] rounded-lg transition-all overflow-hidden"
+                className="w-fit inline-flex items-center bg-[#BC1F1F] rounded-lg transition-all overflow-hidden mx-3"
             >
                 <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
                     <span className="block tracking-wide">
@@ -174,7 +174,7 @@ const Sidebar = () => {
             <motion.div
                 id="page-sidebar-wrapper"
                 ref={sidebarRef}
-                className="fixed md:hidden top-0 right-0 z-[90] h-screen overflow-auto w-[280px] bg-white shadow-md px-4 py-6"
+                className="fixed xl:hidden top-0 right-0 z-[90] h-screen overflow-auto w-[280px] bg-white shadow-md px-4 py-6"
                 animate={isOpen ? "mount" : "unmount"}
                 initial={"unmount"}
                 exit="unmount"

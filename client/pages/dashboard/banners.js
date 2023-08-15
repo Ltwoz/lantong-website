@@ -43,9 +43,7 @@ const WebsiteCOnfigPage = () => {
 
     useEffect(() => {
         const getBanners = async () => {
-            const { data } = await instanceApi.get(
-                `/api/admin/banners`
-            );
+            const { data } = await instanceApi.get(`/api/admin/banners`);
             setAllBanners(data?.banners);
             setLoading(false);
         };
@@ -122,9 +120,7 @@ const WebsiteCOnfigPage = () => {
     const { user, isAuthenticated } = useUser();
 
     if (!user || user.role !== "admin" || !isAuthenticated) {
-        return (
-           <NoPermission />
-        );
+        return <NoPermission />;
     }
 
     return (
@@ -354,14 +350,14 @@ const WebsiteCOnfigPage = () => {
                                         <div className="absolute z-[1] inset-0 w-full h-full overflow-hidden bg-black/50" />
                                     )}
                                     {(banner.label || banner.description) && (
-                                        <div className="absolute left-0 right-0 mx-auto flex flex-col text-center w-full max-w-[1200px] text-white z-[2]">
+                                        <div className="absolute left-0 right-0 mx-auto flex flex-col text-center w-[80%] xl:max-w-[1200px] text-white z-[2]">
                                             {banner.label && (
-                                                <h2 className="font-semibold text-[64px]">
+                                                <h2 className="font-semibold text-sm md:text-lg xl:text-[64px] xl:leading-relaxed mb-1">
                                                     {banner.label}
                                                 </h2>
                                             )}
                                             {banner.description && (
-                                                <p className="font-semibold text-[32px]">
+                                                <p className="font-semibold text-xs md:text-base xl:text-[32px]">
                                                     {banner.description}
                                                 </p>
                                             )}

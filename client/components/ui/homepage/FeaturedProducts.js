@@ -111,7 +111,7 @@ const FeaturedProducts = () => {
             </div>
             {/* Grid สินค้า */}
             {products?.length < 1 ? (
-                <div className="flex items-center justify-center border-t xl:min-h-[360.77px]">
+                <div className="flex items-center justify-center border-t min-h-[340.55px] xl:min-h-[360.77px]">
                     <p className="font-medium text-white">
                         ไม่มีข้อมูลสินค้า
                     </p>
@@ -128,10 +128,6 @@ const FeaturedProducts = () => {
                         arrows: true,
                         pagination: false,
                         breakpoints: {
-                            1024: {
-                                perPage: 2,
-                                gap: "1.5rem",
-                            },
                             768:
                                 // properties.length === 1
                                 //     ? {

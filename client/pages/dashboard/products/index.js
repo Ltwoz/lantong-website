@@ -184,7 +184,7 @@ const AdminAllProductsPage = () => {
                                                     <th className="th-td w-52 2xl:w-32">
                                                         หมวดหมู่
                                                     </th>
-                                                    <th className="th-td w-20 2xl:w-14">
+                                                    <th className="th-td w-32 2xl:w-14">
                                                         ราคา
                                                     </th>
                                                     <th className="th-td !text-center w-40 2xl:w-24">

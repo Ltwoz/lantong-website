@@ -18,7 +18,7 @@ export default function Home() {
                 {/* แบนเนอร์และเมนู */}
                 <section
                     id="header"
-                    className="h-full md:h-[1000px] bg-[#3A3A3A] relative"
+                    className="h-full md:pb-8 xl:h-[1000px] bg-[#3A3A3A] relative"
                 >
                     <div className="md:mb-[-6.5%] mb-0">
                         <BannerSlider />
@@ -30,7 +30,7 @@ export default function Home() {
 
                 {/* สินค้าแนะนำ */}
                 <section id="featured-products" className="bg-[#B53326]">
-                    <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center pt-12 px-4 md:px-0">
+                    <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center pt-12 px-4 xl:px-0">
                         <h1 className="font-semibold text-[26px] text-white mb-9 text-center">
                             เลือกซื้อสินค้าที่ได้คุณภาพผ่านการรับรองจากลานทอง
                         </h1>
@@ -43,7 +43,7 @@ export default function Home() {
 
                 {/* วิดีโอ */}
                 <section id="video" className="bg-[#E0DADA]">
-                    <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center py-12 md:py-20 px-4 md:px-0">
+                    <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center py-12 xl:py-20 px-4 xl:px-0">
                         <h1 className="font-semibold text-[40px] text-black mb-9 text-center">
                             ทำไมต้องลานทอง ?
                         </h1>
@@ -62,7 +62,7 @@ export default function Home() {
 
                 {/* ขั้นตอนการซื้อ */}
                 <section id="purchase-step" className="bg-[#E0DADA]">
-                    <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center py-12 md:py-20 px-4 md:px-0">
+                    <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center py-12 xl:py-20 px-4 xl:px-0">
                         <h1 className="font-semibold text-[40px] text-black mb-9 text-center">
                             ขั้นตอนการซื้อสินค้าจากลานทอง
                         </h1>
@@ -73,7 +73,7 @@ export default function Home() {
                 {/* เกี่ยวกับ */}
                 <section
                     id="about"
-                    className="bg-[#E0DADA] relative md:h-[480px]"
+                    className="bg-[#E0DADA] relative xl:h-[480px]"
                 >
                     {/* รูป Background */}
                     <div className="absolute inset-0 w-full h-full z-[1]">
@@ -90,17 +90,17 @@ export default function Home() {
                         {/* Overlay */}
                         <div className="absolute z-[1] inset-0 w-full h-full overflow-hidden bg-black/70" />
                         {/* เนื้อหา */}
-                        <div className="w-full h-fit max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center md:items-start py-10 md:py-0 px-4 md:px-0 z-[2] gap-4">
-                            <div className="flex flex-col items-center md:items-start gap-2 md:gap-4">
-                                <p className="text-white text-base md:text-2xl font-semibold">
+                        <div className="w-full h-fit max-w-[1200px] mx-auto flex flex-col xl:flex-row justify-between items-center xl:items-start py-10 xl:py-0 px-4 xl:px-0 z-[2] gap-4">
+                            <div className="flex flex-col items-center xl:items-start gap-2 xl:gap-4">
+                                <p className="text-white text-base xl:text-2xl font-semibold">
                                     เกี่ยวกับเรา
                                 </p>
-                                <h2 className="text-white text-2xl md:text-[40px] font-semibold">
+                                <h2 className="text-white text-2xl xl:text-[40px] font-semibold">
                                     พ่วงข้างลานทอง
                                 </h2>
                             </div>
-                            <div className="flex flex-col items-center md:items-start gap-4 md:gap-8 md:w-[530px] text-center md:text-start">
-                                <p className="text-white text-sm md:text-xl font-medium">
+                            <div className="flex flex-col items-center xl:items-start gap-4 xl:gap-8 xl:w-[530px] text-center xl:text-start">
+                                <p className="text-white text-sm xl:text-xl font-medium">
                                     Lorem ipsum dolor sit amet, consectetur
                                     adipiscing elit, sed do eiusmod tempor
                                     incidi labore et dolore magna aliqua. Ut
@@ -111,9 +111,9 @@ export default function Home() {
                                 {/* Button */}
                                 <Link
                                     href={"#"}
-                                    className="md:h-[50px] w-fit inline-flex items-center bg-[#4267B2] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
+                                    className="xl:h-[50px] w-fit inline-flex items-center bg-[#4267B2] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
                                 >
-                                    <div className="w-full h-full inline-flex items-center justify-center font-medium text-white text-sm md:text-base hover:backdrop-brightness-95 py-2 px-4 md:px-6">
+                                    <div className="w-full h-full inline-flex items-center justify-center font-medium text-white text-sm xl:text-base hover:backdrop-brightness-95 py-2 px-4 xl:px-6">
                                         <FaFacebook className="mr-2" />
                                         <span className="block">
                                             {"พ่วงข้างลานทอง"}
@@ -127,7 +127,7 @@ export default function Home() {
 
                 {/* คำถามที่พบบ่อย */}
                 <section id="purchase-step" className="bg-[#F4F6F8]">
-                    <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center py-12 md:py-20 px-4 md:px-0">
+                    <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center py-12 xl:py-20 px-4 xl:px-0">
                         <h1 className="font-semibold text-[40px] text-black mb-9 text-center">
                             คำถามที่พบบ่อย
                         </h1>

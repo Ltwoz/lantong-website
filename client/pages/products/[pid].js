@@ -28,10 +28,10 @@ const ProductDetails = ({ product }) => {
                 <title>{`${product.name} - หจก.ลานทองเชียงใหม่`}</title>
                 <meta name="description" content={product.description} />
             </Head>
-            <section className="min-h-screen mx-auto max-w-[1200px] px-4 md:px-0 flex flex-col gap-4 md:gap-6 py-4 md:py-10">
+            <section className="min-h-screen mx-auto max-w-[1200px] px-4 xl:px-0 flex flex-col gap-4 xl:gap-6 py-4 xl:py-10">
                 {/* Breadcrumb */}
                 <nav className="flex" aria-label="Breadcrumb">
-                    <ol className="inline-flex items-center space-x-1 md:space-x-3">
+                    <ol className="inline-flex items-center space-x-1 xl:space-x-3">
                         <li className="inline-flex items-center">
                             <Link
                                 href="/"
@@ -68,7 +68,7 @@ const ProductDetails = ({ product }) => {
                                 </svg>
                                 <Link
                                     href="/products"
-                                    className="ml-1 text-sm font-medium text-gray-600 hover:text-[#E32C2C] md:ml-2"
+                                    className="ml-1 text-sm font-medium text-gray-600 hover:text-[#E32C2C] xl:ml-2"
                                 >
                                     สินค้าของเรา
                                 </Link>
@@ -91,7 +91,7 @@ const ProductDetails = ({ product }) => {
                                         d="m1 9 4-4-4-4"
                                     />
                                 </svg>
-                                <span className="ml-1 text-sm font-medium text-gray-600 md:ml-2">
+                                <span className="ml-1 text-sm font-medium text-gray-600 xl:ml-2">
                                     {product?.name}
                                 </span>
                             </div>
@@ -168,15 +168,15 @@ const ProductDetails = ({ product }) => {
                         </Splide>
                     </div>
                     <div className="w-full md:w-1/2 flex-shrink-0 flex flex-col gap-6">
-                        <h1 className="text-[36px] font-semibold leading-none">
+                        <h1 className="text-2xl xl:text-[36px] font-semibold leading-none">
                             {product?.name}
                         </h1>
                         <hr />
                         <div className="flex justify-between items-center">
-                            <p className="text-2xl font-semibold">
+                            <p className="text-lg xl:text-2xl font-semibold">
                                 #{product?.productId}
                             </p>
-                            <p className="text-2xl font-semibold">
+                            <p className="text-lg xl:text-2xl font-semibold">
                                 {product?.price === 0
                                     ? "ราคาพิเศษ"
                                     : `${product?.price.toLocaleString()}฿`}
@@ -185,7 +185,7 @@ const ProductDetails = ({ product }) => {
                         {/* Button */}
                         <Link
                             href={"#"}
-                            className="md:h-[50px] self-end md:self-start w-fit inline-flex items-center bg-[#0082FA] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
+                            className="self-end md:self-start w-fit inline-flex items-center bg-[#0082FA] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
                         >
                             <div className="w-full h-full inline-flex items-center justify-center font-medium text-white text-sm md:text-base hover:backdrop-brightness-95 py-2 px-4 md:px-6">
                                 <FaFacebookMessenger className="mr-2" />
