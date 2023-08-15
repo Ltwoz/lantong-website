@@ -77,10 +77,10 @@ export default function About() {
                 {/*image click*/}
                 <button className="btn-1">
                 <Image
-                  className="w-[300px] h-auto md:w-[466px] md:h-[906px] rounded-lg"
-                  src="/466x906.png"
-                  width={463}
-                  height={906}
+                  className="w-[300px] h-auto md:w-[466px] md:h-[800px] rounded-lg"
+                  src="/466x800.png"
+                  width={466}
+                  height={800}
                 />
                 </button>
                 {/* button below */}
@@ -92,10 +92,10 @@ export default function About() {
                 {/*image click*/}
                 <button className="btn-2">
                 <Image
-                  className="w-[300px] h-auto md:w-[466px] md:h-[906px] rounded-lg"
-                  src="/466x906.png"
+                  className="w-[300px] h-auto md:w-[466px] md:h-[800px] rounded-lg"
+                  src="/466x800.png"
                   width={466}
-                  height={906}
+                  height={800}
                 />
                 </button>
                 {/* button below */}
@@ -107,10 +107,10 @@ export default function About() {
                 {/* image click */}
                 <button className="btn-3">
                 <Image
-                  className="w-[300px] h-auto md:w-[466px] md:h-[906px] rounded-lg rounded-xl"
-                  src="/466x906.png"
+                  className="w-[300px] h-auto md:w-[466px] md:h-[800px] rounded-lg rounded-xl"
+                  src="/466x800.png"
                   width={466}
-                  height={906}
+                  height={800}
                 />
                 </button>
                 {/*button below*/}
@@ -122,10 +122,10 @@ export default function About() {
                 {/*image click*/}
                 <button className="btn-4">
                 <Image
-                  className="w-[300px] h-auto md:w-[466px] md:h-[908px] rounded-lg opacity-60"
-                  src="/466x906.png"
+                  className="w-[300px] h-auto md:w-[466px] md:h-[800px] rounded-lg opacity-60"
+                  src="/466x800.png"
                   width={466}
-                  height={906}
+                  height={800}
                 />
                 </button>
                 {/*button below*/}
