@@ -7,6 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 import instanceApi from "@/config/axios-config";
 import NoPermission from "@/components/ui/custom-pages/403";
 import { useUser } from "@/contexts/user-context";
+import { AnimatePresence } from "framer-motion";
+import DeleteModal from "@/components/modals/delete-modal";
 
 const WebsiteCOnfigPage = () => {
     // Post State
@@ -24,6 +26,12 @@ const WebsiteCOnfigPage = () => {
     const [error, setError] = useState(null);
     const [createLoading, setCreateLoading] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [isDeleted, setIsDeleted] = useState(false);
+
+    const [selectedBanner, setSelectedBanner] = useState({});
+
+    // Modal State
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     useEffect(() => {
         if (isSuccess) {
@@ -33,13 +41,20 @@ const WebsiteCOnfigPage = () => {
             setIsSuccess(false);
         }
 
+        if (isDeleted) {
+            toast.success("ลบสำเร็จ", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+            setIsDeleted(false);
+        }
+
         if (error) {
             toast.error(error, {
                 position: toast.POSITION.BOTTOM_RIGHT,
             });
             setError(null);
         }
-    }, [isSuccess, error]);
+    }, [isSuccess, error, isDeleted]);
 
     useEffect(() => {
         const getBanners = async () => {
@@ -52,7 +67,7 @@ const WebsiteCOnfigPage = () => {
             console.error;
             setLoading(false);
         });
-    }, [isSuccess]);
+    }, [isSuccess, isDeleted]);
 
     function handleUploadImage(e) {
         const files = Array.from(e.target.files);
@@ -117,6 +132,19 @@ const WebsiteCOnfigPage = () => {
         }
     }
 
+    async function deleteHandler() {
+        try {
+            const { data } = await instanceApi.delete(
+                `/api/admin/banner/${selectedBanner._id}`
+            );
+
+            setIsDeleted(data.success);
+        } catch (error) {
+            setError(error.message);
+            console.error(error.message);
+        }
+    }
+
     const { user, isAuthenticated } = useUser();
 
     if (!user || user.role !== "admin" || !isAuthenticated) {
@@ -128,6 +156,18 @@ const WebsiteCOnfigPage = () => {
             <Head>
                 <title>จัดการแบนเนอร์ - หจก.ลานทองเชียงใหม่</title>
             </Head>
+            {/* Modal */}
+            <AnimatePresence>
+                {showDeleteModal && (
+                    <DeleteModal
+                        title={`ลบแบนเนอร์นี้ ?`}
+                        message={"แบนเนอร์นี้จะหายไปจากเว็บไซต์"}
+                        buttonLabel={"ตกลง, ลบเลย!"}
+                        setIsOpen={setShowDeleteModal}
+                        handler={deleteHandler}
+                    />
+                )}
+            </AnimatePresence>
             {/* ชื่อหน้า */}
             <div className="w-full">
                 <div
@@ -325,7 +365,6 @@ const WebsiteCOnfigPage = () => {
                 </div>
             </section>
 
-            {/* //TODO ต้องแก้ไข */}
             {/* แบนเนอร์ทั้งหมด */}
             <section
                 id="all-banners"
@@ -357,24 +396,36 @@ const WebsiteCOnfigPage = () => {
                                                 </h2>
                                             )}
                                             {banner.description && (
-                                                <p className="font-semibold text-xs md:text-base xl:text-[32px]">
+                                                <p className="font-semibold text-xs md:text-base xl:text-[32px] xl:leading-relaxed">
                                                     {banner.description}
                                                 </p>
                                             )}
                                         </div>
                                     )}
-                                    {/* Dropdown button */}
+                                    {/* Delete button */}
                                     <div className="flex absolute top-4 right-4 z-[1]">
-                                        <button className="bg-white text-red-600 transition-all border border-transparent hover:border-red-600 rounded-xl p-1">
+                                        <button
+                                            onClick={() => {
+                                                setSelectedBanner(banner);
+                                                setShowDeleteModal(
+                                                    (prev) => !prev
+                                                );
+                                            }}
+                                            className="bg-white text-red-600 transition-all border border-transparent hover:border-red-600 rounded-xl p-1"
+                                        >
                                             <svg
-                                                stroke="currentColor"
-                                                fill="currentColor"
-                                                viewBox="0 0 20 20"
-                                                stroke-width="0"
-                                                className="w-4 h-4 md:w-[26px] md:h-[26px]"
                                                 xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                                className="w-6 h-6"
                                             >
-                                                <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth="2"
+                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                                />
                                             </svg>
                                         </button>
                                     </div>

@@ -65,7 +65,7 @@ const BannerSlider = () => {
                                                 </h2>
                                             )}
                                             {banner.description && (
-                                                <p className="font-semibold text-xs md:text-base xl:text-[32px]">
+                                                <p className="font-semibold text-xs md:text-base xl:text-[32px]  xl:leading-relaxed">
                                                     {banner.description}
                                                 </p>
                                             )}
