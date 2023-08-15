@@ -30,11 +30,14 @@ export default function Home() {
 
                 {/* สินค้าแนะนำ */}
                 <section id="featured-products" className="bg-[#B53326]">
-                    <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center py-12 md:py-20 px-4 md:px-0">
-                        <h1 className="font-semibold text-[40px] text-white mb-9 text-center">
+                    <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center pt-12 px-4 md:px-0">
+                        <h1 className="font-semibold text-[26px] text-white mb-9 text-center">
                             เลือกซื้อสินค้าที่ได้คุณภาพผ่านการรับรองจากลานทอง
                         </h1>
                         <FeaturedProducts />
+                        <p className="text-white text-sm my-8">
+                            รับประกันทุกสินค้าจาก หจก.ลานทองเชียงใหม่
+                        </p>
                     </div>
                 </section>
 
