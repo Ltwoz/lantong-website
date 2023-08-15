@@ -1,6 +1,7 @@
 const catchAsyncErrors = require("../../middleware/catchAsyncErrors");
 const ApiFeatures = require("../../utils/apiFeatures");
 const Product = require("./product.model");
+const Category = require("../category/category.model");
 const multer = require("multer");
 const { promisify } = require("util");
 const { uploadFile, deleteFiles } = require("../../utils/s3");
@@ -30,12 +31,42 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 
     const product = await Product.create(req.body);
 
+    // Count products in a category
+    const categoryProductsCount = await Category.aggregate([
+        {
+            $lookup: {
+                from: "products",
+                localField: "_id",
+                foreignField: "category",
+                as: "products",
+            },
+        },
+        {
+            $addFields: {
+                productsCount: { $size: "$products" },
+            },
+        },
+    ]);
+
+    // Update productsCount field to a category
+    for (let category of categoryProductsCount) {
+        await Category.findByIdAndUpdate(
+            category._id,
+            { productsCount: category.productsCount },
+            {
+                new: true,
+                runValidators: true,
+                useFindAndModify: false,
+            }
+        );
+    }
+
     res.status(201).json({ success: true, product });
 });
 
 // Get Filter Products
 exports.getFilterProducts = catchAsyncErrors(async (req, res, next) => {
-    const resultPerPage = 25;
+    const resultPerPage = 20;
     const productsCount = await Product.countDocuments();
 
     const apiFeature = new ApiFeatures(
@@ -64,7 +95,7 @@ exports.getFilterProducts = catchAsyncErrors(async (req, res, next) => {
         products,
         filteredProductsCount,
         totalPageCount,
-        productsCount
+        productsCount,
     });
 });
 
@@ -86,7 +117,7 @@ exports.getDetailProduct = catchAsyncErrors(async (req, res, next) => {
 
 // Get All Products -- Admin
 exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
-    const resultPerPage = 25;
+    const resultPerPage = 20;
     const productsCount = await Product.countDocuments();
 
     const apiFeature = new ApiFeatures(
@@ -115,7 +146,7 @@ exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
         products,
         filteredProductsCount,
         totalPageCount,
-        productsCount
+        productsCount,
     });
 });
 
@@ -166,9 +197,7 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
     // Check unmatched
     const unmatchedImages = oldImages.filter(
         (img) =>
-            !currentImages.some(
-                (image) => image.public_id === img.public_id
-            )
+            !currentImages.some((image) => image.public_id === img.public_id)
     );
 
     //Deleting Images From AWS S3
@@ -207,6 +236,36 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
         runValidators: true,
         useFindAndModify: false,
     });
+
+    // Count products in a category
+    const categoryProductsCount = await Category.aggregate([
+        {
+            $lookup: {
+                from: "products",
+                localField: "_id",
+                foreignField: "category",
+                as: "products",
+            },
+        },
+        {
+            $addFields: {
+                productsCount: { $size: "$products" },
+            },
+        },
+    ]);
+
+    // Update productsCount field to a category
+    for (let category of categoryProductsCount) {
+        await Category.findByIdAndUpdate(
+            category._id,
+            { productsCount: category.productsCount },
+            {
+                new: true,
+                runValidators: true,
+                useFindAndModify: false,
+            }
+        );
+    }
 
     res.status(200).json({ success: true, product });
 });
