@@ -23,7 +23,7 @@ export default function Home() {
                     <div className="md:mb-[-6.5%] mb-0">
                         <BannerSlider />
                     </div>
-                    <div className="relative px-4 py-6">
+                    <div className="relative">
                         <Menu />
                     </div>
                 </section>

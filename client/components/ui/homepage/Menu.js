@@ -6,7 +6,7 @@ import { HiChatBubbleOvalLeft } from "react-icons/hi2";
 
 const Menu = () => {
     return (
-        <div className="flex flex-col md:flex-row w-full md:w-[1200px] p-6 gap-[10px] bg-white rounded-xl shadow-md mx-auto">
+        <div className="flex flex-col md:flex-row w-full xl:w-[1200px] p-4 xl:p-6 gap-[10px] bg-white xl:rounded-xl shadow-md mx-auto">
             {/* Filter */}
             <div className="flex flex-col gap-4 w-full h-fit">
                 {/* Search Bar */}
@@ -38,97 +38,116 @@ const Menu = () => {
                         </div>
                     </button>
                 </div>
-                <div className="grid grid-cols-4 gap-3">
-                    <div
-                        alt="grid-items"
-                        className="col-span-4 md:col-span-1 flex justify-between p-3 rounded-lg gap-[10px] bg-[#173559]"
+                <div className="flex flex-row xl:flex-wrap gap-3 overflow-auto">
+                    <Link
+                        href={`/products`}
+                        className="p-3 flex-shrink-0 xl:flex-grow w-[140px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
-                        <p className="text-white font-semibold">
+                        <p className="text-sm xl:text-base text-white font-semibold max-w-[85px]">
                             มอเตอร์ไซค์ ใหม่
                         </p>
-                        <div className="w-[76px] h-[76px] relative flex flex-shrink-0 items-center rounded-lg overflow-hidden">
-                            <Image
-                                alt="property-image"
-                                src={`https://dummyimage.com/100x100`}
-                                unoptimized
-                                draggable="false"
-                                fill
-                                className="select-none object-cover"
-                            />
+                        <div className="absolute right-0 bottom-0">
+                            <div className="w-[70px] h-[65px] xl:w-[96px] xl:h-[80px] relative flex flex-shrink-0 items-center overflow-hidden">
+                                <Image
+                                    alt="property-image"
+                                    src={`https://www.pngkit.com/png/full/244-2448133_wave100-honda-wave-100-ncx-2017.png`}
+                                    unoptimized
+                                    draggable="false"
+                                    fill
+                                    className="select-none object-scale-down"
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <div
-                        alt="grid-items"
-                        className="col-span-4 md:col-span-1 flex justify-between p-3 rounded-lg gap-[10px] bg-[#173559]"
+                    </Link>
+                    <Link
+                        href={`/products`}
+                        className="p-3 flex-shrink-0 xl:flex-grow w-[140px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
-                        <p className="text-white font-semibold">
-                            มอเตอร์ไซค์ มีพ่วงข้าง
+                        <p className="text-sm xl:text-base text-white font-semibold max-w-[85px]">
+                            มอเตอร์ไซค์ ใหม่
                         </p>
-                        <div className="w-[76px] h-[76px] relative flex flex-shrink-0 items-center rounded-lg overflow-hidden">
-                            <Image
-                                alt="property-image"
-                                src={`https://dummyimage.com/100x100`}
-                                unoptimized
-                                draggable="false"
-                                fill
-                                className="select-none object-cover"
-                            />
+                        <div className="absolute right-0 bottom-0">
+                            <div className="w-[70px] h-[65px] xl:w-[96px] xl:h-[80px] relative flex flex-shrink-0 items-center overflow-hidden">
+                                <Image
+                                    alt="property-image"
+                                    src={`https://www.pngkit.com/png/full/244-2448133_wave100-honda-wave-100-ncx-2017.png`}
+                                    unoptimized
+                                    draggable="false"
+                                    fill
+                                    className="select-none object-scale-down"
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <div
-                        alt="grid-items"
-                        className="col-span-4 md:col-span-1 flex justify-between p-3 rounded-lg gap-[10px] bg-[#173559]"
+                    </Link>
+                    <Link
+                        href={`/products`}
+                        className="p-3 flex-shrink-0 xl:flex-grow w-[140px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
-                        <p className="text-white font-semibold">
-                            พ่วงข้าง ขายของ
+                        <p className="text-sm xl:text-base text-white font-semibold max-w-[85px]">
+                            มอเตอร์ไซค์ ใหม่
                         </p>
-                        <div className="w-[76px] h-[76px] relative flex flex-shrink-0 items-center rounded-lg overflow-hidden">
-                            <Image
-                                alt="property-image"
-                                src={`https://dummyimage.com/100x100`}
-                                unoptimized
-                                draggable="false"
-                                fill
-                                className="select-none object-cover"
-                            />
+                        <div className="absolute right-0 bottom-0">
+                            <div className="w-[70px] h-[65px] xl:w-[96px] xl:h-[80px] relative flex flex-shrink-0 items-center overflow-hidden">
+                                <Image
+                                    alt="property-image"
+                                    src={`https://www.pngkit.com/png/full/244-2448133_wave100-honda-wave-100-ncx-2017.png`}
+                                    unoptimized
+                                    draggable="false"
+                                    fill
+                                    className="select-none object-scale-down"
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <div
-                        alt="grid-items"
-                        className="col-span-4 md:col-span-1 flex justify-between p-3 rounded-lg gap-[10px] bg-[#173559]"
+                    </Link>
+                    <Link
+                        href={`/products`}
+                        className="p-3 flex-shrink-0 xl:flex-grow w-[140px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
-                        <p className="text-white font-semibold">
-                            พ่วงข้าง วินเทจ
+                        <p className="text-sm xl:text-base text-white font-semibold max-w-[85px]">
+                            มอเตอร์ไซค์ ใหม่
                         </p>
-                        <div className="w-[76px] h-[76px] relative flex flex-shrink-0 items-center rounded-lg overflow-hidden">
-                            <Image
-                                alt="property-image"
-                                src={`https://dummyimage.com/100x100`}
-                                unoptimized
-                                draggable="false"
-                                fill
-                                className="select-none object-cover"
-                            />
+                        <div className="absolute right-0 bottom-0">
+                            <div className="w-[70px] h-[65px] xl:w-[96px] xl:h-[80px] relative flex flex-shrink-0 items-center overflow-hidden">
+                                <Image
+                                    alt="property-image"
+                                    src={`https://www.pngkit.com/png/full/244-2448133_wave100-honda-wave-100-ncx-2017.png`}
+                                    unoptimized
+                                    draggable="false"
+                                    fill
+                                    className="select-none object-scale-down"
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <div
-                        alt="grid-items"
-                        className="col-span-4 md:col-span-1 flex justify-between p-3 rounded-lg gap-[10px] bg-[#173559]"
+                    </Link>
+                    <Link
+                        href={`/products`}
+                        className="p-3 flex-shrink-0 xl:flex-grow w-[140px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
-                        <p className="text-white font-semibold">
-                            พ่วงข้าง รถบรรทุก
+                        <p className="text-sm xl:text-base text-white font-semibold max-w-[85px]">
+                            มอเตอร์ไซค์ ใหม่
                         </p>
-                        <div className="w-[76px] h-[76px] relative flex flex-shrink-0 items-center rounded-lg overflow-hidden">
-                            <Image
-                                alt="property-image"
-                                src={`https://dummyimage.com/100x100`}
-                                unoptimized
-                                draggable="false"
-                                fill
-                                className="select-none object-cover"
-                            />
+                        <div className="absolute right-0 bottom-0">
+                            <div className="w-[70px] h-[65px] xl:w-[96px] xl:h-[80px] relative flex flex-shrink-0 items-center overflow-hidden">
+                                <Image
+                                    alt="property-image"
+                                    src={`https://www.pngkit.com/png/full/244-2448133_wave100-honda-wave-100-ncx-2017.png`}
+                                    unoptimized
+                                    draggable="false"
+                                    fill
+                                    className="select-none object-scale-down"
+                                />
+                            </div>
                         </div>
-                    </div>
+                    </Link>
+                    {/* Default */}
+                    <Link
+                        href={"/products"}
+                        className="p-3 flex-shrink-0 xl:flex-grow w-[140px] h-[90px] xl:w-[190px] xl:h-[100px] flex justify-center items-center relative rounded-lg gap-[10px] bg-[#4E4E4E]"
+                    >
+                        <p className="text-sm xl:text-base text-white font-semibold">
+                            หมวดหมู่ทั้งหมด
+                        </p>
+                    </Link>
                 </div>
             </div>
             <div className="border-l border-[#D3D3D3]"></div>
