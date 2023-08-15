@@ -177,7 +177,9 @@ const ProductDetails = ({ product }) => {
                                 #{product?.productId}
                             </p>
                             <p className="text-2xl font-semibold">
-                                {product?.price.toLocaleString()}฿
+                                {product?.price === 0
+                                    ? "ราคาพิเศษ"
+                                    : `${product?.price.toLocaleString()}฿`}
                             </p>
                         </div>
                         {/* Button */}
@@ -245,9 +247,7 @@ export default ProductDetails;
 export const getServerSideProps = async (ctx) => {
     try {
         const id = ctx.params.pid;
-        const { data } = await instanceApi.get(
-            `/api/product/${id}`
-        );
+        const { data } = await instanceApi.get(`/api/product/${id}`);
 
         return {
             props: {
