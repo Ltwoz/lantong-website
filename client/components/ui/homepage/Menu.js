@@ -189,6 +189,15 @@ const Menu = () => {
                         <span className="block">{"081 952 1342"}</span>
                     </div>
                 </Link>
+                <Link
+                    href={"#"}
+                    className="h-[50px] inline-flex items-center bg-[#4E4E4E] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
+                >
+                    <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
+                        <MdPhone className="mr-2" />
+                        <span className="block">{"053 876 109"}</span>
+                    </div>
+                </Link>
             </div>
         </div>
     );
