@@ -158,7 +158,7 @@ const Navbar = () => {
                                 className="object-cover"
                             />
                         </div>
-                        <h2 className="text-xl md:text-2xl xl:text-3xl font-semibold text-[#E32C2C]">
+                        <h2 className="text-xl md:text-2xl xl:text-3xl font-semibold text-primary">
                             หจก.ลานทองเชียงใหม่
                         </h2>
                     </Link>

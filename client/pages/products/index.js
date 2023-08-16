@@ -168,7 +168,7 @@ export default function ProductsPage() {
                             <div className="col-span-4 flex items-center justify-start gap-x-4">
                                 <button
                                     onClick={onSubmitFilter}
-                                    className="inline-flex items-center bg-[#2D3648] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
+                                    className="inline-flex items-center bg-primary disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
                                 >
                                     <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
                                         <svg
