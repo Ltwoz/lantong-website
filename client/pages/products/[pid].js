@@ -1,5 +1,6 @@
 import Layout from "@/components/layouts/Layout";
 import instanceApi from "@/config/axios-config";
+import { withInitProps } from "@/utils/get-init-props";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import Head from "next/head";
@@ -244,7 +245,7 @@ const ProductDetails = ({ product }) => {
 
 export default ProductDetails;
 
-export const getServerSideProps = async (ctx) => {
+export const getServerSideProps = withInitProps(async (ctx) => {
     try {
         const id = ctx.params.pid;
         const { data } = await instanceApi.get(`/api/product/${id}`);
@@ -263,4 +264,4 @@ export const getServerSideProps = async (ctx) => {
             notFound: true,
         };
     }
-};
+});

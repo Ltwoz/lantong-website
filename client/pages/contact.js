@@ -90,3 +90,5 @@ export default function ContactUs() {
     </Layout>
   );
 }
+
+export { getServerSideProps } from "@/utils/get-init-props";

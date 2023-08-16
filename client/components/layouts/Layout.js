@@ -6,16 +6,26 @@ import { motion } from "framer-motion";
 import { useDashboardSidebar } from "@/contexts/dashboard-sidebar-context";
 import DashboardNavbar from "./DashboardNavbar";
 import Footer from "./Footer";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
+import { useConfig } from "@/contexts/config-context";
+import { getAccessibleColor, getRGBColor } from "@/utils/color";
 
 const Layout = ({ children, isDashboard }) => {
     const { isOpen, isMobile } = useDashboardSidebar();
+    const { config } = useConfig();
+
+    const primaryColor = getRGBColor(config?.style?.primary_color, "primary");
+    const allyColor = getRGBColor(
+        getAccessibleColor(config?.style?.primary_color),
+        "ally"
+    );
+
 
     return (
         <>
             <Head>
-                <title>หจก.ลานทองเชียงใหม่</title>
-                <meta name="description" content="" />
+                <title>{config?.website_title}</title>
+                <meta name="description" content={config?.website_desc} />
                 <meta
                     name="keywords"
                     content="พ่วงข้าง, ลานทอง, ขายรถเชียงใหม่"
@@ -25,10 +35,11 @@ const Layout = ({ children, isDashboard }) => {
                     content="width=device-width, initial-scale=1"
                 />
                 <meta property="og:type" content="website" />
-                <meta property="og:title" content="Lantong Shop" />
-                <meta property="og:description" content="" />
+                <meta property="og:title" content={config?.website_title} />
+                <meta property="og:description" content={config?.website_desc} />
                 <meta property="og:image" content="" />
                 <link rel="icon" href="" />
+                <style>:root {`{${primaryColor} ${allyColor}}`}</style>
             </Head>
             <ToastContainer toastClassName="!font-noto" />
             <div

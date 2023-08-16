@@ -156,3 +156,5 @@ export default function About() {
     </Layout>
   );
 }
+
+export { getServerSideProps } from "@/utils/get-init-props";

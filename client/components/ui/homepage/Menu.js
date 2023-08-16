@@ -50,7 +50,7 @@ const Menu = () => {
                             <div className="w-[70px] h-[65px] xl:w-[96px] xl:h-[80px] relative flex flex-shrink-0 items-center overflow-hidden">
                                 <Image
                                     alt="property-image"
-                                    src={`https://www.pngkit.com/png/full/244-2448133_wave100-honda-wave-100-ncx-2017.png`}
+                                    src={`/menu-c1.png`}
                                     unoptimized
                                     draggable="false"
                                     fill
