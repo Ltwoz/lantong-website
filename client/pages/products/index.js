@@ -265,3 +265,5 @@ export default function ProductsPage() {
         </Layout>
     );
 }
+
+export { getServerSideProps } from "@/utils/get-init-props";

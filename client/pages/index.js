@@ -142,3 +142,5 @@ export default function Home() {
         </Layout>
     );
 }
+
+export { getServerSideProps } from "@/utils/get-init-props";
