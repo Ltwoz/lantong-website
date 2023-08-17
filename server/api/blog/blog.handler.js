@@ -3,7 +3,9 @@ const Blog = require("./blog.model");
 const multer = require("multer");
 const { promisify } = require("util");
 const { uploadFile, deleteFiles } = require("../../utils/s3");
+const ApiFeatures = require("../../utils/apiFeatures");
 
+// Create Blog -- Admin
 exports.createBlog = catchAsyncErrors(async (req, res, next) => {
     // Create a multer instance and configure it
     const storage = multer.memoryStorage();
@@ -32,7 +34,76 @@ exports.createBlog = catchAsyncErrors(async (req, res, next) => {
     res.status(201).json({ success: true, blog });
 });
 
+// Get Filter Blogs
+exports.getFilterBlogs = catchAsyncErrors(async (req, res, next) => {
+    const resultPerPage = 20;
+    const blogCount = await Blog.countDocuments();
 
+    const apiFeature = new ApiFeatures(Blog.find(), req.query)
+        .search(["name"])
+        .filter()
+        .sort();
+
+    let blog = await apiFeature.query;
+
+    let filteredBlogsCount = blog.length;
+
+    apiFeature.pagination(resultPerPage);
+
+    blog = await apiFeature.query.clone();
+
+    const totalPageCount = Math.ceil(filteredBlogsCount / resultPerPage);
+
+    res.status(200).json({
+        success: true,
+        blog,
+        filteredBlogsCount,
+        totalPageCount,
+        blogCount,
+    });
+});
+
+// Get Detail Blog
+exports.getDetailBlog = catchAsyncErrors(async (req, res, next) => {
+    const blogId = req.params.id;
+
+    const blog = await Blog.findOne({ _id: blogId });
+
+    if (!blog) {
+        return res.status(404).json({ error: "No Blog found." });
+    }
+
+    res.status(200).json({ success: true, blog });
+});
+
+// Get All Blogs -- Admin
+exports.getAdminBlogs = catchAsyncErrors(async (req, res, next) => {
+    const resultPerPage = 20;
+    const blogCount = await Blog.countDocuments();
+
+    const apiFeature = new ApiFeatures(Blog.find(), req.query)
+        .search(["name"])
+        .filter()
+        .sort();
+
+    let blog = await apiFeature.query;
+
+    let filteredBlogsCount = blog.length;
+
+    apiFeature.pagination(resultPerPage);
+
+    blog = await apiFeature.query.clone();
+
+    const totalPageCount = Math.ceil(filteredBlogsCount / resultPerPage);
+
+    res.status(200).json({
+        success: true,
+        blog,
+        filteredBlogsCount,
+        totalPageCount,
+        blogCount,
+    });
+});
 
 // Create New Review or Update the review
 exports.createBlogReview = catchAsyncErrors(async (req, res, next) => {
