@@ -12,9 +12,15 @@ const blogSchema = mongoose.Schema({
     },
     category: {
         type: String,
+        required: true
     },
-    location: {
+    address: {
         type: String,
+        required: true
+    },
+    phone_no: {
+        type: String,
+        required: true
     },
     google_map: {
         type: String,

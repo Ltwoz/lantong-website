@@ -7,6 +7,7 @@ const {
     createBlogReview,
     getBlogReviews,
     deleteReview,
+    deleteBlog,
 } = require("./blog.handler");
 const {
     isAuthenticatedUser,
@@ -34,6 +35,10 @@ router
     .route("/admin/blog/new")
     .post(isAuthenticatedUser, authorizeRoles("admin"), createBlog);
 
-// TODO: Update blogs and Delete blogs routes
+router
+    .route("/admin/blog/:id")
+    .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteBlog);
+
+// TODO: Update blog routes
 
 module.exports = router;

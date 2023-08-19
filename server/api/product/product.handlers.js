@@ -16,52 +16,53 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
     await uploadMiddlewareAsync(req, res);
 
     const files = req.files;
-    const result = await uploadFile(files, "products");
+    console.log(files);
+    // const result = await uploadFile(files, "products");
 
-    const updateImages = [];
+    // const updateImages = [];
 
-    for (let i = 0; i < result.length; i++) {
-        updateImages.push({
-            public_id: result[i].key,
-            url: result[i].Location,
-        });
-    }
+    // for (let i = 0; i < result.length; i++) {
+    //     updateImages.push({
+    //         public_id: result[i].key,
+    //         url: result[i].Location,
+    //     });
+    // }
 
-    req.body.images = updateImages;
+    // req.body.images = updateImages;
 
-    const product = await Product.create(req.body);
+    // const product = await Product.create(req.body);
 
-    // Count products in a category
-    const categoryProductsCount = await Category.aggregate([
-        {
-            $lookup: {
-                from: "products",
-                localField: "_id",
-                foreignField: "category",
-                as: "products",
-            },
-        },
-        {
-            $addFields: {
-                productsCount: { $size: "$products" },
-            },
-        },
-    ]);
+    // // Count products in a category
+    // const categoryProductsCount = await Category.aggregate([
+    //     {
+    //         $lookup: {
+    //             from: "products",
+    //             localField: "_id",
+    //             foreignField: "category",
+    //             as: "products",
+    //         },
+    //     },
+    //     {
+    //         $addFields: {
+    //             productsCount: { $size: "$products" },
+    //         },
+    //     },
+    // ]);
 
-    // Update productsCount field to a category
-    for (let category of categoryProductsCount) {
-        await Category.findByIdAndUpdate(
-            category._id,
-            { productsCount: category.productsCount },
-            {
-                new: true,
-                runValidators: true,
-                useFindAndModify: false,
-            }
-        );
-    }
+    // // Update productsCount field to a category
+    // for (let category of categoryProductsCount) {
+    //     await Category.findByIdAndUpdate(
+    //         category._id,
+    //         { productsCount: category.productsCount },
+    //         {
+    //             new: true,
+    //             runValidators: true,
+    //             useFindAndModify: false,
+    //         }
+    //     );
+    // }
 
-    res.status(201).json({ success: true, product });
+    res.status(201).json({ success: true,  });
 });
 
 // Get Filter Products
