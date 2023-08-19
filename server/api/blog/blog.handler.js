@@ -105,6 +105,25 @@ exports.getAdminBlogs = catchAsyncErrors(async (req, res, next) => {
     });
 });
 
+// Delete Blog -- Admin
+exports.deleteBlog = catchAsyncErrors(async (req, res, next) => {
+    const blog = await Blog.findById(req.params.id);
+
+    if (!blog) {
+        res.status(404).json({
+            success: false,
+            message: "Blog not found.",
+        });
+    }
+
+    //Deleting Images From AWS S3
+    await deleteFiles(blog.images);
+
+    await blog.remove();
+
+    res.status(200).json({ success: true, message: "Blog deleted." });
+});
+
 // Create New Review or Update the review
 exports.createBlogReview = catchAsyncErrors(async (req, res, next) => {
     const { rating, comment, blogId } = req.body;
@@ -118,27 +137,27 @@ exports.createBlogReview = catchAsyncErrors(async (req, res, next) => {
 
     const blog = await Blog.findById(blogId);
 
-    const isReviewed = blog.reviews.find(
+    const isReviewed = blog.reviews?.find(
         (rev) => rev.user.toString() === req.user._id.toString()
     );
 
     if (isReviewed) {
-        blog.reviews.forEach((rev) => {
+        blog.reviews?.forEach((rev) => {
             if (rev.user.toString() === req.user._id.toString())
                 (rev.rating = rating), (rev.comment = comment);
         });
     } else {
-        blog.reviews.push(review);
-        blog.numOfReviews = blog.reviews.length;
+        blog.reviews?.push(review);
+        blog.numOfReviews = blog.reviews?.length;
     }
 
     let avg = 0;
 
-    blog.reviews.forEach((rev) => {
+    blog.reviews?.forEach((rev) => {
         avg += rev.rating;
     });
 
-    blog.ratings = avg / blog.reviews.length;
+    blog.ratings = avg / blog.reviews?.length;
 
     await blog.save({ validateBeforeSave: false });
 
