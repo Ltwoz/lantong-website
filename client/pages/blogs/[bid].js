@@ -300,6 +300,7 @@ const BlogDetails = ({ blog: blogSSR }) => {
                         <hr />
                         <Link
                             href={blog.google_map}
+                            target="_blank"
                             className="inline-flex items-center bg-primary disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
                         >
                             <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
