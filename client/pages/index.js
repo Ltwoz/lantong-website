@@ -1,6 +1,7 @@
 import Layout from "@/components/layouts/Layout";
 import Accordian from "@/components/ui/homepage/Accordian";
 import BannerSlider from "@/components/ui/homepage/BannerSlider";
+import FeaturedBlogs from "@/components/ui/homepage/FeaturedBlogs";
 import FeaturedProducts from "@/components/ui/homepage/FeaturedProducts";
 import Menu from "@/components/ui/homepage/Menu";
 import PurchaseStep from "@/components/ui/homepage/PurchaseStep";
@@ -57,6 +58,19 @@ export default function Home() {
                                 allowFullScreen
                             />
                         </div>
+                    </div>
+                </section>
+
+                {/* ลานทองพาเที่ยว */}
+                <section id="featured-products" className="bg-[#3A3A3A]">
+                    <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center pt-12 px-4 xl:px-0">
+                        <h1 className="font-semibold text-[26px] text-white mb-9 text-center">
+                            ลานทองพาเที่ยว
+                        </h1>
+                        <FeaturedBlogs />
+                        <p className="text-white text-sm my-8">
+                            การันตีร้านค้าแนะนำจากลานทอง
+                        </p>
                     </div>
                 </section>
 

@@ -35,7 +35,11 @@ const AdminAllCategoriesPage = () => {
     // Debounce
     useEffect(() => {
         const debounce = setTimeout(() => {
-            setKeyword(debounceValue);
+            const filteredValue = debounceValue.replace(
+                /[^\u0E00-\u0E7Fa-zA-Z0-9\s]/g,
+                ""
+            );
+            setKeyword(filteredValue);
         }, 500);
 
         return () => clearTimeout(debounce);
@@ -93,9 +97,7 @@ const AdminAllCategoriesPage = () => {
     const { user, isAuthenticated } = useUser();
 
     if (!user || user.role !== "admin" || !isAuthenticated) {
-        return (
-           <NoPermission />
-        );
+        return <NoPermission />;
     }
 
     return (

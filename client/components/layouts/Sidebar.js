@@ -22,7 +22,7 @@ const Menus = [
     },
     {
         name: "ลานทองพาเที่ยว",
-        href: `/reviews`,
+        href: `/blogs`,
     },
     {
         name: "ติดต่อ",

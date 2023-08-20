@@ -8,6 +8,7 @@ const {
     getBlogReviews,
     deleteReview,
     deleteBlog,
+    updateBlog,
 } = require("./blog.handler");
 const {
     isAuthenticatedUser,
@@ -37,8 +38,7 @@ router
 
 router
     .route("/admin/blog/:id")
-    .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteBlog);
-
-// TODO: Update blog routes
+    .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteBlog)
+    .put(isAuthenticatedUser, authorizeRoles("admin"), updateBlog);
 
 module.exports = router;

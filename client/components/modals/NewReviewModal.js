@@ -37,7 +37,7 @@ const NewReviewModal = (props) => {
                     autoComplete="off"
                     className="px-5 py-4 w-full grid grid-cols-3 gap-4"
                 >
-                    <div className="col-span-6 md:col-span-3">
+                    <div className="col-span-3 flex justify-center">
                         {[...Array(5)].map((star, index) => {
                             index += 1;
                             return (
@@ -58,7 +58,7 @@ const NewReviewModal = (props) => {
                             );
                         })}
                     </div>
-                    <div className="col-span-6 md:col-span-3">
+                    <div className="col-span-3">
                         <label className="block text-sm font-medium tracking-wide">
                             คอมเมนท์
                         </label>

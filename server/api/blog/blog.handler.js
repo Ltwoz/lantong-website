@@ -37,29 +37,29 @@ exports.createBlog = catchAsyncErrors(async (req, res, next) => {
 // Get Filter Blogs
 exports.getFilterBlogs = catchAsyncErrors(async (req, res, next) => {
     const resultPerPage = 20;
-    const blogCount = await Blog.countDocuments();
+    const blogsCount = await Blog.countDocuments();
 
     const apiFeature = new ApiFeatures(Blog.find(), req.query)
         .search(["name"])
         .filter()
         .sort();
 
-    let blog = await apiFeature.query;
+    let blogs = await apiFeature.query;
 
-    let filteredBlogsCount = blog.length;
+    let filteredBlogsCount = blogs.length;
 
     apiFeature.pagination(resultPerPage);
 
-    blog = await apiFeature.query.clone();
+    blogs = await apiFeature.query.clone();
 
     const totalPageCount = Math.ceil(filteredBlogsCount / resultPerPage);
 
     res.status(200).json({
         success: true,
-        blog,
+        blogs,
         filteredBlogsCount,
         totalPageCount,
-        blogCount,
+        blogsCount,
     });
 });
 
@@ -79,30 +79,104 @@ exports.getDetailBlog = catchAsyncErrors(async (req, res, next) => {
 // Get All Blogs -- Admin
 exports.getAdminBlogs = catchAsyncErrors(async (req, res, next) => {
     const resultPerPage = 20;
-    const blogCount = await Blog.countDocuments();
+    const blogsCount = await Blog.countDocuments();
 
     const apiFeature = new ApiFeatures(Blog.find(), req.query)
         .search(["name"])
         .filter()
         .sort();
 
-    let blog = await apiFeature.query;
+    let blogs = await apiFeature.query;
 
-    let filteredBlogsCount = blog.length;
+    let filteredBlogsCount = blogs.length;
 
     apiFeature.pagination(resultPerPage);
 
-    blog = await apiFeature.query.clone();
+    blogs = await apiFeature.query.clone();
 
     const totalPageCount = Math.ceil(filteredBlogsCount / resultPerPage);
 
     res.status(200).json({
         success: true,
-        blog,
+        blogs,
         filteredBlogsCount,
         totalPageCount,
-        blogCount,
+        blogsCount,
     });
+});
+
+// Update Blog -- Admin
+exports.updateBlog = catchAsyncErrors(async (req, res, next) => {
+    // Create a multer instance and configure it
+    const storage = multer.memoryStorage();
+    const uploadMiddleware = multer({ storage: storage }).array("files");
+    const uploadMiddlewareAsync = promisify(uploadMiddleware);
+
+    await uploadMiddlewareAsync(req, res);
+
+    let blog = await Blog.findById(req.params.id);
+
+    const files = req.files;
+
+    // Images Array
+    const oldImages = blog.images || [];
+    const currentImages = [];
+    const updateImages = [];
+
+    console.log(files);
+
+    // JSON Parse images if it's not undefined
+    if (req.body.images !== undefined) {
+        for (let i = 0; i < req.body.images.length; i++) {
+            const image = req.body.images[i];
+            currentImages.push(JSON.parse(image));
+        }
+    }
+
+    // Check unmatched
+    const unmatchedImages = oldImages.filter(
+        (img) =>
+            !currentImages.some((image) => image.public_id === img.public_id)
+    );
+
+    //Deleting Images From AWS S3
+    await deleteFiles(unmatchedImages);
+
+    // Upload Images
+    const result = await uploadFile(files, "blogs");
+
+    if (currentImages.length === 0) {
+        for (let i = 0; i < result.length; i++) {
+            updateImages.push({
+                public_id: result[i].key,
+                url: result[i].Location,
+            });
+        }
+    } else {
+        // Push current images and push new images (if have)
+        for (let i = 0; i < currentImages.length; i++) {
+            updateImages.push({
+                public_id: currentImages[i].public_id,
+                url: currentImages[i].url,
+            });
+        }
+        for (let i = 0; i < result.length; i++) {
+            updateImages.push({
+                public_id: result[i].key,
+                url: result[i].Location,
+            });
+        }
+    }
+
+    req.body.images = updateImages;
+
+    blog = await Blog.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+    });
+
+    res.status(200).json({ success: true, blog });
 });
 
 // Delete Blog -- Admin

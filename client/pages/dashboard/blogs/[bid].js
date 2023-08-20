@@ -10,10 +10,15 @@ import instanceApi from "@/config/axios-config";
 import { useUser } from "@/contexts/user-context";
 import NoPermission from "@/components/ui/custom-pages/403";
 import { z } from "zod";
+import { useRouter } from "next/router";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-const NewBlogPage = () => {
+const EditBlogPage = ({ id }) => {
+    const router = useRouter();
+
+    const [blog, setBlog] = useState({});
+
     // State ของ Product
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -22,6 +27,7 @@ const NewBlogPage = () => {
     const [mapUrl, setMapUrl] = useState("");
     const [phoneNo, setPhoneNo] = useState("");
 
+    const [files, setFiles] = useState([]);
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
 
@@ -42,10 +48,11 @@ const NewBlogPage = () => {
     // Toastify
     useEffect(() => {
         if (isSuccess) {
-            toast.success("สร้างสำเร็จ", {
+            toast.success("แก้ไขสำเร็จ", {
                 position: toast.POSITION.BOTTOM_RIGHT,
             });
             setIsSuccess(false);
+            router.replace(`/dashboard/blogs/${id}`);
         }
 
         if (error) {
@@ -54,13 +61,39 @@ const NewBlogPage = () => {
             });
             setError(null);
         }
-    }, [isSuccess, error]);
+    }, [isSuccess, error, router, id]);
+
+    // Fetch Blog
+    useEffect(() => {
+        const getBlogById = async () => {
+            const { data } = await instanceApi.get(`/api/blog/${id}`);
+            setBlog(data?.blog);
+            setLoading(false);
+        };
+
+        getBlogById().catch(() => {
+            console.error;
+            setLoading(false);
+        });
+    }, [id]);
+
+    useEffect(() => {
+        setName(blog.name);
+        setDescription(blog.description);
+        setCategory(blog.category);
+        setAddress(blog.address);
+        setMapUrl(blog.google_map);
+        setPhoneNo(blog.phone_no);
+        +setImages(blog.images);
+        setImagesPreview(blog.images);
+        setIsActive(blog.isActive);
+    }, [blog]);
 
     function handleUploadImage(e) {
         const files = Array.from(e.target.files);
 
         files.forEach((file) => {
-            setImages((old) => [...old, file]);
+            setFiles((old) => [...old, file]);
 
             const reader = new FileReader();
 
@@ -84,6 +117,10 @@ const NewBlogPage = () => {
         const newImages = [...images];
         newImages.splice(index, 1);
         setImages(newImages);
+
+        const newFiles = [...files];
+        newFiles.splice(index - images.length, 1);
+        setFiles(newFiles);
     }
 
     async function submitForm(e) {
@@ -100,7 +137,10 @@ const NewBlogPage = () => {
         formData.set("isActive", isActive);
 
         images.forEach((image) => {
-            formData.append("images", image);
+            formData.append("images[]", JSON.stringify(image));
+        });
+        files.forEach((file) => {
+            formData.append("files", file);
         });
 
         const data = Object.fromEntries(formData);
@@ -121,8 +161,8 @@ const NewBlogPage = () => {
         try {
             setLoading(true);
 
-            const { data } = await instanceApi.post(
-                `/api/admin/blog/new`,
+            const { data } = await instanceApi.put(
+                `/api/admin/blog/${id}`,
                 formData,
                 config
             );
@@ -145,7 +185,7 @@ const NewBlogPage = () => {
     return (
         <Layout isDashboard={true}>
             <Head>
-                <title>สร้างรีวิว - หจก.ลานทองเชียงใหม่</title>
+                <title>แก้ไขรีวิว - หจก.ลานทองเชียงใหม่</title>
             </Head>
             {/* ชื่อหน้า */}
             <div className="w-full">
@@ -154,11 +194,11 @@ const NewBlogPage = () => {
                     className="flex flex-col md:flex-row gap-4 py-6 items-start md:items-center justify-between"
                 >
                     <div className="flex flex-col">
-                        <h2 className="text-2xl font-bold">สร้างรีวิว</h2>
+                        <h2 className="text-2xl font-bold">แก้ไขรีวิว</h2>
                     </div>
                 </div>
             </div>
-            {/* Form สร้างรีวิว */}
+            {/* Form แก้ไขรีวิว */}
             <section id="main" className="w-full mb-6 flex flex-col gap-4">
                 <div className="flex flex-col w-full bg-white border rounded-md gap-4 md:gap-6 p-4 md:p-6">
                     <div
@@ -200,9 +240,7 @@ const NewBlogPage = () => {
                                 <input
                                     type="text"
                                     value={phoneNo}
-                                    onChange={(e) =>
-                                        setPhoneNo(e.target.value)
-                                    }
+                                    onChange={(e) => setPhoneNo(e.target.value)}
                                     className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
                                 />
                             </div>
@@ -433,7 +471,7 @@ const NewBlogPage = () => {
                                     />
                                 </svg>
                                 <span className="block">
-                                    {loading ? "กำลังสร้าง" : "สร้างรีวิว"}
+                                    {loading ? "กำลังแก้ไข" : "แก้ไขรีวิว"}
                                 </span>
                             </div>
                         </button>
@@ -444,4 +482,14 @@ const NewBlogPage = () => {
     );
 };
 
-export default NewBlogPage;
+export default EditBlogPage;
+
+export const getServerSideProps = async (ctx) => {
+    const id = ctx.params.bid;
+
+    return {
+        props: {
+            id,
+        },
+    };
+};

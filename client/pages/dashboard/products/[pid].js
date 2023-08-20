@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import instanceApi from "@/config/axios-config";
 import NoPermission from "@/components/ui/custom-pages/403";
 import { useUser } from "@/contexts/user-context";
+import { z } from "zod";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -51,6 +52,13 @@ const EditProductPage = ({ id }) => {
     const [isSuccess, setIsSuccess] = useState(false);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+
+    const validateSchema = z.object({
+        productId: z.string().min(1, { message: "ใส่รหัสสินค้า" }),
+        name: z.string().min(1, { message: "ใส่ชื่อสินค้า" }),
+        description: z.string().min(1, { message: "ใส่รายละเอียด" }),
+        price: z.string().min(1, { message: "ใส่ราคา" }),
+    });
 
     // Toastify
     useEffect(() => {
@@ -150,6 +158,10 @@ const EditProductPage = ({ id }) => {
         const newImages = [...images];
         newImages.splice(index, 1);
         setImages(newImages);
+
+        const newFiles = [...files];
+        newFiles.splice(index - images.length, 1);
+        setFiles(newFiles);
     }
 
     async function submitForm(e) {
@@ -184,6 +196,19 @@ const EditProductPage = ({ id }) => {
         files.forEach((file) => {
             formData.append("files", file);
         });
+
+        const data = Object.fromEntries(formData);
+
+        const validatedForm = validateSchema.safeParse(data);
+
+        if (!validatedForm.success) {
+            validatedForm.error.issues.map((err) => {
+                toast.error(err.message, {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
+            });
+            return false;
+        }
 
         const config = { headers: { "Content-Type": "multipart/form-data" } };
 
