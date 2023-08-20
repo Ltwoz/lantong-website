@@ -29,6 +29,7 @@ const NewProductPage = () => {
 
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
+    const [videosPreview, setVideosPreview] = useState([]);
 
     const [isActive, setIsActive] = useState(true);
     const [isFeatured, setIsFeatured] = useState(false);
@@ -87,6 +88,8 @@ const NewProductPage = () => {
     function handleUploadImage(e) {
         const files = Array.from(e.target.files);
 
+        console.log(files);
+
         files.forEach((file) => {
             setImages((old) => [...old, file]);
 
@@ -94,7 +97,11 @@ const NewProductPage = () => {
 
             reader.onload = () => {
                 if (reader.readyState === 2) {
-                    setImagesPreview((old) => [...old, reader.result]);
+                    if (file.type === "video/mp4") {
+                        setVideosPreview((old) => [...old, reader.result]);
+                    } else {
+                        setImagesPreview((old) => [...old, reader.result]);
+                    }
                 }
             };
             reader.readAsDataURL(file);
@@ -403,14 +410,14 @@ const NewProductPage = () => {
                                     <input
                                         id="dropzone-file"
                                         type="file"
-                                        accept=".jpeg, .jpg, .png"
+                                        accept=".jpeg, .jpg, .png, .mp4"
                                         multiple
                                         onChange={handleUploadImage}
                                         className="hidden"
                                     />
                                 </label>
                             </div>
-                            {imagesPreview?.length > 0 && (
+                            {(imagesPreview?.length > 0 || videosPreview?.length > 0) && (
                                 <div className="col-span-4">
                                     <p className="mt-1 text-sm text-gray-600 mb-4">
                                         ทั้งหมด{" "}
@@ -444,6 +451,50 @@ const NewProductPage = () => {
                                                         onClick={() =>
                                                             removeImage(i)
                                                         }
+                                                        className="bg-white text-red-600 transition-all border border-transparent hover:border-red-600 rounded-lg p-1"
+                                                    >
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            stroke="currentColor"
+                                                            className="w-4 h-4 md:w-5 md:h-5"
+                                                        >
+                                                            <path
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                                strokeWidth="2"
+                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                                            />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                        {videosPreview?.map((video, i) => (
+                                            <div
+                                                key={i}
+                                                className="w-full aspect-square relative flex items-center rounded-lg overflow-hidden"
+                                            >
+                                                <video
+                                                    width="750"
+                                                    height="500"
+                                                    controls
+                                                >
+                                                    <source
+                                                        src={
+                                                            video.url
+                                                                ? video.url
+                                                                : video
+                                                        }
+                                                        type="video/mp4"
+                                                    />
+                                                </video>
+                                                <div className="flex absolute top-1 right-1 z-[1]">
+                                                    <button
+                                                        // onClick={() =>
+                                                        //     removeImage(i)
+                                                        // }
                                                         className="bg-white text-red-600 transition-all border border-transparent hover:border-red-600 rounded-lg p-1"
                                                     >
                                                         <svg
