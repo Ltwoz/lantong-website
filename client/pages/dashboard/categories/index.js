@@ -330,3 +330,5 @@ const AdminAllCategoriesPage = () => {
 };
 
 export default AdminAllCategoriesPage;
+
+export { getServerSideProps } from "@/utils/get-init-props";

@@ -768,3 +768,5 @@ const NewProductPage = () => {
 };
 
 export default NewProductPage;
+
+export { getServerSideProps } from "@/utils/get-init-props";

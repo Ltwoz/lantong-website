@@ -35,3 +35,5 @@ const DashboardPage = () => {
 };
 
 export default DashboardPage;
+
+export { getServerSideProps } from "@/utils/get-init-props";

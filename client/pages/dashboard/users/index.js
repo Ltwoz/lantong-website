@@ -338,3 +338,5 @@ const AdminAllUsersPage = () => {
 };
 
 export default AdminAllUsersPage;
+
+export { getServerSideProps } from "@/utils/get-init-props";

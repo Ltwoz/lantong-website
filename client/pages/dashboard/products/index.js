@@ -380,3 +380,5 @@ const AdminAllProductsPage = () => {
 };
 
 export default AdminAllProductsPage;
+
+export { getServerSideProps } from "@/utils/get-init-props";

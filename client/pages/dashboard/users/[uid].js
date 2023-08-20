@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import instanceApi from "@/config/axios-config";
 import { useUser } from "@/contexts/user-context";
 import NoPermission from "@/components/ui/custom-pages/403";
+import { withInitProps } from "@/utils/get-init-props";
 
 const EditUserPage = ({ id }) => {
     const router = useRouter();
@@ -43,9 +44,7 @@ const EditUserPage = ({ id }) => {
     // Fetch Category
     useEffect(() => {
         const getUserById = async () => {
-            const { data } = await instanceApi.get(
-                `/api/admin/user/${id}`
-            );
+            const { data } = await instanceApi.get(`/api/admin/user/${id}`);
             setUser(data?.user);
         };
 
@@ -58,7 +57,7 @@ const EditUserPage = ({ id }) => {
         setName(user.name);
         setEmail(user.email);
         setRole(user.role);
-    }, [user])
+    }, [user]);
 
     async function submitForm(e) {
         e.preventDefault();
@@ -92,9 +91,7 @@ const EditUserPage = ({ id }) => {
     const { user: currentUser, isAuthenticated } = useUser();
 
     if (!currentUser || currentUser.role !== "admin" || !isAuthenticated) {
-        return (
-           <NoPermission />
-        );
+        return <NoPermission />;
     }
 
     return (
@@ -109,7 +106,9 @@ const EditUserPage = ({ id }) => {
                     className="flex flex-col md:flex-row gap-4 py-6 items-start md:items-center justify-between"
                 >
                     <div className="flex flex-col">
-                        <h2 className="text-2xl font-bold">แก้ไขผู้ใช้ {user.name}</h2>
+                        <h2 className="text-2xl font-bold">
+                            แก้ไขผู้ใช้ {user.name}
+                        </h2>
                     </div>
                 </div>
             </div>
@@ -155,9 +154,7 @@ const EditUserPage = ({ id }) => {
                                 </label>
                                 <select
                                     value={role}
-                                    onChange={(e) =>
-                                        setRole(e.target.value)
-                                    }
+                                    onChange={(e) => setRole(e.target.value)}
                                     className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base hover:cursor-pointer"
                                 >
                                     <option value="user">user</option>
@@ -204,7 +201,7 @@ const EditUserPage = ({ id }) => {
 
 export default EditUserPage;
 
-export const getServerSideProps = async (ctx) => {
+export const getServerSideProps = withInitProps(async (ctx) => {
     const id = ctx.params.uid;
 
     return {
@@ -212,4 +209,4 @@ export const getServerSideProps = async (ctx) => {
             id,
         },
     };
-};
+});

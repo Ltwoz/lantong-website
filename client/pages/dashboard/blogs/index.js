@@ -377,3 +377,5 @@ const AdminAllBlogsPage = () => {
 };
 
 export default AdminAllBlogsPage;
+
+export { getServerSideProps } from "@/utils/get-init-props";

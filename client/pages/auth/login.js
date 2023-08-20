@@ -116,3 +116,5 @@ export default function Login() {
         </Layout>
     );
 }
+
+export { getServerSideProps } from "@/utils/get-init-props";

@@ -445,3 +445,5 @@ const NewBlogPage = () => {
 };
 
 export default NewBlogPage;
+
+export { getServerSideProps } from "@/utils/get-init-props";

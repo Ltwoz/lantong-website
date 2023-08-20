@@ -11,6 +11,7 @@ import instanceApi from "@/config/axios-config";
 import NoPermission from "@/components/ui/custom-pages/403";
 import { useUser } from "@/contexts/user-context";
 import { z } from "zod";
+import { withInitProps } from "@/utils/get-init-props";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -765,7 +766,7 @@ const EditProductPage = ({ id }) => {
 
 export default EditProductPage;
 
-export const getServerSideProps = async (ctx) => {
+export const getServerSideProps = withInitProps(async (ctx) => {
     const id = ctx.params.pid;
 
     return {
@@ -773,4 +774,4 @@ export const getServerSideProps = async (ctx) => {
             id,
         },
     };
-};
+});
