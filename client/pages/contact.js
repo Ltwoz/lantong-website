@@ -18,7 +18,7 @@ export default function ContactUs() {
             <div className="">
               <p className="bg-[#4E4E4E] md:w-[200px] text-white md:h-[50px] justify-center items-center text-[24px] rounded-md flex ">
                 <AiOutlinePhone className="mr-2 rotate-90" />
-                081 952 1342
+                053 876 109
               </p>
             </div>
             {/* Facebook */}
@@ -74,8 +74,8 @@ export default function ContactUs() {
               <div className="flex items-center">
                 <FaRoad className=" w-[100px] h-[100px] mr-2 md:block hidden" />
                 <p>
-                  ห้างหุ้นส่วนจำกัด ลานทองธุรกิจยนต์ 4/4 ถ.รัตนโกสินทร์
-                  ต.ช้างม่อย อ.เมืองเชียงใหม่ จ.เชียงใหม่ 50200
+                  ห้างหุ้นส่วนจำกัด ลานทองเชียงใหม่ เลขที่ 207/3 ถ.วังสิงห์คำ
+                  ต.ช้างม่อย อ.เมืองเชียงใหม่ จ.เชียงใหม่ 50300
                 </p>
               </div>
             </div>
