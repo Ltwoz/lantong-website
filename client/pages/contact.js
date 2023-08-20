@@ -15,10 +15,14 @@ export default function ContactUs() {
           </h1>
 
           <div className="flex flex-col gap-4">
-            <div className="">
+            <div className="gap-12 flex">
               <p className="bg-[#4E4E4E] md:w-[200px] text-white md:h-[50px] justify-center items-center text-[24px] rounded-md flex ">
                 <AiOutlinePhone className="mr-2 rotate-90" />
                 053 876 109
+              </p>
+              <p className="bg-[#4E4E4E] md:w-[200px] text-white md:h-[50px] justify-center items-center text-[24px] rounded-md flex ">
+                <AiOutlinePhone className="mr-2 rotate-90" />
+                081 952 1342
               </p>
             </div>
             {/* Facebook */}
