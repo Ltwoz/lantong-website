@@ -35,7 +35,11 @@ const AdminAllProductsPage = () => {
     // Debounce
     useEffect(() => {
         const debounce = setTimeout(() => {
-            setKeyword(debounceValue);
+            const filteredValue = debounceValue.replace(
+                /[^\u0E00-\u0E7Fa-zA-Z0-9\s]/g,
+                ""
+            );
+            setKeyword(filteredValue);
         }, 500);
 
         return () => clearTimeout(debounce);
@@ -93,9 +97,7 @@ const AdminAllProductsPage = () => {
     const { user, isAuthenticated } = useUser();
 
     if (!user || user.role !== "admin" || !isAuthenticated) {
-        return (
-           <NoPermission />
-        );
+        return <NoPermission />;
     }
 
     return (
@@ -378,3 +380,5 @@ const AdminAllProductsPage = () => {
 };
 
 export default AdminAllProductsPage;
+
+export { getServerSideProps } from "@/utils/get-init-props";

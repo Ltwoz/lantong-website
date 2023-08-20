@@ -14,18 +14,19 @@ const Layout = ({ children, isDashboard }) => {
     const { isOpen, isMobile } = useDashboardSidebar();
     const { config } = useConfig();
 
-    const primaryColor = getRGBColor(config?.style?.primary_color, "primary");
+    console.log("config : ", config);
+
+    const primaryColor = getRGBColor(config.style?.primary_color, "primary");
     const allyColor = getRGBColor(
-        getAccessibleColor(config?.style?.primary_color),
+        getAccessibleColor(config.style?.primary_color),
         "ally"
     );
-
 
     return (
         <>
             <Head>
-                <title>{config?.website_title}</title>
-                <meta name="description" content={config?.website_desc} />
+                <title>{config.website_title}</title>
+                <meta name="description" content={config.website_desc} />
                 <meta
                     name="keywords"
                     content="พ่วงข้าง, ลานทอง, ขายรถเชียงใหม่"
@@ -35,8 +36,8 @@ const Layout = ({ children, isDashboard }) => {
                     content="width=device-width, initial-scale=1"
                 />
                 <meta property="og:type" content="website" />
-                <meta property="og:title" content={config?.website_title} />
-                <meta property="og:description" content={config?.website_desc} />
+                <meta property="og:title" content={config.website_title} />
+                <meta property="og:description" content={config.website_desc} />
                 <meta property="og:image" content="" />
                 <link rel="icon" href="" />
                 <style>:root {`{${primaryColor} ${allyColor}}`}</style>

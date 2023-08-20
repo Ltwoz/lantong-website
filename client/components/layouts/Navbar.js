@@ -170,7 +170,7 @@ const Navbar = () => {
                     <Link href="/">หน้าหลัก</Link>
                     <Link href="/about">เกี่ยวกับ</Link>
                     <Link href="/products">สินค้าของเรา</Link>
-                    <Link href="#">ลานทองรีวิว</Link>
+                    <Link href="/blogs">ลานทองพาเที่ยว</Link>
                     <Link href="/contact">ติดต่อเรา</Link>
                     {AuthButton}
                 </div>

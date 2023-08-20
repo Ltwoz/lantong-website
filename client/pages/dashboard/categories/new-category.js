@@ -222,3 +222,5 @@ const NewCategoryPage = () => {
 };
 
 export default NewCategoryPage;
+
+export { getServerSideProps } from "@/utils/get-init-props";

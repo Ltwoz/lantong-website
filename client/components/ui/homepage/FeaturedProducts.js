@@ -3,12 +3,13 @@ import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import ProductCard from "../products/ProductCard";
 import instanceApi from "@/config/axios-config";
+import LoadingSpiner from "../Spiner";
 
 const FeaturedProducts = () => {
     const [status, setStatus] = useState("newest");
 
     const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         let link = `/api/products?isActive=true${
@@ -24,9 +25,8 @@ const FeaturedProducts = () => {
         }`;
 
         const getProducts = async () => {
-            const { data } = await instanceApi.get(
-                `${link}`
-            );
+            setLoading(true);
+            const { data } = await instanceApi.get(`${link}`);
             setProducts(data?.products);
             setLoading(false);
         };
@@ -110,11 +110,13 @@ const FeaturedProducts = () => {
                 </div>
             </div>
             {/* Grid สินค้า */}
-            {products?.length < 1 ? (
+            {loading ? (
+                <div className="max-h-[340.55px] xl:max-h-[360.77px] flex items-center justify-center">
+                    <LoadingSpiner />
+                </div>
+            ) : products?.length < 1 ? (
                 <div className="flex items-center justify-center border-t min-h-[340.55px] xl:min-h-[360.77px]">
-                    <p className="font-medium text-white">
-                        ไม่มีข้อมูลสินค้า
-                    </p>
+                    <p className="font-medium text-white">ไม่มีข้อมูลสินค้า</p>
                 </div>
             ) : (
                 <Splide

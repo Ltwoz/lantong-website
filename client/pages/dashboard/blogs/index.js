@@ -12,10 +12,10 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const AdminAllUsersPage = () => {
-    // Users State
-    const [users, setUsers] = useState([]);
-    const [selectedUser, setSelectedUser] = useState({});
+const AdminAllBlogsPage = () => {
+    // Blogs State
+    const [blogs, setBlogs] = useState([]);
+    const [selectedBlog, setSelectedBlog] = useState({});
 
     // CRUD State
     const [loading, setLoading] = useState(true);
@@ -64,18 +64,18 @@ const AdminAllUsersPage = () => {
     }, [isDeleted, error]);
 
     useEffect(() => {
-        let link = `/api/admin/users?findUser=${
+        let link = `/api/admin/blogs?keyword=${
             keyword ? keyword : ""
         }&page=${page}`;
 
-        const getUsers = async () => {
+        const getBlogs = async () => {
             setLoading(true);
             const { data } = await instanceApi.get(`${link}`);
-            setUsers(data);
+            setBlogs(data);
             setLoading(false);
         };
 
-        getUsers().catch(() => {
+        getBlogs().catch(() => {
             console.error;
             setLoading(false);
         });
@@ -84,7 +84,7 @@ const AdminAllUsersPage = () => {
     const deleteHandler = async (e) => {
         try {
             const { data } = await instanceApi.delete(
-                `/api/admin/user/${selectedUser._id}`
+                `/api/admin/blog/${selectedBlog._id}`
             );
 
             setIsDeleted(data.success);
@@ -103,14 +103,14 @@ const AdminAllUsersPage = () => {
     return (
         <Layout isDashboard={true}>
             <Head>
-                <title>ผู้ใช้ทั้งหมด - หจก.ลานทองเชียงใหม่</title>
+                <title>รีวิวทั้งหมด - หจก.ลานทองเชียงใหม่</title>
             </Head>
             {/* Modal */}
             <AnimatePresence>
                 {showDeleteModal && (
                     <DeleteModal
-                        title={`ลบผู้ใช้ ${selectedUser.name} ?`}
-                        message={"ผู้ใช้นี้จะหายไปจากเว็บไซต์"}
+                        title={`ลบรีวิว ${selectedBlog.name} ?`}
+                        message={"รีวิวนี้จะหายไปจากเว็บไซต์"}
                         buttonLabel={"ตกลง, ลบเลย!"}
                         setIsOpen={setShowDeleteModal}
                         handler={deleteHandler}
@@ -124,14 +124,14 @@ const AdminAllUsersPage = () => {
                     className="flex flex-col md:flex-row gap-4 py-6 items-start md:items-center justify-between"
                 >
                     <div className="flex flex-col">
-                        <h2 className="text-2xl font-bold">ผู้ใช้ทั้งหมด</h2>
+                        <h2 className="text-2xl font-bold">รีวิวทั้งหมด</h2>
                     </div>
                 </div>
             </div>
             {/* ตาราง */}
             <section id="main" className="w-full mb-6 flex flex-col gap-4">
                 <div
-                    id="users-main"
+                    id="blogs-main"
                     className="flex flex-col w-full bg-white border rounded-md gap-4 md:gap-6 p-4 md:p-6"
                 >
                     <div className="flex flex-row-reverse items-center justify-between">
@@ -166,10 +166,10 @@ const AdminAllUsersPage = () => {
                         <LoadingSpiner />
                     ) : (
                         <section className="bg-white">
-                            {users?.users?.length < 1 ? (
+                            {blogs?.blogs?.length < 1 ? (
                                 <div className="flex items-center justify-center pb-4 pt-8 border-t">
                                     <p className="font-medium text-gray-600">
-                                        ไม่มีข้อมูลผู้ใช้
+                                        ไม่มีข้อมูลรีวิว
                                     </p>
                                 </div>
                             ) : (
@@ -178,20 +178,23 @@ const AdminAllUsersPage = () => {
                                         <table className="w-full table-fixed">
                                             <thead>
                                                 <tr className="bg-zinc-700 text-gray-200 text-sm leading-normal">
-                                                    <th className="th-td w-72 2xl:w-32">
-                                                        รหัสผู้ใช้
+                                                    <th className="th-td w-80 2xl:w-44">
+                                                        ชื่อรีวิว
                                                     </th>
-                                                    <th className="th-td w-52 2xl:w-28">
-                                                        ชื่อ
-                                                    </th>
-                                                    <th className="th-td w-52 2xl:w-36">
-                                                        อีเมล
-                                                    </th>
-                                                    <th className="th-td !text-center w-40 2xl:w-16">
-                                                        บทบาท
+                                                    <th className="th-td w-52 2xl:w-32">
+                                                        หมวดหมู่
                                                     </th>
                                                     <th className="th-td !text-center w-40 2xl:w-20">
+                                                        จำนวนคอมเมนท์
+                                                    </th>
+                                                    <th className="th-td !text-center w-40 2xl:w-16">
+                                                        เรทติ้ง
+                                                    </th>
+                                                    <th className="th-td !text-center w-40 2xl:w-24">
                                                         วันที่
+                                                    </th>
+                                                    <th className="th-td !text-center w-40 2xl:w-16">
+                                                        สถานะ
                                                     </th>
                                                     <th className="py-3 px-6 text-center w-48 2xl:w-[82px]">
                                                         จัดการ
@@ -199,38 +202,35 @@ const AdminAllUsersPage = () => {
                                                 </tr>
                                             </thead>
                                             <tbody className="text-gray-600 text-sm md:text-base">
-                                                {users?.users?.map((user) => (
+                                                {blogs?.blogs?.map((blog) => (
                                                     <tr
-                                                        key={user._id}
+                                                        key={blog._id}
                                                         className="border-b last:border-0 border-gray-200 hover:bg-gray-100/80 font-medium"
                                                     >
                                                         <td className="th-td">
-                                                            <span className="text-sm font-semibold px-2.5 py-0.5 rounded-md bg-[#12A53B] text-zinc-100">
-                                                                {user._id}
-                                                            </span>
+                                                            {blog.name}
                                                         </td>
                                                         <td className="th-td">
-                                                            {user.name}
-                                                        </td>
-                                                        <td className="th-td">
-                                                            {user.email}
+                                                            {blog.category}
                                                         </td>
                                                         <td className="th-td !text-center">
-                                                            <span
+                                                            {blog.numOfReviews}
+                                                        </td>
+                                                        <td className="th-td !text-center">
+                                                            <div
                                                                 className={
-                                                                    "text-sm font-medium px-2.5 py-0.5 rounded-md" +
-                                                                    (user.role ===
-                                                                    "admin"
-                                                                        ? " bg-amber-600 text-amber-100"
-                                                                        : " bg-blue-600 text-blue-100")
+                                                                    "py-1.5 px-2.5 leading-none text-sm text-white font-semibold rounded bg-sky-600 flex flex-row items-center mx-auto w-fit"
                                                                 }
                                                             >
-                                                                {user.role}
-                                                            </span>
+                                                                <span className="text-[#F2DD1F] overflow-hidden pr-1">
+                                                                    &#9733;
+                                                                </span>
+                                                                {blog.ratings}
+                                                            </div>
                                                         </td>
                                                         <td className="th-td !text-center">
                                                             {new Date(
-                                                                user.createdAt
+                                                                blog.createdAt
                                                             ).toLocaleString(
                                                                 "th",
                                                                 {
@@ -242,10 +242,49 @@ const AdminAllUsersPage = () => {
                                                                 }
                                                             )}
                                                         </td>
+                                                        <td className="th-td !text-center">
+                                                            <span
+                                                                className={
+                                                                    "text-sm font-medium px-2.5 py-0.5 rounded-md" +
+                                                                    (blog.isActive
+                                                                        ? " bg-green-600 text-green-100"
+                                                                        : "bg-red-600 text-red-100")
+                                                                }
+                                                            >
+                                                                {blog.isActive
+                                                                    ? "เปิดใช้งาน"
+                                                                    : "ปิดใช้งาน"}
+                                                            </span>
+                                                        </td>
                                                         <td className="py-3 px-6 text-center">
                                                             <div className="flex item-center justify-center gap-x-2">
                                                                 <Link
-                                                                    href={`/dashboard/users/${user._id}`}
+                                                                    href={`/blogs/${blog._id}`}
+                                                                    className="transform hover:text-[#12A53B] hover:scale-110 transition-all border hover:border-[#12A53B] rounded-full p-2"
+                                                                >
+                                                                    <svg
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        fill="none"
+                                                                        viewBox="0 0 24 24"
+                                                                        stroke="currentColor"
+                                                                        className="w-5 h-5"
+                                                                    >
+                                                                        <path
+                                                                            strokeLinecap="round"
+                                                                            strokeLinejoin="round"
+                                                                            strokeWidth="2"
+                                                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                                                        />
+                                                                        <path
+                                                                            strokeLinecap="round"
+                                                                            strokeLinejoin="round"
+                                                                            strokeWidth="2"
+                                                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                                                                        />
+                                                                    </svg>
+                                                                </Link>
+                                                                <Link
+                                                                    href={`/dashboard/blogs/${blog._id}`}
                                                                     className="transform hover:text-[#12A53B] hover:scale-110 transition-all border hover:border-[#12A53B] rounded-full p-2"
                                                                 >
                                                                     <svg
@@ -265,8 +304,8 @@ const AdminAllUsersPage = () => {
                                                                 </Link>
                                                                 <button
                                                                     onClick={() => {
-                                                                        setSelectedUser(
-                                                                            user
+                                                                        setSelectedBlog(
+                                                                            blog
                                                                         );
                                                                         setShowDeleteModal(
                                                                             (
@@ -303,12 +342,12 @@ const AdminAllUsersPage = () => {
                                         <p>
                                             แสดง{" "}
                                             <span className="font-medium">
-                                                {users?.fiteredUsersCount}
+                                                {blogs?.filteredBlogsCount}
                                             </span>{" "}
                                             จาก
                                             <span className="font-medium">
                                                 {" "}
-                                                {users?.usersCount}
+                                                {blogs?.blogsCount}
                                             </span>{" "}
                                             รายการ
                                         </p>
@@ -319,7 +358,7 @@ const AdminAllUsersPage = () => {
                                             <Pagination
                                                 currentPage={page}
                                                 totalPage={
-                                                    users?.totalPageCount
+                                                    blogs?.totalPageCount
                                                 }
                                                 onPageChange={(page) =>
                                                     setPage(page)
@@ -337,6 +376,6 @@ const AdminAllUsersPage = () => {
     );
 };
 
-export default AdminAllUsersPage;
+export default AdminAllBlogsPage;
 
 export { getServerSideProps } from "@/utils/get-init-props";

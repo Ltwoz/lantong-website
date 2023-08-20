@@ -178,3 +178,5 @@ export default function Register() {
         </Layout>
     );
 }
+
+export { getServerSideProps } from "@/utils/get-init-props";
