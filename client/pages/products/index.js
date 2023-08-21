@@ -58,8 +58,8 @@ export default function ProductsPage() {
         setLink(
             `/api/products?isActive=true&keyword=${keyword}${
                 category && `&category=${category}`
-            }&price[gte]=${price[0]}&price[lte]=${
-                price[1]
+            }&price[gte]=${price[0] || 0}&price[lte]=${
+                price[1] || 50000
             }&sort=${sort}&page=${page}`
         );
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,7 +79,7 @@ export default function ProductsPage() {
 
     function handlePriceChange(index, value) {
         const newPrice = [...price];
-        newPrice[index] = parseInt(value, 10);
+        newPrice[index] = parseInt(value || 0, 10);
         setPrice(newPrice);
     }
 
