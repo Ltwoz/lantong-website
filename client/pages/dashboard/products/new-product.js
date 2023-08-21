@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import instanceApi from "@/config/axios-config";
 import { useUser } from "@/contexts/user-context";
 import NoPermission from "@/components/ui/custom-pages/403";
+import { z } from "zod";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -17,7 +18,7 @@ const NewProductPage = () => {
     const [productId, setProductId] = useState("");
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
-    const [salePrice, setSalePrice] = useState("");
+    const [salePrice, setSalePrice] = useState();
     const [category, setCategory] = useState("");
 
     const [description, setDescription] = useState("");
@@ -28,6 +29,7 @@ const NewProductPage = () => {
 
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
+    const [videosPreview, setVideosPreview] = useState([]);
 
     const [isActive, setIsActive] = useState(true);
     const [isFeatured, setIsFeatured] = useState(false);
@@ -45,6 +47,13 @@ const NewProductPage = () => {
     const [isSuccess, setIsSuccess] = useState(false);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+
+    const validateSchema = z.object({
+        productId: z.string().min(1, { message: "ใส่รหัสสินค้า" }),
+        name: z.string().min(1, { message: "ใส่ชื่อสินค้า" }),
+        description: z.string().min(1, { message: "ใส่รายละเอียด" }),
+        price: z.string().min(1, { message: "ใส่ราคา" }),
+    });
 
     // Toastify
     useEffect(() => {
@@ -79,6 +88,8 @@ const NewProductPage = () => {
     function handleUploadImage(e) {
         const files = Array.from(e.target.files);
 
+        console.log(files);
+
         files.forEach((file) => {
             setImages((old) => [...old, file]);
 
@@ -86,7 +97,11 @@ const NewProductPage = () => {
 
             reader.onload = () => {
                 if (reader.readyState === 2) {
-                    setImagesPreview((old) => [...old, reader.result]);
+                    if (file.type === "video/mp4") {
+                        setVideosPreview((old) => [...old, reader.result]);
+                    } else {
+                        setImagesPreview((old) => [...old, reader.result]);
+                    }
                 }
             };
             reader.readAsDataURL(file);
@@ -136,8 +151,19 @@ const NewProductPage = () => {
             formData.append("images", image);
         });
 
-        for (var pair of formData.entries()) {
-            console.log(pair[0] + ", " + pair[1]);
+        const data = Object.fromEntries(formData);
+
+        console.log(data);
+
+        const validatedForm = validateSchema.safeParse(data);
+
+        if (!validatedForm.success) {
+            validatedForm.error.issues.map((err) => {
+                toast.error(err.message, {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
+            });
+            return false;
         }
 
         const config = { headers: { "Content-Type": "multipart/form-data" } };
@@ -225,7 +251,8 @@ const NewProductPage = () => {
                                     ราคาปกติ
                                 </label>
                                 <input
-                                    type="text"
+                                    type="number"
+                                    min={0}
                                     value={price}
                                     onChange={(e) => setPrice(e.target.value)}
                                     className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
@@ -236,7 +263,8 @@ const NewProductPage = () => {
                                     ราคาที่ลดแล้ว
                                 </label>
                                 <input
-                                    type="text"
+                                    type="number"
+                                    min={0}
                                     value={salePrice}
                                     onChange={(e) =>
                                         setSalePrice(e.target.value)
@@ -293,7 +321,8 @@ const NewProductPage = () => {
                                     ความกว้าง
                                 </label>
                                 <input
-                                    type="text"
+                                    type="number"
+                                    min={0}
                                     value={width}
                                     onChange={(e) => setWidth(e.target.value)}
                                     className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
@@ -304,7 +333,8 @@ const NewProductPage = () => {
                                     ความยาว
                                 </label>
                                 <input
-                                    type="text"
+                                    type="number"
+                                    min={0}
                                     value={length}
                                     onChange={(e) => setLength(e.target.value)}
                                     className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
@@ -315,7 +345,8 @@ const NewProductPage = () => {
                                     ความสูง
                                 </label>
                                 <input
-                                    type="text"
+                                    type="number"
+                                    min={0}
                                     value={height}
                                     onChange={(e) => setHeight(e.target.value)}
                                     className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
@@ -326,7 +357,8 @@ const NewProductPage = () => {
                                     น้ำหนักที่รับได้
                                 </label>
                                 <input
-                                    type="text"
+                                    type="number"
+                                    min={0}
                                     value={weightAccept}
                                     onChange={(e) =>
                                         setWeightAccept(e.target.value)
@@ -378,14 +410,14 @@ const NewProductPage = () => {
                                     <input
                                         id="dropzone-file"
                                         type="file"
-                                        accept=".jpeg, .jpg, .png"
+                                        accept=".jpeg, .jpg, .png, .mp4"
                                         multiple
                                         onChange={handleUploadImage}
                                         className="hidden"
                                     />
                                 </label>
                             </div>
-                            {imagesPreview?.length > 0 && (
+                            {(imagesPreview?.length > 0 || videosPreview?.length > 0) && (
                                 <div className="col-span-4">
                                     <p className="mt-1 text-sm text-gray-600 mb-4">
                                         ทั้งหมด{" "}
@@ -419,6 +451,50 @@ const NewProductPage = () => {
                                                         onClick={() =>
                                                             removeImage(i)
                                                         }
+                                                        className="bg-white text-red-600 transition-all border border-transparent hover:border-red-600 rounded-lg p-1"
+                                                    >
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            stroke="currentColor"
+                                                            className="w-4 h-4 md:w-5 md:h-5"
+                                                        >
+                                                            <path
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                                strokeWidth="2"
+                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                                            />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                        {videosPreview?.map((video, i) => (
+                                            <div
+                                                key={i}
+                                                className="w-full aspect-square relative flex items-center rounded-lg overflow-hidden"
+                                            >
+                                                <video
+                                                    width="750"
+                                                    height="500"
+                                                    controls
+                                                >
+                                                    <source
+                                                        src={
+                                                            video.url
+                                                                ? video.url
+                                                                : video
+                                                        }
+                                                        type="video/mp4"
+                                                    />
+                                                </video>
+                                                <div className="flex absolute top-1 right-1 z-[1]">
+                                                    <button
+                                                        // onClick={() =>
+                                                        //     removeImage(i)
+                                                        // }
                                                         className="bg-white text-red-600 transition-all border border-transparent hover:border-red-600 rounded-lg p-1"
                                                     >
                                                         <svg
@@ -692,3 +768,5 @@ const NewProductPage = () => {
 };
 
 export default NewProductPage;
+
+export { getServerSideProps } from "@/utils/get-init-props";

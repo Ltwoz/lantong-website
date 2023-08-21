@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import instanceApi from "@/config/axios-config";
 import { useUser } from "@/contexts/user-context";
 import NoPermission from "@/components/ui/custom-pages/403";
+import { withInitProps } from "@/utils/get-init-props";
 
 const EditCategoryPage = ({ id }) => {
     const router = useRouter();
@@ -29,7 +30,7 @@ const EditCategoryPage = ({ id }) => {
                 position: toast.POSITION.BOTTOM_RIGHT,
             });
             setIsSuccess(false);
-            router.reload();
+            router.replace(`/dashboard/categories/${id}`);
         }
 
         if (error) {
@@ -38,7 +39,7 @@ const EditCategoryPage = ({ id }) => {
             });
             setError(null);
         }
-    }, [isSuccess, error, router]);
+    }, [isSuccess, error, router, id]);
 
     // Fetch Category
     useEffect(() => {
@@ -230,7 +231,7 @@ const EditCategoryPage = ({ id }) => {
 
 export default EditCategoryPage;
 
-export const getServerSideProps = async (ctx) => {
+export const getServerSideProps = withInitProps(async (ctx) => {
     const id = ctx.params.cid;
 
     return {
@@ -238,4 +239,4 @@ export const getServerSideProps = async (ctx) => {
             id,
         },
     };
-};
+});

@@ -406,3 +406,5 @@ const WebsiteConfigPage = () => {
 };
 
 export default WebsiteConfigPage;
+
+export { getServerSideProps } from "@/utils/get-init-props";

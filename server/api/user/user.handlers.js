@@ -26,7 +26,7 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
     if (!email || !password) {
         return res.status(400).json({
             success: false,
-            message: "Please Enter Email & Password",
+            message: "กรุณากรอกข้อมูลให้ครบ",
         });
     }
 
@@ -35,7 +35,7 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
     if (!user) {
         return res.status(401).json({
             success: false,
-            message: "Invalid email or password",
+            message: "อีเมล หรือ รหัสผ่าน ไม่ถูกต้อง",
         });
     }
 
@@ -44,7 +44,7 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
     if (!isPasswordMatched) {
         return res.status(401).json({
             success: false,
-            message: "Invalid email or password",
+            message: "อีเมล หรือ รหัสผ่าน ไม่ถูกต้อง",
         });
     }
 
