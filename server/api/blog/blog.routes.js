@@ -9,6 +9,7 @@ const {
     deleteReview,
     deleteBlog,
     updateBlog,
+    getBlogsCategory,
 } = require("./blog.handler");
 const {
     isAuthenticatedUser,
@@ -18,6 +19,8 @@ const {
 const router = express.Router();
 
 router.route("/blogs").get(getFilterBlogs);
+
+router.route("/blog/category").get(getBlogsCategory);
 
 router
     .route("/admin/blogs")

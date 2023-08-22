@@ -16,12 +16,26 @@ export default function BlogsPage() {
     const [category, setCategory] = useState("");
     const [sort, setSort] = useState("latest");
 
+    // All Blog Categories
+    const [allCategories, setAllCategories] = useState([]);
+
     // CRUD State
     const [firstLoad, setFirstLoad] = useState(true);
     const [loading, setLoading] = useState(true);
 
     // Pagination State
     const [page, setPage] = useState(1);
+
+    useEffect(() => {
+        const getCategory = async () => {
+            const { data } = await instanceApi.get(`/api/blog/category`);
+            setAllCategories(data.categories);
+        };
+
+        getCategory().catch(() => {
+            console.error;
+        });
+    }, []);
 
     useEffect(() => {
         setLoading(true);
@@ -105,6 +119,14 @@ export default function BlogsPage() {
                                     className="mt-1 p-2 block w-full bg-white rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm xl:text-base hover:cursor-pointer"
                                 >
                                     <option value="">ทั้งหมด</option>
+                                    {allCategories?.map((categoryItem, i) => (
+                                        <option
+                                            key={i}
+                                            value={categoryItem}
+                                        >
+                                            {categoryItem}
+                                        </option>
+                                    ))}
                                 </select>
                             </div>
                             <div className="col-span-4 flex items-center justify-start gap-x-4">

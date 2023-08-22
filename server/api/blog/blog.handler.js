@@ -76,6 +76,21 @@ exports.getDetailBlog = catchAsyncErrors(async (req, res, next) => {
     res.status(200).json({ success: true, blog });
 });
 
+// Get Blogs Category
+exports.getBlogsCategory = catchAsyncErrors(async (req, res, next) => {
+    const blogs = await Blog.find();
+
+    const categories = []; // Initialize an empty array to store unique categories
+
+    blogs.forEach((blog) => {
+        if (!categories.includes(blog.category)) {
+            categories.push(blog.category); // Push category to array if it's not already there
+        }
+    });
+
+    res.status(200).json({ succes: true, categories });
+});
+
 // Get All Blogs -- Admin
 exports.getAdminBlogs = catchAsyncErrors(async (req, res, next) => {
     const resultPerPage = 20;

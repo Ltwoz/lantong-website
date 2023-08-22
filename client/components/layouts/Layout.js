@@ -14,8 +14,6 @@ const Layout = ({ children, isDashboard }) => {
     const { isOpen, isMobile } = useDashboardSidebar();
     const { config } = useConfig();
 
-    console.log("config : ", config);
-
     const primaryColor = getRGBColor(config.style?.primary_color, "primary");
     const allyColor = getRGBColor(
         getAccessibleColor(config.style?.primary_color),

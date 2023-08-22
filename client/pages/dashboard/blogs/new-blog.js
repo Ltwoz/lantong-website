@@ -10,6 +10,7 @@ import instanceApi from "@/config/axios-config";
 import { useUser } from "@/contexts/user-context";
 import NoPermission from "@/components/ui/custom-pages/403";
 import { z } from "zod";
+import Autocomplete from "@/components/ui/AutoCompleateInput";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -26,6 +27,9 @@ const NewBlogPage = () => {
     const [imagesPreview, setImagesPreview] = useState([]);
 
     const [isActive, setIsActive] = useState(true);
+
+    // All Blog Categories
+    const [allCategories, setAllCategories] = useState([]);
 
     // CRUD State
     const [isSuccess, setIsSuccess] = useState(false);
@@ -55,6 +59,17 @@ const NewBlogPage = () => {
             setError(null);
         }
     }, [isSuccess, error]);
+
+    useEffect(() => {
+        const getCategory = async () => {
+            const { data } = await instanceApi.get(`/api/blog/category`);
+            setAllCategories(data.categories);
+        };
+
+        getCategory().catch(() => {
+            console.error;
+        });
+    }, []);
 
     function handleUploadImage(e) {
         const files = Array.from(e.target.files);
@@ -184,13 +199,10 @@ const NewBlogPage = () => {
                                 <label className="block text-xs md:text-sm font-medium tracking-wide">
                                     หมวดหมู่
                                 </label>
-                                <input
-                                    type="text"
-                                    value={category}
-                                    onChange={(e) =>
-                                        setCategory(e.target.value)
-                                    }
-                                    className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
+                                <Autocomplete
+                                    suggestions={allCategories}
+                                    input={category}
+                                    setInput={setCategory}
                                 />
                             </div>
                             <div className="col-span-4 md:col-span-2">
@@ -200,9 +212,7 @@ const NewBlogPage = () => {
                                 <input
                                     type="text"
                                     value={phoneNo}
-                                    onChange={(e) =>
-                                        setPhoneNo(e.target.value)
-                                    }
+                                    onChange={(e) => setPhoneNo(e.target.value)}
                                     className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
                                 />
                             </div>
