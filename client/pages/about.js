@@ -34,13 +34,13 @@ export default function About({ config }) {
                             ทำไมต้องเลือกพ่วงข้างลานทอง
                         </h2>
                         {/* content */}
-                        {/* <div
+                        <div
                             className="text-base xl:text-lg"
                             dangerouslySetInnerHTML={{
                                 __html: config.about_detail,
                             }}
-                        /> */}
-                        <p className="text-black text-xl md:text-2xl text-left leading-normal">
+                        />
+                        {/* <p className="text-black text-xl md:text-2xl text-left leading-normal">
                             ขอบคุณทุกความไว้วางใจที่ทำให้ลานทองเชียงใหม่
                             (พ่วงข้างลานทอง)
                             <br />
@@ -55,7 +55,6 @@ export default function About({ config }) {
                             แต่สินค้าของเรา สวยงามทนทาน ปลอดภัย
                             และใช้งานได้ยาวนานที่สุด
                         </p>
-                        <br />
                         <br />
                         <h1 className="text-black text-center font-bold text-[40px] p-10">
                             ประวัติของห้างหุ้นส่วนจำกัด
@@ -181,7 +180,7 @@ export default function About({ config }) {
                                 และเราสัญญาว่าเราจะผลิตรถที่ดี จากวัสดุเกรด A
                                 ด้วยมือช่างที่มากประสบการณ์
                             </p>
-                        </div>
+                        </div> */}
                     </div>
                 </section>
 
