@@ -12,7 +12,7 @@ import { FaFacebook } from "react-icons/fa";
 const lorem =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
-export default function Home() {
+export default function Home({ config }) {
     return (
         <Layout>
             <div className="flex flex-col">
@@ -114,14 +114,12 @@ export default function Home() {
                                 </h2>
                             </div>
                             <div className="flex flex-col items-center xl:items-start gap-4 xl:gap-8 xl:w-[530px] text-center xl:text-start">
-                                <p className="text-white text-sm xl:text-xl font-medium">
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit, sed do eiusmod tempor
-                                    incidi labore et dolore magna aliqua. Ut
-                                    enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip
-                                    ex ea commodo consequat.
-                                </p>
+                                <div
+                                    className="text-white text-sm xl:text-base font-normal"
+                                    dangerouslySetInnerHTML={{
+                                        __html: config.website_desc,
+                                    }}
+                                />
                                 {/* Button */}
                                 <Link
                                     href={"#"}
@@ -145,10 +143,15 @@ export default function Home() {
                         <h1 className="font-semibold text-[40px] text-black mb-9 text-center">
                             คำถามที่พบบ่อย
                         </h1>
-                        <div>
-                            <Accordian title="Lorem ipsum dolor" content={lorem} />
-                            <Accordian title="Lorem ipsum dolor" content={lorem} />
-                            <Accordian title="Lorem ipsum dolor" content={lorem} />
+                        <div className="w-full">
+                            <Accordian
+                                title="หจก.ลานทองเชียงใหม่อยู่ที่ไหน"
+                                content={"ห้างหุ้นส่วนจำกัด ลานทองเชียงใหม่ เลขที่ 207/3 ถ.วังสิงห์คำ ต.ช้างม่อย อ.เมืองเชียงใหม่ จ.เชียงใหม่ 50300"}
+                            />
+                            <Accordian
+                                title="สินค้ามีการรับประกันไหม"
+                                content={"สินค้าทุกชิ้น มีการันตีการรับประกันจากลานทอง"}
+                            />
                         </div>
                     </div>
                 </section>
