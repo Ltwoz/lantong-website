@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const productSchema = mongoose.Schema({
     productId: {
         type: String,
-        required: true
+        required: true,
     },
     name: {
         type: String,
@@ -18,31 +18,32 @@ const productSchema = mongoose.Schema({
         type: Number,
         required: [true, "Product price cannot be empty"],
         maxLength: [10, "Price cannot exceed 10 characters"],
+        default: 0,
     },
     salePrice: {
         type: Number,
         maxLength: [10, "Sale price cannot exceed 10 characters"],
-        default: 0
+        default: 0,
     },
     category: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Category"
+        ref: "Category",
     },
     width: {
         type: Number,
-        default: 0
+        default: 0,
     },
     length: {
         type: Number,
-        default: 0
+        default: 0,
     },
     height: {
         type: Number,
-        default: 0
+        default: 0,
     },
     weightAccept: {
         type: Number,
-        default: 0
+        default: 0,
     },
     images: [
         {
@@ -58,33 +59,33 @@ const productSchema = mongoose.Schema({
     ],
     isActive: {
         type: Boolean,
-        default: true
+        default: true,
     },
     isFeatured: {
         type: Boolean,
-        default: false
+        default: false,
     },
     isPopular: {
         type: Boolean,
-        default: false
+        default: false,
     },
     isPromotion: {
         type: Boolean,
-        default: false
+        default: false,
     },
     promotionDetail: {
         type: String,
     },
     isGift: {
         type: Boolean,
-        default: false
+        default: false,
     },
     giftDetail: {
         type: String,
     },
     isOnSale: {
         type: Boolean,
-        default: false
+        default: false,
     },
     createdAt: {
         type: Date,

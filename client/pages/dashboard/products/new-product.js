@@ -17,15 +17,15 @@ const NewProductPage = () => {
     // State ของ Product
     const [productId, setProductId] = useState("");
     const [name, setName] = useState("");
-    const [price, setPrice] = useState("");
-    const [salePrice, setSalePrice] = useState();
+    const [price, setPrice] = useState(0);
+    const [salePrice, setSalePrice] = useState(0);
     const [category, setCategory] = useState("");
 
     const [description, setDescription] = useState("");
-    const [width, setWidth] = useState("");
-    const [length, setLength] = useState("");
-    const [height, setHeight] = useState("");
-    const [weightAccept, setWeightAccept] = useState("");
+    const [width, setWidth] = useState(0);
+    const [length, setLength] = useState(0);
+    const [height, setHeight] = useState(0);
+    const [weightAccept, setWeightAccept] = useState(0);
 
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
@@ -51,7 +51,6 @@ const NewProductPage = () => {
         productId: z.string().min(1, { message: "ใส่รหัสสินค้า" }),
         name: z.string().min(1, { message: "ใส่ชื่อสินค้า" }),
         description: z.string().min(1, { message: "ใส่รายละเอียด" }),
-        price: z.string().min(1, { message: "ใส่ราคา" }),
     });
 
     // Toastify
@@ -145,8 +144,6 @@ const NewProductPage = () => {
         });
 
         const data = Object.fromEntries(formData);
-
-        console.log(data);
 
         const validatedForm = validateSchema.safeParse(data);
 

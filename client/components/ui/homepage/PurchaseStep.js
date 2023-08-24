@@ -24,9 +24,9 @@ const PurchaseStep = () => {
                         </div>
                         <h4 className="text-lg font-semibold">ค้นหาสินค้า</h4>
                         <p className="text-sm">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua
+                            ค้นหารถพ่วงข้างหรือรถมอเตอร์ไซค์
+                            ผ่านทางเว็บไซต์ของลานทอง หรือผ่าน Facebook พ่วงข้าง
+                            ลานทอง
                         </p>
                     </div>
                 </div>
@@ -52,9 +52,8 @@ const PurchaseStep = () => {
                         </div>
                         <h4 className="text-lg font-semibold">ติดต่อลานทอง</h4>
                         <p className="text-sm">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua
+                            ติดต่อหจก.ลานทองเชียงใหม่
+                            เพื่อสอบถามเพิ่มเติมเกี่ยวกับรายละเอียดของสินค้าที่คุณสนใจ
                         </p>
                     </div>
                 </div>
@@ -80,9 +79,7 @@ const PurchaseStep = () => {
                         </div>
                         <h4 className="text-lg font-semibold">ชำระเงิน</h4>
                         <p className="text-sm">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua
+                            ชำระเงินผ่านทางเงินสด โอนผ่านธนาคาร หรือผ่อนชำระได้
                         </p>
                     </div>
                 </div>
@@ -108,9 +105,7 @@ const PurchaseStep = () => {
                         </div>
                         <h4 className="text-lg font-semibold">รอรับรถได้เลย</h4>
                         <p className="text-sm">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua
+                            รอรับรถพร้อมใช้งานได้เลย และมีการรับประกันจากลานทอง
                         </p>
                     </div>
                 </div>
