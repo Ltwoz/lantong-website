@@ -8,13 +8,23 @@ import Link from "next/link";
 export default function ContactUs({ config }) {
     return (
         <Layout>
-            <section className="mx-auto max-w-[1200px] px-4 xl:px-0 flex flex-col md:flex-row py-10">
+            <section className="mx-auto max-w-[1200px] px-4 xl:px-0 flex flex-col md:flex-row py-6">
                 <div className="flex flex-col xl:flex-row xl:border xl:rounded xl:shadow xl:p-8 w-full px-4 gap-6 h-fit">
                     <div className="flex flex-col gap-4">
                         <h1 className="text-[36px] xl:text-start text-center font-semibold">
                             ติดต่อเรา
                         </h1>
                         <div className="flex flex-col gap-4">
+                            <div className="gap-4 flex flex-col xl:flex-row justify-between">
+                                <p className="bg-gray-600 w-full text-white justify-center items-center text-xl rounded-md flex flex-row px-4 py-3">
+                                    <AiOutlinePhone className="mr-2 rotate-90" />
+                                    053 876 109
+                                </p>
+                                <p className="bg-gray-600 w-full text-white justify-center items-center text-xl rounded-md flex flex-row px-4 py-3">
+                                    <AiOutlinePhone className="mr-2 rotate-90" />
+                                    081 952 1342
+                                </p>
+                            </div>
                             {/* Facebook */}
                             <Link
                                 href={config.social?.facebook_url}
@@ -86,23 +96,19 @@ export default function ContactUs({ config }) {
                                     </p>
                                 </div>
                             </Link>
-                            <div className="gap-4 flex flex-col xl:flex-row justify-between">
-                                <p className="bg-[#4E4E4E] w-full text-white justify-center items-center text-xl rounded-md flex flex-row px-4 py-3">
-                                    <AiOutlinePhone className="mr-2 rotate-90" />
-                                    053 876 109
-                                </p>
-                                <p className="bg-[#4E4E4E] w-full text-white justify-center items-center text-xl rounded-md flex flex-row px-4 py-3">
-                                    <AiOutlinePhone className="mr-2 rotate-90" />
-                                    081 952 1342
-                                </p>
-                            </div>
                         </div>
                     </div>
 
                     <hr className="xl:hidden" />
 
                     <div className="w-full">
-                        <div className="bg-slate-500 xl:h-full"></div>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d472.1095344818985!2d99.00114401243623!3d18.803666365752104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30da3b09c5047119%3A0xc49d071a623ed0d6!2z4Lie4LmI4Lin4LiH4LiC4LmJ4Liy4LiH4Lil4Liy4LiZ4LiX4Lit4LiH!5e0!3m2!1sth!2sth!4v1692889634004!5m2!1sth!2sth"
+                            className="w-full h-[50vh] xl:h-full rounded-md"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                        />
                     </div>
                 </div>
             </section>
