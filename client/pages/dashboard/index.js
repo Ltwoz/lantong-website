@@ -196,7 +196,7 @@ const DashboardPage = () => {
                         </div>
                     </Link>
                     <Link
-                        href={`/dashboard/products/new-product`}
+                        href={`/dashboard/categories/new-category`}
                         className="md:col-span-1 border bg-gray-100 hover:bg-gray-200/80 rounded-lg py-6 flex flex-row justify-center items-center gap-4"
                     >
                         <div className="rounded-full bg-white/30 overflow-hidden w-[60px] h-[60px] flex justify-center items-center">
@@ -222,7 +222,7 @@ const DashboardPage = () => {
                         </div>
                     </Link>
                     <Link
-                        href={`/dashboard/products/new-product`}
+                        href={`/dashboard/blogs/new-blog`}
                         className="md:col-span-1 border bg-gray-100 hover:bg-gray-200/80 rounded-lg py-6 flex flex-row justify-center items-center gap-4"
                     >
                         <div className="rounded-full bg-white/30 overflow-hidden w-[60px] h-[60px] flex justify-center items-center">
@@ -250,7 +250,7 @@ const DashboardPage = () => {
             <div className="w-full mb-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <Link
-                        href={`/dashboard/products/new-product`}
+                        href={`/dashboard/website-config`}
                         className="md:col-span-1 border bg-gray-100 hover:bg-gray-200/80 rounded-lg py-6 flex flex-row justify-center items-center gap-4"
                     >
                         <div className="rounded-full bg-white/30 overflow-hidden w-[60px] h-[60px] flex justify-center items-center">
@@ -276,7 +276,7 @@ const DashboardPage = () => {
                         </div>
                     </Link>
                     <Link
-                        href={`/dashboard/products/new-product`}
+                        href={`/dashboard/banners`}
                         className="md:col-span-1 border bg-gray-100 hover:bg-gray-200/80 rounded-lg py-6 flex flex-row justify-center items-center gap-4"
                     >
                         <div className="rounded-full bg-white/30 overflow-hidden w-[60px] h-[60px] flex justify-center items-center">
