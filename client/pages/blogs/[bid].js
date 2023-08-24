@@ -213,7 +213,7 @@ const BlogDetails = ({ blog: blogSSR }) => {
                                             unoptimized
                                             draggable="false"
                                             fill
-                                            className="select-none object-cover"
+                                            className="select-none object-contain"
                                         />
                                     </div>
                                 </SplideSlide>
