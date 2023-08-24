@@ -30,8 +30,8 @@ export default function About({ config }) {
                 <section className="bg-white">
                     <div className="max-w-[1200px] mx-auto flex flex-col justify-center items-center py-12 px-4 xl:px-0">
                         {/* tittle */}
-                        <h2 className="text-2xl xl:text-4xl font-bold mb-6 xl:mb-10 text-center border-b-[6px] border-primary pb-2">
-                            ทำไมต้องเลือกพ่วงข้างลานทอง
+                        <h2 className="text-lg xl:text-4xl font-bold mb-6 xl:mb-10 text-center border-b-[6px] border-primary pb-2">
+                            ประวัติของห้างหุ้นส่วนจำกัด ลานทองเชียงใหม่
                         </h2>
                         {/* content */}
                         <div
