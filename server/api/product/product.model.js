@@ -30,20 +30,16 @@ const productSchema = mongoose.Schema({
         ref: "Category",
     },
     width: {
-        type: Number,
-        default: 0,
+        type: String,
     },
     length: {
-        type: Number,
-        default: 0,
+        type: String,
     },
     height: {
-        type: Number,
-        default: 0,
+        type: String,
     },
     weightAccept: {
-        type: Number,
-        default: 0,
+        type: String,
     },
     images: [
         {

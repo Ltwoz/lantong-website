@@ -22,10 +22,10 @@ const NewProductPage = () => {
     const [category, setCategory] = useState("");
 
     const [description, setDescription] = useState("");
-    const [width, setWidth] = useState(0);
-    const [length, setLength] = useState(0);
-    const [height, setHeight] = useState(0);
-    const [weightAccept, setWeightAccept] = useState(0);
+    const [width, setWidth] = useState("");
+    const [length, setLength] = useState("");
+    const [height, setHeight] = useState("");
+    const [weightAccept, setWeightAccept] = useState("");
 
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
@@ -311,8 +311,7 @@ const NewProductPage = () => {
                                     ความกว้าง
                                 </label>
                                 <input
-                                    type="number"
-                                    min={0}
+                                    type="text"
                                     value={width}
                                     onChange={(e) => setWidth(e.target.value)}
                                     className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
@@ -323,8 +322,7 @@ const NewProductPage = () => {
                                     ความยาว
                                 </label>
                                 <input
-                                    type="number"
-                                    min={0}
+                                    type="text"
                                     value={length}
                                     onChange={(e) => setLength(e.target.value)}
                                     className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
@@ -335,8 +333,7 @@ const NewProductPage = () => {
                                     ความสูง
                                 </label>
                                 <input
-                                    type="number"
-                                    min={0}
+                                    type="text"
                                     value={height}
                                     onChange={(e) => setHeight(e.target.value)}
                                     className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
@@ -347,8 +344,7 @@ const NewProductPage = () => {
                                     น้ำหนักที่รับได้
                                 </label>
                                 <input
-                                    type="number"
-                                    min={0}
+                                    type="text"
                                     value={weightAccept}
                                     onChange={(e) =>
                                         setWeightAccept(e.target.value)
