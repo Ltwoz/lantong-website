@@ -16,6 +16,7 @@ const AdminAllProductsPage = () => {
     // Products State
     const [products, setProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState({});
+    const [link, setLink] = useState("/api/admin/products?page=1");
 
     // CRUD State
     const [loading, setLoading] = useState(true);
@@ -25,6 +26,10 @@ const AdminAllProductsPage = () => {
     // Search State
     const [keyword, setKeyword] = useState("");
     const [debounceValue, setDebounceValue] = useState("");
+    const [category, setCategory] = useState("");
+
+    // State ของ Categories
+    const [allCategories, setAllCategories] = useState([]);
 
     // Pagination State
     const [page, setPage] = useState(1);
@@ -64,10 +69,6 @@ const AdminAllProductsPage = () => {
     }, [isDeleted, error]);
 
     useEffect(() => {
-        let link = `/api/admin/products?keyword=${
-            keyword ? keyword : ""
-        }&page=${page}`;
-
         const getProducts = async () => {
             setLoading(true);
             const { data } = await instanceApi.get(`${link}`);
@@ -79,7 +80,28 @@ const AdminAllProductsPage = () => {
             console.error;
             setLoading(false);
         });
-    }, [keyword, page, isDeleted]);
+    }, [isDeleted, link]);
+
+    useEffect(() => {
+        setLink(
+            `/api/admin/products?keyword=${
+                keyword ? keyword : ""
+            }&page=${page}${category && `&category=${category}`}`
+        );
+    }, [category, keyword, page]);
+
+    // Fetch get all categories
+    useEffect(() => {
+        const getCategories = async () => {
+            const { data } = await instanceApi.get(`/api/admin/categories`);
+            setAllCategories(data?.categories);
+            setCategory(data?.categories[0]?._id);
+        };
+
+        getCategories().catch(() => {
+            console.error;
+        });
+    }, []);
 
     const deleteHandler = async (e) => {
         try {
@@ -134,7 +156,24 @@ const AdminAllProductsPage = () => {
                     id="products-main"
                     className="flex flex-col w-full bg-white border rounded-md gap-4 md:gap-6 p-4 md:p-6"
                 >
-                    <div className="flex flex-row-reverse items-center justify-between">
+                    <div className="flex flex-col-reverse xl:flex-row items-center justify-end gap-4">
+                        <div className="flex items-center w-full md:w-fit">
+                            <select
+                                onChange={(e) => setCategory(e.target.value)}
+                                className="p-2 h-10 block w-full xl:w-40 bg-white rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-base hover:cursor-pointer"
+                            >
+                                <option value="">ทั้งหมด</option>
+                                {allCategories?.map((categoryItem) => (
+                                    <option
+                                        key={categoryItem._id}
+                                        value={categoryItem._id}
+                                    >
+                                        {categoryItem.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
                         <div className="relative w-full md:w-fit">
                             <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                                 <svg

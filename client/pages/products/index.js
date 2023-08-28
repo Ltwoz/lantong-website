@@ -40,7 +40,7 @@ export default function ProductsPage() {
                 setCategory(foundCategory._id);
             }
         }
-    }, [allCategories]);
+    }, [allCategories, router.query.category]);
 
     useEffect(() => {
         setLoading(true);
