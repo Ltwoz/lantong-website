@@ -106,6 +106,7 @@ const WebsiteCOnfigPage = () => {
 
         formData.set("label", label);
         formData.set("description", description);
+        formData.set("isOverlay", isOverlay);
         banner.forEach((bannerItem) => {
             formData.append("banner", bannerItem);
         });
