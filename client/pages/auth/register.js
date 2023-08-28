@@ -153,7 +153,7 @@ export default function Register() {
                             <div>
                                 <button
                                     type="submit"
-                                    className="w-full inline-flex items-center bg-[#BC1F1F] rounded-lg transition-all overflow-hidden"
+                                    className="w-full inline-flex items-center bg-primary rounded-lg transition-all overflow-hidden"
                                 >
                                     <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-3 px-4">
                                         <span className="block tracking-wide">
@@ -167,7 +167,7 @@ export default function Register() {
                             มีบัญชีอยู่แล้ว ?{" "}
                             <Link
                                 href="/auth/login"
-                                className="text-sm ml-1 text-[#BC1F1F] hover:brightness-95 hover:underline"
+                                className="text-sm ml-1 text-primary hover:brightness-95 hover:underline"
                             >
                                 เข้าสู่ระบบ
                             </Link>

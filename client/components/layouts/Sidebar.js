@@ -159,7 +159,7 @@ const Sidebar = () => {
         ) : (
             <Link
                 href="/auth/login"
-                className="w-fit inline-flex items-center bg-[#BC1F1F] rounded-lg transition-all overflow-hidden mx-3"
+                className="w-fit inline-flex items-center bg-primary rounded-lg transition-all overflow-hidden mx-3"
             >
                 <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
                     <span className="block tracking-wide">
@@ -207,7 +207,7 @@ const Sidebar = () => {
                                 className="object-cover"
                             />
                         </div>
-                        <h2 className="text-lg font-semibold text-[#E32C2C]">
+                        <h2 className="text-lg font-semibold text-primary">
                             หจก.ลานทองเชียงใหม่
                         </h2>
                     </Link>

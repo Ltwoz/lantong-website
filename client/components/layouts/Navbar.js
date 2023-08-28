@@ -130,7 +130,7 @@ const Navbar = () => {
         ) : (
             <Link
                 href="/auth/login"
-                className="w-fit inline-flex items-center bg-[#BC1F1F] rounded-lg transition-all overflow-hidden"
+                className="w-fit inline-flex items-center bg-primary rounded-lg transition-all overflow-hidden"
             >
                 <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
                     <span className="block tracking-wide">

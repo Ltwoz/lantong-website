@@ -82,7 +82,7 @@ export default function Login() {
                             {/* <div className="flex items-center justify-end text-sm">
                                 <a
                                     href="#"
-                                    className="text-[#BC1F1F] hover:brightness-95 hover:underline"
+                                    className="text-primary hover:brightness-95 hover:underline"
                                 >
                                     ลืมรหัสผ่าน ?
                                 </a>
@@ -91,7 +91,7 @@ export default function Login() {
                             <div>
                                 <button
                                     type="submit"
-                                    className="w-full inline-flex items-center bg-[#BC1F1F] rounded-lg transition-all overflow-hidden"
+                                    className="w-full inline-flex items-center bg-primary rounded-lg transition-all overflow-hidden"
                                 >
                                     <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-3 px-4">
                                         <span className="block tracking-wide">
@@ -105,7 +105,7 @@ export default function Login() {
                             ยังไม่มีบัญชี ?{" "}
                             <Link
                                 href="/auth/register"
-                                className="text-sm ml-1 text-[#BC1F1F] hover:brightness-95 hover:underline"
+                                className="text-sm ml-1 text-primary hover:brightness-95 hover:underline"
                             >
                                 ลงทะเบียน
                             </Link>
