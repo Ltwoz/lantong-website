@@ -5,8 +5,11 @@ import LoadingSpiner from "@/components/ui/Spiner";
 import Head from "next/head";
 import Pagination from "@/components/ui/Pagination";
 import instanceApi from "@/config/axios-config";
+import { useRouter } from "next/router";
 
 export default function ProductsPage() {
+    const router = useRouter();
+
     // Products State
     const [products, setProducts] = useState([]);
     const [link, setLink] = useState(`/api/products?isActive=true&sort=latest`);
@@ -26,6 +29,18 @@ export default function ProductsPage() {
 
     // Pagination State
     const [page, setPage] = useState(1);
+
+    useEffect(() => {
+        if (router.query.category) {
+            const foundCategory = allCategories.find(
+                (category) => router.query.category === category.name
+            );
+
+            if (foundCategory) {
+                setCategory(foundCategory._id);
+            }
+        }
+    }, [allCategories]);
 
     useEffect(() => {
         setLoading(true);

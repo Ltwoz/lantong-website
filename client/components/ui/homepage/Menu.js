@@ -40,7 +40,7 @@ const Menu = () => {
                 </div>
                 <div className="flex flex-row xl:flex-wrap gap-3 overflow-auto">
                     <Link
-                        href={`/products`}
+                        href={`/products?category=มอเตอร์ไซค์ใหม่`}
                         className="p-3 flex-shrink-0 xl:flex-grow w-[150px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
                         <p className="text-sm xl:text-base text-white font-semibold max-w-[70px]">
@@ -60,7 +60,7 @@ const Menu = () => {
                         </div>
                     </Link>
                     <Link
-                        href={`/products`}
+                        href={`/products?category=มอเตอร์ไซค์มีพ่วงข้าง`}
                         className="p-3 flex-shrink-0 xl:flex-grow w-[150px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
                         <p className="text-sm xl:text-base text-white font-semibold max-w-[70px]">
@@ -80,7 +80,7 @@ const Menu = () => {
                         </div>
                     </Link>
                     <Link
-                        href={`/products`}
+                        href={`/products?category=พ่วงข้างขายของ`}
                         className="p-3 flex-shrink-0 xl:flex-grow w-[150px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
                         <p className="text-sm xl:text-base text-white font-semibold max-w-[70px]">
@@ -100,7 +100,7 @@ const Menu = () => {
                         </div>
                     </Link>
                     <Link
-                        href={`/products`}
+                        href={`/products?category=พ่วงข้างวินเทจ`}
                         className="p-3 flex-shrink-0 xl:flex-grow w-[150px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
                         <p className="text-sm xl:text-base text-white font-semibold max-w-[70px]">
@@ -120,7 +120,7 @@ const Menu = () => {
                         </div>
                     </Link>
                     <Link
-                        href={`/products`}
+                        href={`/products?category=พ่วงข้างรถบรรทุก`}
                         className="p-3 flex-shrink-0 xl:flex-grow w-[150px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
                         <p className="text-sm xl:text-base text-white font-semibold max-w-[70px]">
@@ -140,7 +140,7 @@ const Menu = () => {
                         </div>
                     </Link>
                     <Link
-                        href={`/products`}
+                        href={`/products?category=รถเข็น`}
                         className="p-3 flex-shrink-0 xl:flex-grow w-[150px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
                         <p className="text-sm xl:text-base text-white font-semibold max-w-[70px]">
@@ -160,7 +160,7 @@ const Menu = () => {
                         </div>
                     </Link>
                     <Link
-                        href={`/products`}
+                        href={`/products?category=ไซด์คาร์`}
                         className="p-3 flex-shrink-0 xl:flex-grow w-[150px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
                         <p className="text-sm xl:text-base text-white font-semibold max-w-[70px]">

@@ -81,11 +81,11 @@ export default function Register() {
             return false;
         }
 
-        // register({
-        //     name,
-        //     email,
-        //     password,
-        // });
+        register({
+            name,
+            email,
+            password,
+        });
     }
 
     return (
