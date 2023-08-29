@@ -27,7 +27,8 @@ export default function ContactUs({ config }) {
                             </div>
                             {/* Facebook */}
                             <Link
-                                href={config.social?.facebook_url}
+                                href={config?.social.facebook_url}
+                                target="_blank"
                                 className="flex flex-row p-4 gap-3 bg-[#4267B2] xl:bg-white hover:bg-slate-100 rounded-md"
                             >
                                 <div className="flex items-center justify-center">
@@ -45,7 +46,8 @@ export default function ContactUs({ config }) {
 
                             {/* Line */}
                             <Link
-                                href={config.social?.line_url}
+                                href={`https://line.me/ti/p/~${config?.social.line_url}`}
+                                target="_blank"
                                 className="flex flex-row bg-[#06C755] xl:bg-white p-4 gap-3 hover:bg-slate-100 rounded-md"
                             >
                                 <div className="flex items-center justify-center">
@@ -79,8 +81,7 @@ export default function ContactUs({ config }) {
                                 </div>
                             </Link>
 
-                            <Link
-                                href={"#"}
+                            <div
                                 className="flex flex-row bg-cyan-700 xl:bg-white p-4 gap-3 hover:bg-slate-100 rounded-md"
                             >
                                 <div className="flex items-start justify-center">
@@ -95,7 +96,7 @@ export default function ContactUs({ config }) {
                                         อ.เมืองเชียงใหม่ จ.เชียงใหม่ 50300
                                     </p>
                                 </div>
-                            </Link>
+                            </div>
                         </div>
                     </div>
 

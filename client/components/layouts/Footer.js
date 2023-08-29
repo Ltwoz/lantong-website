@@ -31,8 +31,8 @@ const Footer = () => {
                         className="flex flex-row items-center gap-3 md:gap-6 text-white text-xs md:text-sm"
                     >
                         <Link href="/about">เกี่ยวกับ</Link>
-                        <Link href="#">เงื่อนไขการใช้บริการ</Link>
-                        <Link href="#">นโยบายความเป็นส่วนตัว</Link>
+                        <Link href="/products">สินค้าของเรา</Link>
+                        <Link href="/blogs">ลานทองเชียงใหม่</Link>
                         <Link href="/contact">ติดต่อเรา</Link>
                     </div>
                 </div>

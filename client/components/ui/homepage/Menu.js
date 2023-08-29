@@ -3,8 +3,11 @@ import Link from "next/link";
 import { FaFacebook } from "react-icons/fa";
 import { MdMail, MdPhone } from "react-icons/md";
 import { HiChatBubbleOvalLeft } from "react-icons/hi2";
+import { useConfig } from "@/contexts/config-context";
 
 const Menu = () => {
+    const { config } = useConfig();
+
     return (
         <div className="flex flex-col xl:flex-row w-full md:w-[60%] xl:w-[1200px] p-4 xl:p-6 gap-[10px] bg-white md:rounded-xl shadow-md mx-auto">
             {/* Filter */}
@@ -194,7 +197,8 @@ const Menu = () => {
             {/* Social */}
             <div className="flex flex-col xl:w-[320px] flex-shrink-0 gap-[10px]">
                 <Link
-                    href={"#"}
+                    href={config?.social.facebook_url}
+                    target="_blank"
                     className="h-[50px] inline-flex items-center bg-[#4267B2] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
                 >
                     <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
@@ -203,7 +207,8 @@ const Menu = () => {
                     </div>
                 </Link>
                 <Link
-                    href={"#"}
+                    href={`https://line.me/ti/p/~${config?.social.line_url}`}
+                    target="_blank"
                     className="h-[50px] inline-flex items-center bg-[#06C755] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
                 >
                     <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
@@ -220,24 +225,18 @@ const Menu = () => {
                         <span className="block">{"lantongshop@gmail.com"}</span>
                     </div>
                 </Link>
-                <Link
-                    href={"#"}
-                    className="h-[50px] inline-flex items-center bg-[#4E4E4E] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
-                >
+                <div className="h-[50px] inline-flex items-center bg-[#4E4E4E] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed">
                     <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
                         <MdPhone className="mr-2" />
                         <span className="block">{"081 952 1342"}</span>
                     </div>
-                </Link>
-                <Link
-                    href={"#"}
-                    className="h-[50px] inline-flex items-center bg-[#4E4E4E] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
-                >
+                </div>
+                <div className="h-[50px] inline-flex items-center bg-[#4E4E4E] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed">
                     <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
                         <MdPhone className="mr-2" />
                         <span className="block">{"053 876 109"}</span>
                     </div>
-                </Link>
+                </div>
             </div>
         </div>
     );

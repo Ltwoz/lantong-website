@@ -315,7 +315,7 @@ const BlogDetails = ({ blog: blogSSR }) => {
                     <h2 className="text-xl font-bold">รีวิวจากลูกค้า</h2>
                     <div className="flex flex-col gap-4">
                         {blog.reviews && blog.reviews[0] ? (
-                            <div className="reviews">
+                            <>
                                 {blog.reviews &&
                                     blog.reviews.map((review) => (
                                         <ReviewCard
@@ -323,7 +323,7 @@ const BlogDetails = ({ blog: blogSSR }) => {
                                             review={review}
                                         />
                                     ))}
-                            </div>
+                            </>
                         ) : (
                             <div className="w-full h-full px-4 py-4 rounded-lg border border-zinc-200 justify-center items-center gap-4 inline-flex">
                                 <p className="font-medium">ยังไม่มีรีวิว</p>
