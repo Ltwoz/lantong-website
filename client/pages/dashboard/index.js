@@ -7,28 +7,28 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const DashboardPage = () => {
-    const [products, setProducts] = useState([]);
-    const [categories, setCategories] = useState([]);
-    const [users, setUsers] = useState([]);
-    const [blogs, setBlogs] = useState([]);
+    const [productsCount, setProductsCount] = useState([]);
+    const [categoriesCount, setCategoriesCount] = useState([]);
+    const [usersCount, setUsersCount] = useState([]);
+    const [blogsCount, setBlogsCount] = useState([]);
 
     useEffect(() => {
         const getProducts = async () => {
             const { data } = await instanceApi.get(`/api/admin/products`);
-            setProducts(data?.products);
+            setProductsCount(data?.productsCount);
         };
         const getCategories = async () => {
             const { data } = await instanceApi.get(`/api/admin/categories`);
-            setCategories(data?.categories);
+            setCategoriesCount(data?.categoriesCount);
         };
         const getUsers = async () => {
             const { data } = await instanceApi.get(`/api/admin/users`);
-            setUsers(data?.users);
+            setUsersCount(data?.usersCount);
         };
 
         const getBlogs = async () => {
             const { data } = await instanceApi.get(`/api/admin/blogs`);
-            setBlogs(data?.blogs);
+            setBlogsCount(data?.blogsCount);
         };
 
         getProducts();
@@ -69,7 +69,7 @@ const DashboardPage = () => {
                                 สินค้าทั้งหมด
                             </h4>
                             <p className="font-semibold text-2xl mt-2">
-                                {products?.length}
+                                {productsCount}
                             </p>
                         </div>
                         <div className="rounded-full bg-white/20 overflow-hidden w-[80px] h-[80px] flex justify-center items-center">
@@ -95,7 +95,7 @@ const DashboardPage = () => {
                                 หมวดหมู่ทั้งหมด
                             </h4>
                             <p className="font-semibold text-2xl mt-2">
-                                {categories?.length}
+                                {categoriesCount}
                             </p>
                         </div>
                         <div className="rounded-full bg-white/20 overflow-hidden w-[80px] h-[80px] flex justify-center items-center">
@@ -121,7 +121,7 @@ const DashboardPage = () => {
                                 ผู้ใช้ทั้งหมด
                             </h4>
                             <p className="font-semibold text-2xl mt-2">
-                                {users?.length}
+                                {usersCount}
                             </p>
                         </div>
                         <div className="rounded-full bg-white/20 overflow-hidden w-[80px] h-[80px] flex justify-center items-center">
@@ -147,7 +147,7 @@ const DashboardPage = () => {
                                 รีวิวทั้งหมด
                             </h4>
                             <p className="font-semibold text-2xl mt-2">
-                                {blogs?.length}
+                                {blogsCount}
                             </p>
                         </div>
                         <div className="rounded-full bg-white/20 overflow-hidden w-[80px] h-[80px] flex justify-center items-center">
