@@ -95,7 +95,6 @@ const AdminAllProductsPage = () => {
         const getCategories = async () => {
             const { data } = await instanceApi.get(`/api/admin/categories`);
             setAllCategories(data?.categories);
-            setCategory(data?.categories[0]?._id);
         };
 
         getCategories().catch(() => {
