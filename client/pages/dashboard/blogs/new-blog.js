@@ -104,6 +104,13 @@ const NewBlogPage = () => {
     async function submitForm(e) {
         e.preventDefault();
 
+        if (images.length < 1) {
+            toast.error("ใส่รูปภาพอย่างน้อย 1 รูป", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+            return false
+        }
+
         const formData = new FormData();
 
         formData.set("name", name);
