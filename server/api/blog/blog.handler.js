@@ -9,25 +9,55 @@ const ApiFeatures = require("../../utils/apiFeatures");
 exports.createBlog = catchAsyncErrors(async (req, res, next) => {
     // Create a multer instance and configure it
     const storage = multer.memoryStorage();
-    const uploadMiddleware = multer({ storage: storage }).array("images");
+    const uploadMiddleware = multer({ storage: storage }).any();
     const uploadMiddlewareAsync = promisify(uploadMiddleware);
 
     await uploadMiddlewareAsync(req, res);
 
     const files = req.files;
 
-    const result = await uploadFile(files, "blogs");
+    console.log(files);
 
+    const images = [];
+    const videos = [];
+
+    for (let i = 0; i < files.length; i++) {
+        if (files[i].mimetype.startsWith("image")) {
+            images.push(files[i]);
+        } else if (files[i].mimetype.startsWith("video")) {
+            videos.push(files[i]);
+        }
+    }
+
+    // console.log("images : ", images);
+    // console.log("videos : ", videos);
+
+    const imageResult = await uploadFile(images, "blogs/images");
+    const videoResult = await uploadFile(videos, "blogs/videos");
+
+    // TODO : อาจจะต้องแก้ให้ merge array แล้ว push ลงไปในอันเดียว อัพลง DB field เดียว
     const updateImages = [];
+    const updateVideos = [];
 
-    for (let i = 0; i < result.length; i++) {
+    for (let i = 0; i < imageResult.length; i++) {
         updateImages.push({
-            public_id: result[i].key,
-            url: result[i].Location,
+            public_id: imageResult[i].key,
+            url: imageResult[i].Location,
         });
     }
 
+    for (let i = 0; i < videoResult.length; i++) {
+        updateVideos.push({
+            public_id: videoResult[i].key,
+            url: videoResult[i].Location,
+        });
+    }
+
+    // console.log("updateImages : ", updateImages);
+    // console.log("updateVideos : ", updateVideos);
+
     req.body.images = updateImages;
+    req.body.videos = updateVideos;
 
     const blog = await Blog.create(req.body);
 
@@ -124,7 +154,7 @@ exports.getAdminBlogs = catchAsyncErrors(async (req, res, next) => {
 exports.updateBlog = catchAsyncErrors(async (req, res, next) => {
     // Create a multer instance and configure it
     const storage = multer.memoryStorage();
-    const uploadMiddleware = multer({ storage: storage }).array("files");
+    const uploadMiddleware = multer({ storage: storage }).any();
     const uploadMiddlewareAsync = promisify(uploadMiddleware);
 
     await uploadMiddlewareAsync(req, res);
@@ -134,64 +164,64 @@ exports.updateBlog = catchAsyncErrors(async (req, res, next) => {
     const files = req.files;
 
     // Images Array
-    const oldImages = blog.images || [];
-    const currentImages = [];
-    const updateImages = [];
+    // const oldImages = blog.images || [];
+    // const currentImages = [];
+    // const updateImages = [];
 
-    console.log(files);
+    // console.log(files);
 
-    // JSON Parse images if it's not undefined
-    if (req.body.images !== undefined) {
-        for (let i = 0; i < req.body.images.length; i++) {
-            const image = req.body.images[i];
-            currentImages.push(JSON.parse(image));
-        }
-    }
+    // // JSON Parse images if it's not undefined
+    // if (req.body.images !== undefined) {
+    //     for (let i = 0; i < req.body.images.length; i++) {
+    //         const image = req.body.images[i];
+    //         currentImages.push(JSON.parse(image));
+    //     }
+    // }
 
-    // Check unmatched
-    const unmatchedImages = oldImages.filter(
-        (img) =>
-            !currentImages.some((image) => image.public_id === img.public_id)
-    );
+    // // Check unmatched
+    // const unmatchedImages = oldImages.filter(
+    //     (img) =>
+    //         !currentImages.some((image) => image.public_id === img.public_id)
+    // );
 
-    //Deleting Images From AWS S3
-    await deleteFiles(unmatchedImages);
+    // //Deleting Images From AWS S3
+    // await deleteFiles(unmatchedImages);
 
-    // Upload Images
-    const result = await uploadFile(files, "blogs");
+    // // Upload Images
+    // const result = await uploadFile(files, "blogs");
 
-    if (currentImages.length === 0) {
-        for (let i = 0; i < result.length; i++) {
-            updateImages.push({
-                public_id: result[i].key,
-                url: result[i].Location,
-            });
-        }
-    } else {
-        // Push current images and push new images (if have)
-        for (let i = 0; i < currentImages.length; i++) {
-            updateImages.push({
-                public_id: currentImages[i].public_id,
-                url: currentImages[i].url,
-            });
-        }
-        for (let i = 0; i < result.length; i++) {
-            updateImages.push({
-                public_id: result[i].key,
-                url: result[i].Location,
-            });
-        }
-    }
+    // if (currentImages.length === 0) {
+    //     for (let i = 0; i < result.length; i++) {
+    //         updateImages.push({
+    //             public_id: result[i].key,
+    //             url: result[i].Location,
+    //         });
+    //     }
+    // } else {
+    //     // Push current images and push new images (if have)
+    //     for (let i = 0; i < currentImages.length; i++) {
+    //         updateImages.push({
+    //             public_id: currentImages[i].public_id,
+    //             url: currentImages[i].url,
+    //         });
+    //     }
+    //     for (let i = 0; i < result.length; i++) {
+    //         updateImages.push({
+    //             public_id: result[i].key,
+    //             url: result[i].Location,
+    //         });
+    //     }
+    // }
 
-    req.body.images = updateImages;
+    // req.body.images = updateImages;
 
-    blog = await Blog.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-        runValidators: true,
-        useFindAndModify: false,
-    });
+    // blog = await Blog.findByIdAndUpdate(req.params.id, req.body, {
+    //     new: true,
+    //     runValidators: true,
+    //     useFindAndModify: false,
+    // });
 
-    res.status(200).json({ success: true, blog });
+    res.status(200).json({ success: true });
 });
 
 // Delete Blog -- Admin
