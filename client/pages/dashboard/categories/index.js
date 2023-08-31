@@ -66,7 +66,7 @@ const AdminAllCategoriesPage = () => {
     useEffect(() => {
         let link = `/api/admin/categories?keyword=${
             keyword ? keyword : ""
-        }&page=${page}`;
+        }&page=${page}&sort=latest`;
 
         const getCategories = async () => {
             setLoading(true);

@@ -66,7 +66,7 @@ const AdminAllBlogsPage = () => {
     useEffect(() => {
         let link = `/api/admin/blogs?keyword=${
             keyword ? keyword : ""
-        }&page=${page}`;
+        }&page=${page}&sort=latest`;
 
         const getBlogs = async () => {
             setLoading(true);

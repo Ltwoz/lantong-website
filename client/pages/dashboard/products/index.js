@@ -16,7 +16,7 @@ const AdminAllProductsPage = () => {
     // Products State
     const [products, setProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState({});
-    const [link, setLink] = useState("/api/admin/products?page=1");
+    const [link, setLink] = useState("/api/admin/products?page=1&sort=latest");
 
     // CRUD State
     const [loading, setLoading] = useState(true);
@@ -86,7 +86,7 @@ const AdminAllProductsPage = () => {
         setLink(
             `/api/admin/products?keyword=${
                 keyword ? keyword : ""
-            }&page=${page}${category && `&category=${category}`}`
+            }&page=${page}${category && `&category=${category}`}&sort=latest`
         );
     }, [category, keyword, page]);
 

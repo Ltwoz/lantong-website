@@ -66,7 +66,7 @@ const AdminAllUsersPage = () => {
     useEffect(() => {
         let link = `/api/admin/users?findUser=${
             keyword ? keyword : ""
-        }&page=${page}`;
+        }&page=${page}&sort=latest`;
 
         const getUsers = async () => {
             setLoading(true);

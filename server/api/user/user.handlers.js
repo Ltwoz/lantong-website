@@ -130,6 +130,7 @@ exports.getAllUser = catchAsyncErrors(async (req, res, next) => {
     const usersCount = await User.countDocuments();
 
     const apiFeature = new ApiFeatures(User.find(), req.query)
+        .sort()
         .filter()
         .findUser();
 
