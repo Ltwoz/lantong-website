@@ -36,18 +36,6 @@ const blogSchema = mongoose.Schema({
             },
         },
     ],
-    videos: [
-        {
-            public_id: {
-                type: String,
-                required: true,
-            },
-            url: {
-                type: String,
-                required: true,
-            },
-        },
-    ],
     numOfReviews: {
         type: Number,
         default: 0,

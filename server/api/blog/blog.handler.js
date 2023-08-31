@@ -9,25 +9,44 @@ const ApiFeatures = require("../../utils/apiFeatures");
 exports.createBlog = catchAsyncErrors(async (req, res, next) => {
     // Create a multer instance and configure it
     const storage = multer.memoryStorage();
-    const uploadMiddleware = multer({ storage: storage }).array("images");
+    const uploadMiddleware = multer({ storage: storage }).any();
     const uploadMiddlewareAsync = promisify(uploadMiddleware);
 
     await uploadMiddlewareAsync(req, res);
 
     const files = req.files;
 
-    const result = await uploadFile(files, "blogs");
+    const images = [];
+    const videos = [];
 
-    const updateImages = [];
+    for (let i = 0; i < files.length; i++) {
+        if (files[i].mimetype.startsWith("image")) {
+            images.push(files[i]);
+        } else if (files[i].mimetype.startsWith("video")) {
+            videos.push(files[i]);
+        }
+    }
 
-    for (let i = 0; i < result.length; i++) {
-        updateImages.push({
-            public_id: result[i].key,
-            url: result[i].Location,
+    const imageResult = await uploadFile(images, "blogs/images");
+    const videoResult = await uploadFile(videos, "blogs/videos");
+
+    const updateFiles = [];
+
+    for (let i = 0; i < imageResult.length; i++) {
+        updateFiles.push({
+            public_id: imageResult[i].key,
+            url: imageResult[i].Location,
         });
     }
 
-    req.body.images = updateImages;
+    for (let i = 0; i < videoResult.length; i++) {
+        updateFiles.push({
+            public_id: videoResult[i].key,
+            url: videoResult[i].Location,
+        });
+    }
+
+    req.body.images = updateFiles;
 
     const blog = await Blog.create(req.body);
 
@@ -124,7 +143,7 @@ exports.getAdminBlogs = catchAsyncErrors(async (req, res, next) => {
 exports.updateBlog = catchAsyncErrors(async (req, res, next) => {
     // Create a multer instance and configure it
     const storage = multer.memoryStorage();
-    const uploadMiddleware = multer({ storage: storage }).array("files");
+    const uploadMiddleware = multer({ storage: storage }).any();
     const uploadMiddlewareAsync = promisify(uploadMiddleware);
 
     await uploadMiddlewareAsync(req, res);
@@ -136,9 +155,7 @@ exports.updateBlog = catchAsyncErrors(async (req, res, next) => {
     // Images Array
     const oldImages = blog.images || [];
     const currentImages = [];
-    const updateImages = [];
-
-    console.log(files);
+    const updateFiles = [];
 
     // JSON Parse images if it's not undefined
     if (req.body.images !== undefined) {
@@ -157,33 +174,43 @@ exports.updateBlog = catchAsyncErrors(async (req, res, next) => {
     //Deleting Images From AWS S3
     await deleteFiles(unmatchedImages);
 
-    // Upload Images
-    const result = await uploadFile(files, "blogs");
+    const images = [];
+    const videos = [];
 
-    if (currentImages.length === 0) {
-        for (let i = 0; i < result.length; i++) {
-            updateImages.push({
-                public_id: result[i].key,
-                url: result[i].Location,
-            });
-        }
-    } else {
-        // Push current images and push new images (if have)
-        for (let i = 0; i < currentImages.length; i++) {
-            updateImages.push({
-                public_id: currentImages[i].public_id,
-                url: currentImages[i].url,
-            });
-        }
-        for (let i = 0; i < result.length; i++) {
-            updateImages.push({
-                public_id: result[i].key,
-                url: result[i].Location,
-            });
+    for (let i = 0; i < files.length; i++) {
+        if (files[i].mimetype.startsWith("image")) {
+            images.push(files[i]);
+        } else if (files[i].mimetype.startsWith("video")) {
+            videos.push(files[i]);
         }
     }
 
-    req.body.images = updateImages;
+    // Upload Files
+    const imageResult = await uploadFile(images, "blogs/images");
+    const videoResult = await uploadFile(videos, "blogs/videos");
+
+    for (let i = 0; i < currentImages.length; i++) {
+        updateFiles.push({
+            public_id: currentImages[i].public_id,
+            url: currentImages[i].url,
+        });
+    }
+
+    for (let i = 0; i < imageResult.length; i++) {
+        updateFiles.push({
+            public_id: imageResult[i].key,
+            url: imageResult[i].Location,
+        });
+    }
+
+    for (let i = 0; i < videoResult.length; i++) {
+        updateFiles.push({
+            public_id: videoResult[i].key,
+            url: videoResult[i].Location,
+        });
+    }
+
+    req.body.images = updateFiles;
 
     blog = await Blog.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
