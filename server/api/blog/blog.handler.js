@@ -16,8 +16,6 @@ exports.createBlog = catchAsyncErrors(async (req, res, next) => {
 
     const files = req.files;
 
-    console.log(files);
-
     const images = [];
     const videos = [];
 
@@ -29,35 +27,26 @@ exports.createBlog = catchAsyncErrors(async (req, res, next) => {
         }
     }
 
-    // console.log("images : ", images);
-    // console.log("videos : ", videos);
-
     const imageResult = await uploadFile(images, "blogs/images");
     const videoResult = await uploadFile(videos, "blogs/videos");
 
-    // TODO : อาจจะต้องแก้ให้ merge array แล้ว push ลงไปในอันเดียว อัพลง DB field เดียว
-    const updateImages = [];
-    const updateVideos = [];
+    const updateFiles = [];
 
     for (let i = 0; i < imageResult.length; i++) {
-        updateImages.push({
+        updateFiles.push({
             public_id: imageResult[i].key,
             url: imageResult[i].Location,
         });
     }
 
     for (let i = 0; i < videoResult.length; i++) {
-        updateVideos.push({
+        updateFiles.push({
             public_id: videoResult[i].key,
             url: videoResult[i].Location,
         });
     }
 
-    // console.log("updateImages : ", updateImages);
-    // console.log("updateVideos : ", updateVideos);
-
-    req.body.images = updateImages;
-    req.body.videos = updateVideos;
+    req.body.images = updateFiles;
 
     const blog = await Blog.create(req.body);
 
@@ -164,64 +153,72 @@ exports.updateBlog = catchAsyncErrors(async (req, res, next) => {
     const files = req.files;
 
     // Images Array
-    // const oldImages = blog.images || [];
-    // const currentImages = [];
-    // const updateImages = [];
+    const oldImages = blog.images || [];
+    const currentImages = [];
+    const updateFiles = [];
 
-    // console.log(files);
+    // JSON Parse images if it's not undefined
+    if (req.body.images !== undefined) {
+        for (let i = 0; i < req.body.images.length; i++) {
+            const image = req.body.images[i];
+            currentImages.push(JSON.parse(image));
+        }
+    }
 
-    // // JSON Parse images if it's not undefined
-    // if (req.body.images !== undefined) {
-    //     for (let i = 0; i < req.body.images.length; i++) {
-    //         const image = req.body.images[i];
-    //         currentImages.push(JSON.parse(image));
-    //     }
-    // }
+    // Check unmatched
+    const unmatchedImages = oldImages.filter(
+        (img) =>
+            !currentImages.some((image) => image.public_id === img.public_id)
+    );
 
-    // // Check unmatched
-    // const unmatchedImages = oldImages.filter(
-    //     (img) =>
-    //         !currentImages.some((image) => image.public_id === img.public_id)
-    // );
+    //Deleting Images From AWS S3
+    await deleteFiles(unmatchedImages);
 
-    // //Deleting Images From AWS S3
-    // await deleteFiles(unmatchedImages);
+    const images = [];
+    const videos = [];
 
-    // // Upload Images
-    // const result = await uploadFile(files, "blogs");
+    for (let i = 0; i < files.length; i++) {
+        if (files[i].mimetype.startsWith("image")) {
+            images.push(files[i]);
+        } else if (files[i].mimetype.startsWith("video")) {
+            videos.push(files[i]);
+        }
+    }
 
-    // if (currentImages.length === 0) {
-    //     for (let i = 0; i < result.length; i++) {
-    //         updateImages.push({
-    //             public_id: result[i].key,
-    //             url: result[i].Location,
-    //         });
-    //     }
-    // } else {
-    //     // Push current images and push new images (if have)
-    //     for (let i = 0; i < currentImages.length; i++) {
-    //         updateImages.push({
-    //             public_id: currentImages[i].public_id,
-    //             url: currentImages[i].url,
-    //         });
-    //     }
-    //     for (let i = 0; i < result.length; i++) {
-    //         updateImages.push({
-    //             public_id: result[i].key,
-    //             url: result[i].Location,
-    //         });
-    //     }
-    // }
+    // Upload Files
+    const imageResult = await uploadFile(images, "blogs/images");
+    const videoResult = await uploadFile(videos, "blogs/videos");
 
-    // req.body.images = updateImages;
+    for (let i = 0; i < currentImages.length; i++) {
+        updateFiles.push({
+            public_id: currentImages[i].public_id,
+            url: currentImages[i].url,
+        });
+    }
 
-    // blog = await Blog.findByIdAndUpdate(req.params.id, req.body, {
-    //     new: true,
-    //     runValidators: true,
-    //     useFindAndModify: false,
-    // });
+    for (let i = 0; i < imageResult.length; i++) {
+        updateFiles.push({
+            public_id: imageResult[i].key,
+            url: imageResult[i].Location,
+        });
+    }
 
-    res.status(200).json({ success: true });
+    for (let i = 0; i < videoResult.length; i++) {
+        updateFiles.push({
+            public_id: videoResult[i].key,
+            url: videoResult[i].Location,
+        });
+    }
+
+    req.body.images = updateFiles;
+
+    blog = await Blog.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+    });
+
+    res.status(200).json({ success: true, blog });
 });
 
 // Delete Blog -- Admin

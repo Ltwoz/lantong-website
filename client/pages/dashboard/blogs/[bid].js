@@ -85,7 +85,7 @@ const EditBlogPage = ({ id }) => {
         setAddress(blog.address);
         setMapUrl(blog.google_map);
         setPhoneNo(blog.phone_no);
-        +setImages(blog.images);
+        setImages(blog.images);
         setImagesPreview(blog.images);
         setIsActive(blog.isActive);
     }, [blog]);
@@ -340,7 +340,7 @@ const EditBlogPage = ({ id }) => {
                                     <input
                                         id="dropzone-file"
                                         type="file"
-                                        accept=".jpeg, .jpg, .png"
+                                        accept=".jpeg, .jpg, .png, .mp4"
                                         multiple
                                         onChange={handleUploadImage}
                                         className="hidden"
@@ -361,45 +361,171 @@ const EditBlogPage = ({ id }) => {
 
                                     <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-4 overflow-hidden">
                                         {imagesPreview?.map((image, i) => (
-                                            <div
-                                                key={i}
-                                                className="w-full aspect-square relative flex items-center rounded-lg overflow-hidden"
-                                            >
-                                                <Image
-                                                    alt={"preview_image"}
-                                                    src={
-                                                        image.url
-                                                            ? image.url
-                                                            : image
-                                                    }
-                                                    draggable="false"
-                                                    fill
-                                                    className="select-none object-cover"
-                                                />
-                                                <div className="flex absolute top-1 right-1 z-[1]">
-                                                    <button
-                                                        onClick={() =>
-                                                            removeImage(i)
-                                                        }
-                                                        className="bg-white text-red-600 transition-all border border-transparent hover:border-red-600 rounded-lg p-1"
-                                                    >
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            fill="none"
-                                                            viewBox="0 0 24 24"
-                                                            stroke="currentColor"
-                                                            className="w-4 h-4 md:w-5 md:h-5"
-                                                        >
-                                                            <path
-                                                                strokeLinecap="round"
-                                                                strokeLinejoin="round"
-                                                                strokeWidth="2"
-                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                            <>
+                                                {image.url ? (
+                                                    image.url.includes(
+                                                        "images"
+                                                    ) ? (
+                                                        <div className="w-full aspect-video relative flex items-center rounded-lg overflow-hidden col-span-2">
+                                                            <Image
+                                                                alt={
+                                                                    "preview_image"
+                                                                }
+                                                                src={image.url}
+                                                                draggable="false"
+                                                                fill
+                                                                className="select-none object-cover"
                                                             />
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </div>
+                                                            <div className="flex absolute top-1 right-1 z-[1]">
+                                                                <button
+                                                                    onClick={() =>
+                                                                        removeImage(
+                                                                            i
+                                                                        )
+                                                                    }
+                                                                    className="bg-white text-red-600 transition-all border border-transparent hover:border-red-600 rounded-lg p-1"
+                                                                >
+                                                                    <svg
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        fill="none"
+                                                                        viewBox="0 0 24 24"
+                                                                        stroke="currentColor"
+                                                                        className="w-4 h-4 md:w-5 md:h-5"
+                                                                    >
+                                                                        <path
+                                                                            strokeLinecap="round"
+                                                                            strokeLinejoin="round"
+                                                                            strokeWidth="2"
+                                                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                                                        />
+                                                                    </svg>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    ) : (
+                                                        <div className="w-full aspect-video relative flex items-center rounded-lg overflow-hidden col-span-2">
+                                                            <video
+                                                                className="w-full h-full"
+                                                                controls
+                                                            >
+                                                                <source
+                                                                    src={
+                                                                        image.url
+                                                                    }
+                                                                    type="video/mp4"
+                                                                />
+                                                                Your browser
+                                                                does not support
+                                                                the video tag.
+                                                            </video>
+                                                            <div className="flex absolute top-1 right-1 z-[1]">
+                                                                <button
+                                                                    onClick={() =>
+                                                                        removeImage(
+                                                                            i
+                                                                        )
+                                                                    }
+                                                                    className="bg-white text-red-600 transition-all border border-transparent hover:border-red-600 rounded-lg p-1"
+                                                                >
+                                                                    <svg
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        fill="none"
+                                                                        viewBox="0 0 24 24"
+                                                                        stroke="currentColor"
+                                                                        className="w-4 h-4 md:w-5 md:h-5"
+                                                                    >
+                                                                        <path
+                                                                            strokeLinecap="round"
+                                                                            strokeLinejoin="round"
+                                                                            strokeWidth="2"
+                                                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                                                        />
+                                                                    </svg>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                ) : files[
+                                                      i - images.length
+                                                  ].type.startsWith("image") ? (
+                                                    <div className="w-full aspect-video relative flex items-center rounded-lg overflow-hidden col-span-2">
+                                                        <Image
+                                                            alt={
+                                                                "preview_image"
+                                                            }
+                                                            src={image}
+                                                            draggable="false"
+                                                            fill
+                                                            className="select-none object-cover"
+                                                        />
+                                                        <div className="flex absolute top-1 right-1 z-[1]">
+                                                            <button
+                                                                onClick={() =>
+                                                                    removeImage(
+                                                                        i
+                                                                    )
+                                                                }
+                                                                className="bg-white text-red-600 transition-all border border-transparent hover:border-red-600 rounded-lg p-1"
+                                                            >
+                                                                <svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    fill="none"
+                                                                    viewBox="0 0 24 24"
+                                                                    stroke="currentColor"
+                                                                    className="w-4 h-4 md:w-5 md:h-5"
+                                                                >
+                                                                    <path
+                                                                        strokeLinecap="round"
+                                                                        strokeLinejoin="round"
+                                                                        strokeWidth="2"
+                                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                                                    />
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    <div className="w-full aspect-video relative flex items-center rounded-lg overflow-hidden col-span-2">
+                                                        <video
+                                                            className="w-full h-full"
+                                                            controls
+                                                        >
+                                                            <source
+                                                                src={image}
+                                                                type="video/mp4"
+                                                            />
+                                                            Your browser does
+                                                            not support the
+                                                            video tag.
+                                                        </video>
+                                                        <div className="flex absolute top-1 right-1 z-[1]">
+                                                            <button
+                                                                onClick={() =>
+                                                                    removeImage(
+                                                                        i
+                                                                    )
+                                                                }
+                                                                className="bg-white text-red-600 transition-all border border-transparent hover:border-red-600 rounded-lg p-1"
+                                                            >
+                                                                <svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    fill="none"
+                                                                    viewBox="0 0 24 24"
+                                                                    stroke="currentColor"
+                                                                    className="w-4 h-4 md:w-5 md:h-5"
+                                                                >
+                                                                    <path
+                                                                        strokeLinecap="round"
+                                                                        strokeLinejoin="round"
+                                                                        strokeWidth="2"
+                                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                                                    />
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </>
                                         ))}
                                     </div>
                                 </div>

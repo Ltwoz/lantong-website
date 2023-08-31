@@ -104,61 +104,58 @@ const NewBlogPage = () => {
     async function submitForm(e) {
         e.preventDefault();
 
-        console.log("files : ", images);
-        console.log("preview : ", imagesPreview);
+        if (images.length < 1) {
+            toast.error("ใส่รูปภาพอย่างน้อย 1 รูป", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+            return false;
+        }
 
-        // if (images.length < 1) {
-        //     toast.error("ใส่รูปภาพอย่างน้อย 1 รูป", {
-        //         position: toast.POSITION.BOTTOM_RIGHT,
-        //     });
-        //     return false;
-        // }
+        const formData = new FormData();
 
-        // const formData = new FormData();
+        formData.set("name", name);
+        formData.set("description", description);
+        formData.set("category", category);
+        formData.set("address", address);
+        formData.set("phone_no", phoneNo);
+        formData.set("google_map", mapUrl);
+        formData.set("isActive", isActive);
 
-        // formData.set("name", name);
-        // formData.set("description", description);
-        // formData.set("category", category);
-        // formData.set("address", address);
-        // formData.set("phone_no", phoneNo);
-        // formData.set("google_map", mapUrl);
-        // formData.set("isActive", isActive);
+        images.forEach((image) => {
+            formData.append("images", image);
+        });
 
-        // images.forEach((image) => {
-        //     formData.append("images", image);
-        // });
+        const data = Object.fromEntries(formData);
 
-        // const data = Object.fromEntries(formData);
+        const validatedForm = validateSchema.safeParse(data);
 
-        // const validatedForm = validateSchema.safeParse(data);
+        if (!validatedForm.success) {
+            validatedForm.error.issues.map((err) => {
+                toast.error(err.message, {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
+            });
+            return false;
+        }
 
-        // if (!validatedForm.success) {
-        //     validatedForm.error.issues.map((err) => {
-        //         toast.error(err.message, {
-        //             position: toast.POSITION.BOTTOM_RIGHT,
-        //         });
-        //     });
-        //     return false;
-        // }
+        const config = { headers: { "Content-Type": "multipart/form-data" } };
 
-        // const config = { headers: { "Content-Type": "multipart/form-data" } };
+        try {
+            setLoading(true);
 
-        // try {
-        //     setLoading(true);
+            const { data } = await instanceApi.post(
+                `/api/admin/blog/new`,
+                formData,
+                config
+            );
 
-        //     const { data } = await instanceApi.post(
-        //         `/api/admin/blog/new`,
-        //         formData,
-        //         config
-        //     );
-
-        //     setIsSuccess(data.success);
-        // } catch (error) {
-        //     setError(error.message);
-        //     console.error(error.message);
-        // } finally {
-        //     setLoading(false);
-        // }
+            setIsSuccess(data.success);
+        } catch (error) {
+            setError(error.message);
+            console.error(error.message);
+        } finally {
+            setLoading(false);
+        }
     }
 
     const { user, isAuthenticated } = useUser();
@@ -321,7 +318,7 @@ const NewBlogPage = () => {
                                     <input
                                         id="dropzone-file"
                                         type="file"
-                                        accept="image/*, video/*"
+                                        accept=".jpeg, .jpg, .png, .mp4"
                                         multiple
                                         onChange={handleUploadImage}
                                         className="hidden"
@@ -387,22 +384,44 @@ const NewBlogPage = () => {
                                                         </div>
                                                     </div>
                                                 ) : (
-                                                    <div className="rounded-lg overflow-hidden w-full relative aspect-video col-span-2">
+                                                    <div className="w-full aspect-video relative flex items-center rounded-lg overflow-hidden col-span-2">
                                                         <video
                                                             className="w-full h-full"
                                                             controls
                                                         >
                                                             <source
                                                                 src={image}
-                                                                type={
-                                                                    images[i]
-                                                                        .type
-                                                                }
+                                                                type="video/mp4"
                                                             />
                                                             Your browser does
                                                             not support the
                                                             video tag.
                                                         </video>
+                                                        <div className="flex absolute top-1 right-1 z-[1]">
+                                                            <button
+                                                                onClick={() =>
+                                                                    removeImage(
+                                                                        i
+                                                                    )
+                                                                }
+                                                                className="bg-white text-red-600 transition-all border border-transparent hover:border-red-600 rounded-lg p-1"
+                                                            >
+                                                                <svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    fill="none"
+                                                                    viewBox="0 0 24 24"
+                                                                    stroke="currentColor"
+                                                                    className="w-4 h-4 md:w-5 md:h-5"
+                                                                >
+                                                                    <path
+                                                                        strokeLinecap="round"
+                                                                        strokeLinejoin="round"
+                                                                        strokeWidth="2"
+                                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                                                    />
+                                                                </svg>
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 )}
                                             </>
