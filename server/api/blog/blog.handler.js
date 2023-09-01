@@ -30,21 +30,26 @@ exports.createBlog = catchAsyncErrors(async (req, res, next) => {
     const imageResult = await uploadFile(images, "blogs/images");
     const videoResult = await uploadFile(videos, "blogs/videos");
 
+    console.log("imageResult : ", imageResult);
+    console.log("videoResult : ", videoResult);
+
     const updateFiles = [];
 
     for (let i = 0; i < imageResult.length; i++) {
         updateFiles.push({
-            public_id: imageResult[i].key,
+            public_id: imageResult[i].Key,
             url: imageResult[i].Location,
         });
     }
 
     for (let i = 0; i < videoResult.length; i++) {
         updateFiles.push({
-            public_id: videoResult[i].key,
+            public_id: videoResult[i].Key,
             url: videoResult[i].Location,
         });
     }
+
+    console.log("updateFiles : ", updateFiles);
 
     req.body.images = updateFiles;
 
@@ -198,14 +203,14 @@ exports.updateBlog = catchAsyncErrors(async (req, res, next) => {
 
     for (let i = 0; i < imageResult.length; i++) {
         updateFiles.push({
-            public_id: imageResult[i].key,
+            public_id: imageResult[i].Key,
             url: imageResult[i].Location,
         });
     }
 
     for (let i = 0; i < videoResult.length; i++) {
         updateFiles.push({
-            public_id: videoResult[i].key,
+            public_id: videoResult[i].Key,
             url: videoResult[i].Location,
         });
     }

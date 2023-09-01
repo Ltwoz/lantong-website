@@ -8,16 +8,26 @@ export default function BlogCard({ blog }) {
             <div className="w-full flex flex-col md:flex-row bg-white border rounded-lg overflow-hidden shadow-md">
                 <div className="w-full aspect-[16/9] overflow-hidden relative flex items-center">
                     <div className="absolute z-[1] right-0 bottom-0 left-0 w-full h-[50%] overflow-hidden bg-gradient-to-t from-black/20 to-white/0 opacity-100" />
-                    <Image
-                        alt="blog-image"
-                        src={
-                            blog.images[0]?.url ||
-                            `https://dummyimage.com/261x261`
-                        }
-                        draggable="false"
-                        fill
-                        className="select-none object-cover"
-                    />
+                    {blog.images[0]?.url.includes("images") ? (
+                        <Image
+                            alt="blog-image"
+                            src={
+                                blog.images[0]?.url ||
+                                `https://dummyimage.com/261x261`
+                            }
+                            draggable="false"
+                            fill
+                            className="select-none object-cover"
+                        />
+                    ) : (
+                        <video className="h-full object-cover pointer-events-none">
+                            <source
+                                src={blog.images[0]?.url}
+                                type="video/mp4"
+                            />
+                            Your browser does not support the video tag.
+                        </video>
+                    )}
                 </div>
                 <div className="w-full md:w-[60%] xl:w-[75%] flex flex-col flex-shrink-0 p-4 bg-white">
                     <div className="flex justify-between items-center mb-2">

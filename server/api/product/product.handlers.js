@@ -17,12 +17,13 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 
     const files = req.files;
     const result = await uploadFile(files, "products");
+    
 
     const updateImages = [];
 
     for (let i = 0; i < result.length; i++) {
         updateImages.push({
-            public_id: result[i].key,
+            public_id: result[i].Key,
             url: result[i].Location,
         });
     }
@@ -184,8 +185,6 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
     const currentImages = [];
     const updateImages = [];
 
-    console.log(files);
-
     // JSON Parse images if it's not undefined
     if (req.body.images !== undefined) {
         for (let i = 0; i < req.body.images.length; i++) {
@@ -209,7 +208,7 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
     if (currentImages.length === 0) {
         for (let i = 0; i < result.length; i++) {
             updateImages.push({
-                public_id: result[i].key,
+                public_id: result[i].Key,
                 url: result[i].Location,
             });
         }
@@ -223,7 +222,7 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
         }
         for (let i = 0; i < result.length; i++) {
             updateImages.push({
-                public_id: result[i].key,
+                public_id: result[i].Key,
                 url: result[i].Location,
             });
         }

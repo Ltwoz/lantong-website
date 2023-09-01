@@ -206,16 +206,32 @@ const BlogDetails = ({ blog: blogSSR }) => {
                         <SplideTrack>
                             {blog.images.map((image) => (
                                 <SplideSlide key={image.public_id}>
-                                    <div className="w-full h-[240px] md:h-[480px] xl:h-[700px] flex items-center">
-                                        <Image
-                                            alt="property-image"
-                                            src={image.url}
-                                            unoptimized
-                                            draggable="false"
-                                            fill
-                                            className="select-none object-contain"
-                                        />
-                                    </div>
+                                    {image.url.includes("images") ? (
+                                        <div className="w-full h-[240px] md:h-[480px] xl:h-[700px] flex items-center">
+                                            <Image
+                                                alt="property-image"
+                                                src={image.url}
+                                                unoptimized
+                                                draggable="false"
+                                                fill
+                                                className="select-none object-contain"
+                                            />
+                                        </div>
+                                    ) : (
+                                        <div className="w-full h-[240px] md:h-[480px] xl:h-[700px] flex items-center">
+                                            <video
+                                                className="w-full h-full pointer-events-none"
+                                                controls
+                                            >
+                                                <source
+                                                    src={image.url}
+                                                    type="video/mp4"
+                                                />
+                                                Your browser does not support
+                                                the video tag.
+                                            </video>
+                                        </div>
+                                    )}
                                 </SplideSlide>
                             ))}
                         </SplideTrack>
@@ -247,16 +263,29 @@ const BlogDetails = ({ blog: blogSSR }) => {
                                     className="opacity-60 !border-0"
                                     key={image.public_id}
                                 >
-                                    <div className="w-full h-full flex items-center">
-                                        <Image
-                                            alt="thumb-image"
-                                            src={image.url}
-                                            unoptimized
-                                            draggable="false"
-                                            fill
-                                            className="select-none object-cover"
-                                        />
-                                    </div>
+                                    {image.url.includes("images") ? (
+                                        <div className="w-full h-full flex items-center">
+                                            <Image
+                                                alt="thumb-image"
+                                                src={image.url}
+                                                unoptimized
+                                                draggable="false"
+                                                fill
+                                                className="select-none object-cover"
+                                            />
+                                        </div>
+                                    ) : (
+                                        <video
+                                            className="w-full h-full pointer-events-none"
+                                        >
+                                            <source
+                                                src={image.url}
+                                                type="video/mp4"
+                                            />
+                                            Your browser does not support the
+                                            video tag.
+                                        </video>
+                                    )}
                                 </SplideSlide>
                             ))}
                         </SplideTrack>
