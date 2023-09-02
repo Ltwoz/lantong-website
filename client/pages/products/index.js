@@ -12,10 +12,11 @@ export default function ProductsPage() {
 
     // Products State
     const [products, setProducts] = useState([]);
-    const [link, setLink] = useState(`/api/products?isActive=true&sort=latest`);
 
     // Filter State
-    const [keyword, setKeyword] = useState("");
+    const [keyword, setKeyword] = useState(
+        router.query.keyword ? router.query.keyword : ""
+    );
     const [category, setCategory] = useState("");
     const [price, setPrice] = useState([0, 50000]);
     const [sort, setSort] = useState("latest");
@@ -29,6 +30,27 @@ export default function ProductsPage() {
 
     // Pagination State
     const [page, setPage] = useState(1);
+
+    const [link, setLink] = useState(
+        `/api/products?isActive=true${
+            keyword ? keyword : ""
+        }&sort=latest&page=${page}`
+    );
+
+    // Debounce
+    useEffect(() => {
+        const debounce = setTimeout(() => {
+            const newLink = `/api/products?isActive=true&keyword=${keyword}${
+                category && `&category=${category}`
+            }&price[gte]=${price[0] || 0}&price[lte]=${
+                price[1] || 50000
+            }&sort=${sort}&page=${page}`;
+
+            setLink(newLink);
+        }, 500);
+
+        return () => clearTimeout(debounce);
+    }, [keyword, sort, page, category, price]);
 
     useEffect(() => {
         if (router.query.category) {
@@ -46,6 +68,7 @@ export default function ProductsPage() {
         setLoading(true);
         const getProducts = async () => {
             const { data } = await instanceApi.get(`${link}`);
+            console.log(link);
             setProducts(data);
             setLoading(false);
             setFirstLoad(false);
@@ -68,29 +91,6 @@ export default function ProductsPage() {
             console.error;
         });
     }, []);
-
-    useEffect(() => {
-        setLink(
-            `/api/products?isActive=true&keyword=${keyword}${
-                category && `&category=${category}`
-            }&price[gte]=${price[0] || 0}&price[lte]=${
-                price[1] || 50000
-            }&sort=${sort}&page=${page}`
-        );
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [sort, page]);
-
-    function onSubmitFilter(e) {
-        e.preventDefault();
-
-        setLink(
-            `/api/products?isActive=true&keyword=${keyword}${
-                category && `&category=${category}`
-            }&price[gte]=${price[0]}&price[lte]=${
-                price[1]
-            }&sort=${sort}&page=${page}`
-        );
-    }
 
     function handlePriceChange(index, value) {
         const newPrice = [...price];
@@ -187,7 +187,7 @@ export default function ProductsPage() {
                                     />
                                 </div>
                             </div>
-                            <div className="col-span-4 flex items-center justify-start gap-x-4">
+                            {/* <div className="col-span-4 flex items-center justify-start gap-x-4">
                                 <button
                                     onClick={onSubmitFilter}
                                     className="inline-flex items-center bg-primary disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
@@ -210,7 +210,7 @@ export default function ProductsPage() {
                                         <span className="block">{"ค้นหา"}</span>
                                     </div>
                                 </button>
-                            </div>
+                            </div> */}
                         </form>
                         {/* Main Content */}
                         <div className="flex flex-col w-full gap-4">
