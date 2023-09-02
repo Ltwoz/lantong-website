@@ -220,7 +220,7 @@ const BlogDetails = ({ blog: blogSSR }) => {
                                     ) : (
                                         <div className="w-full h-[240px] md:h-[480px] xl:h-[700px] flex items-center">
                                             <video
-                                                className="w-full h-full pointer-events-none"
+                                                className="w-full h-full"
                                                 controls
                                             >
                                                 <source
