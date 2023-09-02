@@ -60,7 +60,7 @@ exports.createBlog = catchAsyncErrors(async (req, res, next) => {
 
 // Get Filter Blogs
 exports.getFilterBlogs = catchAsyncErrors(async (req, res, next) => {
-    const resultPerPage = 20;
+    const resultPerPage = 21;
     const blogsCount = await Blog.countDocuments();
 
     const apiFeature = new ApiFeatures(Blog.find(), req.query)
@@ -117,7 +117,7 @@ exports.getBlogsCategory = catchAsyncErrors(async (req, res, next) => {
 
 // Get All Blogs -- Admin
 exports.getAdminBlogs = catchAsyncErrors(async (req, res, next) => {
-    const resultPerPage = 20;
+    const resultPerPage = 21;
     const blogsCount = await Blog.countDocuments();
 
     const apiFeature = new ApiFeatures(Blog.find(), req.query)

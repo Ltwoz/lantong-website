@@ -67,7 +67,7 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 
 // Get Filter Products
 exports.getFilterProducts = catchAsyncErrors(async (req, res, next) => {
-    const resultPerPage = 20;
+    const resultPerPage = 21;
     const productsCount = await Product.countDocuments();
 
     const apiFeature = new ApiFeatures(
@@ -118,7 +118,7 @@ exports.getDetailProduct = catchAsyncErrors(async (req, res, next) => {
 
 // Get All Products -- Admin
 exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
-    const resultPerPage = 20;
+    const resultPerPage = 21;
     const productsCount = await Product.countDocuments();
 
     const apiFeature = new ApiFeatures(
