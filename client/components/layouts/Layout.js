@@ -9,6 +9,7 @@ import Footer from "./Footer";
 import { ToastContainer } from "react-toastify";
 import { useConfig } from "@/contexts/config-context";
 import { getAccessibleColor, getRGBColor } from "@/utils/color";
+import MessengerCustomerChat from "react-messenger-customer-chat";
 
 const Layout = ({ children, isDashboard }) => {
     const { isOpen, isMobile } = useDashboardSidebar();
@@ -41,6 +42,12 @@ const Layout = ({ children, isDashboard }) => {
                 <style>:root {`{${primaryColor} ${allyColor}}`}</style>
             </Head>
             <ToastContainer toastClassName="!font-noto" />
+            {typeof window !== "undefiend" && !isDashboard && (
+                <MessengerCustomerChat
+                    pageId={process.env.NEXT_PUBLIC_FACEBOOK_PAGE_ID}
+                    appId={process.env.NEXT_PUBLIC_FACEBOOK_APP_ID}
+                />
+            )}
             <div
                 id="page-wrapper"
                 className={`min-h-screen flex flex-col text-gray-900`}
