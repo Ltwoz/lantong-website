@@ -12,6 +12,7 @@ import NoPermission from "@/components/ui/custom-pages/403";
 import { z } from "zod";
 import { useRouter } from "next/router";
 import { withInitProps } from "@/utils/get-init-props";
+import { getCoordinatesFromMapsUrl } from "@/utils/get-coordinates";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -126,6 +127,13 @@ const EditBlogPage = ({ id }) => {
 
     async function submitForm(e) {
         e.preventDefault();
+
+        if (mapUrl && getCoordinatesFromMapsUrl(mapUrl) === null) {
+            toast.error("ลิงก์ Google Maps ไม่ถูกต้อง", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+            return false;
+        }
 
         const formData = new FormData();
 

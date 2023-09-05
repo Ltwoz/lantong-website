@@ -11,6 +11,7 @@ import { useUser } from "@/contexts/user-context";
 import NoPermission from "@/components/ui/custom-pages/403";
 import { z } from "zod";
 import Autocomplete from "@/components/ui/AutoCompleateInput";
+import { getCoordinatesFromMapsUrl } from "@/utils/get-coordinates";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -106,6 +107,13 @@ const NewBlogPage = () => {
 
         if (images.length < 1) {
             toast.error("ใส่รูปภาพอย่างน้อย 1 รูป", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+            return false;
+        }
+
+        if (mapUrl && getCoordinatesFromMapsUrl(mapUrl) === null) {
+            toast.error("ลิงก์ Google Maps ไม่ถูกต้อง", {
                 position: toast.POSITION.BOTTOM_RIGHT,
             });
             return false;
