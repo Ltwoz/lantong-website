@@ -9,7 +9,7 @@ import { useUser } from "@/contexts/user-context";
 import NoPermission from "@/components/ui/custom-pages/403";
 import { withInitProps } from "@/utils/get-init-props";
 
-const EditUserPage = ({ id }) => {
+const EditUserPage = ({ id, config }) => {
     const router = useRouter();
 
     const [user, setUser] = useState({});
@@ -97,7 +97,7 @@ const EditUserPage = ({ id }) => {
     return (
         <Layout isDashboard={true}>
             <Head>
-                <title>แก้ไขผู้ใช้ - หจก.ลานทองเชียงใหม่</title>
+                <title>แก้ไขผู้ใช้ - {config.website_title}</title>
             </Head>
             {/* ชื่อหน้า */}
             <div className="w-full">

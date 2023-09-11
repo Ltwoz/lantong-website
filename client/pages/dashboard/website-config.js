@@ -13,7 +13,7 @@ import instanceApi from "@/config/axios-config";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-const WebsiteConfigPage = () => {
+const WebsiteConfigPage = ({ config: configSSR }) => {
     // Website Config State
     const [config, setConfig] = useState({});
 
@@ -123,7 +123,7 @@ const WebsiteConfigPage = () => {
         );
         formData.set("style", JSON.stringify({ primary_color: primaryColor }));
         formData.set("about_detail", aboutDetail);
-        
+
         if (aboutBg[0]?.public_id) {
             aboutBg.forEach((image) => {
                 formData.append("about_bg[]", JSON.stringify(image));
@@ -165,7 +165,7 @@ const WebsiteConfigPage = () => {
     return (
         <Layout isDashboard={true}>
             <Head>
-                <title>จัดการเว็บไซต์ - หจก.ลานทองเชียงใหม่</title>
+                <title>จัดการเว็บไซต์ - {configSSR.website_title}</title>
             </Head>
             {/* ชื่อหน้า */}
             <div className="w-full">

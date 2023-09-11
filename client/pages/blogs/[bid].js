@@ -16,7 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useUser } from "@/contexts/user-context";
 import { getCoordinatesFromMapsUrl } from "@/utils/get-coordinates";
 
-const BlogDetails = ({ blog: blogSSR }) => {
+const BlogDetails = ({ blog: blogSSR, config }) => {
     const { user, isAuthenticated } = useUser();
 
     const [blog, setBlog] = useState(blogSSR);
@@ -116,7 +116,7 @@ const BlogDetails = ({ blog: blogSSR }) => {
     return (
         <Layout>
             <Head>
-                <title>{`${blog.name} - หจก.ลานทองเชียงใหม่`}</title>
+                <title>{`${blog.name} - ${config.website_title}`}</title>
                 {/* <meta name="description" content={blog.description} /> */}
             </Head>
             {/* Modal */}

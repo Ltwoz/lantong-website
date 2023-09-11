@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const AdminAllProductsPage = () => {
+const AdminAllProductsPage = ({ config }) => {
     // Products State
     const [products, setProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState({});
@@ -124,7 +124,7 @@ const AdminAllProductsPage = () => {
     return (
         <Layout isDashboard={true}>
             <Head>
-                <title>สินค้าทั้งหมด - หจก.ลานทองเชียงใหม่</title>
+                <title>สินค้าทั้งหมด - {config.website_title}</title>
             </Head>
             {/* Modal */}
             <AnimatePresence>

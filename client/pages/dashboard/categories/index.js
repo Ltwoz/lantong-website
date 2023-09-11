@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const AdminAllCategoriesPage = () => {
+const AdminAllCategoriesPage = ({ config }) => {
     // Categories State
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState({});
@@ -103,7 +103,7 @@ const AdminAllCategoriesPage = () => {
     return (
         <Layout isDashboard={true}>
             <Head>
-                <title>หมวดหมู่ทั้งหมด - หจก.ลานทองเชียงใหม่</title>
+                <title>หมวดหมู่ทั้งหมด - {config.website_title}</title>
             </Head>
             {/* Modal */}
             <AnimatePresence>

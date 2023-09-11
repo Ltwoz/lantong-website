@@ -16,7 +16,7 @@ import { getCoordinatesFromMapsUrl } from "@/utils/get-coordinates";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-const EditBlogPage = ({ id }) => {
+const EditBlogPage = ({ id, config }) => {
     const router = useRouter();
 
     const [blog, setBlog] = useState({});
@@ -194,7 +194,7 @@ const EditBlogPage = ({ id }) => {
     return (
         <Layout isDashboard={true}>
             <Head>
-                <title>แก้ไขรีวิว - หจก.ลานทองเชียงใหม่</title>
+                <title>แก้ไขรีวิว - {config.website_title}</title>
             </Head>
             {/* ชื่อหน้า */}
             <div className="w-full">

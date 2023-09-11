@@ -6,6 +6,7 @@ import Image from "next/image";
 import { IoMdClose } from "react-icons/io";
 import { useRouter } from "next/router";
 import { useUser } from "@/contexts/user-context";
+import { useConfig } from "@/contexts/config-context";
 
 const Menus = [
     {
@@ -33,6 +34,7 @@ const Menus = [
 const Sidebar = () => {
     const { status, user, logout } = useUser();
     const { isOpen, setIsOpen } = useSidebar();
+    const { config } = useConfig();
     const router = useRouter();
     const sidebarRef = useRef(null);
 
@@ -208,7 +210,7 @@ const Sidebar = () => {
                             />
                         </div>
                         <h2 className="text-lg font-semibold text-primary">
-                            หจก.ลานทองเชียงใหม่
+                            {config.website_name}
                         </h2>
                     </Link>
                     <IoMdClose

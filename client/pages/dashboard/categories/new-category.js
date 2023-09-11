@@ -8,7 +8,7 @@ import { useUser } from "@/contexts/user-context";
 import NoPermission from "@/components/ui/custom-pages/403";
 import { z } from "zod";
 
-const NewCategoryPage = () => {
+const NewCategoryPage = ({ config }) => {
     // State ของ Category
     const [categoryId, setCategoryId] = useState("");
     const [name, setName] = useState("");
@@ -58,7 +58,7 @@ const NewCategoryPage = () => {
                 toast.error(err.message, {
                     position: toast.POSITION.BOTTOM_RIGHT,
                 });
-            })
+            });
             return false;
         }
 
@@ -91,7 +91,7 @@ const NewCategoryPage = () => {
     return (
         <Layout isDashboard={true}>
             <Head>
-                <title>สร้างหมวดหมู่ - หจก.ลานทองเชียงใหม่</title>
+                <title>สร้างหมวดหมู่ - {config.website_title}</title>
             </Head>
             {/* ชื่อหน้า */}
             <div className="w-full">

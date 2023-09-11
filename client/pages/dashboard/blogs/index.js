@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const AdminAllBlogsPage = () => {
+const AdminAllBlogsPage = ({ config }) => {
     // Blogs State
     const [blogs, setBlogs] = useState([]);
     const [selectedBlog, setSelectedBlog] = useState({});
@@ -103,7 +103,7 @@ const AdminAllBlogsPage = () => {
     return (
         <Layout isDashboard={true}>
             <Head>
-                <title>รีวิวทั้งหมด - หจก.ลานทองเชียงใหม่</title>
+                <title>รีวิวทั้งหมด - {config.website_title}</title>
             </Head>
             {/* Modal */}
             <AnimatePresence>

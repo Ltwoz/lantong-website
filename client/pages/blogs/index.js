@@ -6,7 +6,7 @@ import Pagination from "@/components/ui/Pagination";
 import instanceApi from "@/config/axios-config";
 import BlogCard from "@/components/ui/blogs/BlogCard";
 
-export default function BlogsPage() {
+export default function BlogsPage({ config }) {
     // Blogs State
     const [blogs, setBlogs] = useState([]);
     const [link, setLink] = useState(`/api/blogs?isActive=true&sort=latest`);
@@ -74,7 +74,7 @@ export default function BlogsPage() {
     return (
         <Layout>
             <Head>
-                <title>ลานทองพาเที่ยว - หจก.ลานทองเชียงใหม่</title>
+                <title>ลานทองพาเที่ยว - {config.website_title}</title>
             </Head>
             <section className="min-h-screen mx-auto max-w-[1200px] px-4 xl:px-0 flex flex-col md:flex-row gap-4 xl:gap-6 py-10">
                 {firstLoad ? (

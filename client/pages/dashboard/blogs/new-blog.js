@@ -15,7 +15,7 @@ import { getCoordinatesFromMapsUrl } from "@/utils/get-coordinates";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-const NewBlogPage = () => {
+const NewBlogPage = ({ config }) => {
     // State ของ Product
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -175,7 +175,7 @@ const NewBlogPage = () => {
     return (
         <Layout isDashboard={true}>
             <Head>
-                <title>สร้างรีวิว - หจก.ลานทองเชียงใหม่</title>
+                <title>สร้างรีวิว - {config.website_title}</title>
             </Head>
             {/* ชื่อหน้า */}
             <div className="w-full">

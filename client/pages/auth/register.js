@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { z } from "zod";
 
-export default function Register() {
+export default function Register({ config }) {
     const { register, isAuthenticated, error, clearErrors, dispatch } =
         useUser();
 
@@ -29,8 +29,7 @@ export default function Register() {
             password: z
                 .string()
                 .min(8, { message: "รหัสผ่านต้อง 8 ตัวขึ้นไป" }),
-            confirmPassword: z
-                .string(),
+            confirmPassword: z.string(),
         })
         .refine((data) => data.password === data.confirmPassword, {
             message: "รหัสผ่านไม่ตรงกัน",
@@ -69,7 +68,7 @@ export default function Register() {
             name,
             email,
             password,
-            confirmPassword
+            confirmPassword,
         });
 
         if (!validatedForm.success) {
@@ -77,7 +76,7 @@ export default function Register() {
                 toast.error(err.message, {
                     position: toast.POSITION.BOTTOM_RIGHT,
                 });
-            })
+            });
             return false;
         }
 
@@ -91,7 +90,7 @@ export default function Register() {
     return (
         <Layout>
             <Head>
-                <title>ลงทะเบียน - หจก.ลานทองเชียงใหม่</title>
+                <title>ลงทะเบียน - {config.website_title}</title>
             </Head>
             <div className="flex justify-center mx-auto xl:max-w-[1200px] w-full md:w-1/2 xl:w-full h-fit xl:h-[800px] p-4 xl:px-0 xl:py-20">
                 <div className="flex flex-row border w-full rounded-lg overflow-hidden">

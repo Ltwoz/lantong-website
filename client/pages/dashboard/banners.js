@@ -10,7 +10,7 @@ import { useUser } from "@/contexts/user-context";
 import { AnimatePresence } from "framer-motion";
 import DeleteModal from "@/components/modals/delete-modal";
 
-const WebsiteCOnfigPage = () => {
+const WebsiteCOnfigPage = ({ config }) => {
     // Post State
     const [label, setLabel] = useState("");
     const [description, setDescription] = useState("");
@@ -155,7 +155,7 @@ const WebsiteCOnfigPage = () => {
     return (
         <Layout isDashboard={true}>
             <Head>
-                <title>จัดการแบนเนอร์ - หจก.ลานทองเชียงใหม่</title>
+                <title>จัดการแบนเนอร์ - {config.website_title}</title>
             </Head>
             {/* Modal */}
             <AnimatePresence>

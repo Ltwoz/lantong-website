@@ -15,7 +15,7 @@ import { withInitProps } from "@/utils/get-init-props";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-const EditProductPage = ({ id }) => {
+const EditProductPage = ({ id, config }) => {
     const router = useRouter();
 
     const [product, setProduct] = useState({});
@@ -240,7 +240,7 @@ const EditProductPage = ({ id }) => {
     return (
         <Layout isDashboard={true}>
             <Head>
-                <title>แก้ไขสินค้า - หจก.ลานทองเชียงใหม่</title>
+                <title>แก้ไขสินค้า - {config.website_title}</title>
             </Head>
             {/* ชื่อหน้า */}
             <div className="w-full">

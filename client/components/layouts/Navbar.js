@@ -1,3 +1,4 @@
+import { useConfig } from "@/contexts/config-context";
 import { useSidebar } from "@/contexts/sidebar-context";
 import { useUser } from "@/contexts/user-context";
 import Image from "next/image";
@@ -7,6 +8,7 @@ import { useEffect, useState } from "react";
 const Navbar = () => {
     const { status, user, logout } = useUser();
     const { setIsOpen } = useSidebar();
+    const { config } = useConfig();
 
     const [showMenu, setShowMenu] = useState(false);
 
@@ -35,7 +37,7 @@ const Navbar = () => {
         e.preventDefault();
 
         logout();
-    }
+    };
 
     const AuthButton =
         status === "authenticated" ? (
@@ -159,7 +161,7 @@ const Navbar = () => {
                             />
                         </div>
                         <h2 className="text-xl md:text-2xl xl:text-3xl font-semibold text-primary">
-                            หจก.ลานทองเชียงใหม่
+                            {config.website_name}
                         </h2>
                     </Link>
                 </div>

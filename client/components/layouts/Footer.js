@@ -1,7 +1,9 @@
+import { useConfig } from "@/contexts/config-context";
 import Image from "next/image";
 import Link from "next/link";
 
 const Footer = () => {
+    const { config } = useConfig();
     return (
         <footer className="w-full p-4 py-6 bg-[#380303]">
             <div className="max-w-[1200px] mx-auto">
@@ -22,7 +24,7 @@ const Footer = () => {
                                 />
                             </div>
                             <h2 className="text-xl md:text-2xl font-semibold text-white">
-                                หจก.ลานทองเชียงใหม่
+                                {config.website_name}
                             </h2>
                         </Link>
                     </div>

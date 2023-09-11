@@ -50,7 +50,7 @@ const ProductDetails = ({ product, config }) => {
     return (
         <Layout>
             <Head>
-                <title>{`${product.name} - หจก.ลานทองเชียงใหม่`}</title>
+                <title>{`${product.name} - ${config.website_title}`}</title>
                 <meta name="description" content={product.description} />
             </Head>
             <div className="bg-gray-100">

@@ -6,7 +6,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const DashboardPage = () => {
+const DashboardPage = ({ config }) => {
     const [productsCount, setProductsCount] = useState([]);
     const [categoriesCount, setCategoriesCount] = useState([]);
     const [usersCount, setUsersCount] = useState([]);
@@ -46,7 +46,7 @@ const DashboardPage = () => {
     return (
         <Layout isDashboard={true}>
             <Head>
-                <title>จัดการหลังบ้าน - หจก.ลานทองเชียงใหม่</title>
+                <title>จัดการหลังบ้าน - {config.website_title}</title>
             </Head>
             {/* ชื่อหน้า */}
             <div className="w-full">

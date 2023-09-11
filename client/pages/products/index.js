@@ -7,7 +7,7 @@ import Pagination from "@/components/ui/Pagination";
 import instanceApi from "@/config/axios-config";
 import { useRouter } from "next/router";
 
-export default function ProductsPage() {
+export default function ProductsPage({ config }) {
     const router = useRouter();
 
     // Products State
@@ -101,7 +101,7 @@ export default function ProductsPage() {
     return (
         <Layout>
             <Head>
-                <title>สินค้าทั้งหมด - หจก.ลานทองเชียงใหม่</title>
+                <title>สินค้าทั้งหมด - {config.website_title}</title>
             </Head>
             <section className="min-h-screen mx-auto max-w-[1200px] px-4 xl:px-0 flex flex-col md:flex-row gap-4 xl:gap-6 py-10">
                 {firstLoad ? (

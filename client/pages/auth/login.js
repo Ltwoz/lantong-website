@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function Login() {
+export default function Login({ config }) {
     const { login, isAuthenticated, error, clearErrors } = useUser();
 
     const router = useRouter();
@@ -44,7 +44,7 @@ export default function Login() {
     return (
         <Layout>
             <Head>
-                <title>เข้าสู่ระบบ - หจก.ลานทองเชียงใหม่</title>
+                <title>เข้าสู่ระบบ - {config.website_title}</title>
             </Head>
             <div className="flex justify-center mx-auto xl:max-w-[1200px] w-full md:w-1/2 xl:w-full h-fit xl:h-[800px] p-4 xl:px-0 xl:py-20">
                 <div className="flex flex-row border w-full rounded-lg overflow-hidden">

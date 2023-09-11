@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const AdminAllUsersPage = () => {
+const AdminAllUsersPage = ({ config }) => {
     // Users State
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState({});
@@ -103,7 +103,7 @@ const AdminAllUsersPage = () => {
     return (
         <Layout isDashboard={true}>
             <Head>
-                <title>ผู้ใช้ทั้งหมด - หจก.ลานทองเชียงใหม่</title>
+                <title>ผู้ใช้ทั้งหมด - {config.website_title}</title>
             </Head>
             {/* Modal */}
             <AnimatePresence>

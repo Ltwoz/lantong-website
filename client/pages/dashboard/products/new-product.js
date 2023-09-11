@@ -13,7 +13,7 @@ import { z } from "zod";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-const NewProductPage = () => {
+const NewProductPage = ({ config }) => {
     // State ของ Product
     const [productId, setProductId] = useState("");
     const [name, setName] = useState("");
@@ -192,7 +192,7 @@ const NewProductPage = () => {
     return (
         <Layout isDashboard={true}>
             <Head>
-                <title>สร้างสินค้า - หจก.ลานทองเชียงใหม่</title>
+                <title>สร้างสินค้า - {config.website_title}</title>
             </Head>
             {/* ชื่อหน้า */}
             <div className="w-full">

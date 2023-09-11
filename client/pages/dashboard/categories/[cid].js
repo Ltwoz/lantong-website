@@ -9,7 +9,7 @@ import { useUser } from "@/contexts/user-context";
 import NoPermission from "@/components/ui/custom-pages/403";
 import { withInitProps } from "@/utils/get-init-props";
 
-const EditCategoryPage = ({ id }) => {
+const EditCategoryPage = ({ id, config }) => {
     const router = useRouter();
 
     const [category, setCategory] = useState({});
@@ -44,9 +44,7 @@ const EditCategoryPage = ({ id }) => {
     // Fetch Category
     useEffect(() => {
         const getCategoryById = async () => {
-            const { data } = await instanceApi.get(
-                `/api/admin/category/${id}`
-            );
+            const { data } = await instanceApi.get(`/api/admin/category/${id}`);
             setCategory(data?.category);
         };
 
@@ -59,7 +57,7 @@ const EditCategoryPage = ({ id }) => {
         setCategoryId(category.categoryId);
         setName(category.name);
         setIsActive(category.isActive);
-    }, [category])
+    }, [category]);
 
     async function submitForm(e) {
         e.preventDefault();
@@ -93,15 +91,13 @@ const EditCategoryPage = ({ id }) => {
     const { user, isAuthenticated } = useUser();
 
     if (!user || user.role !== "admin" || !isAuthenticated) {
-        return (
-           <NoPermission />
-        );
+        return <NoPermission />;
     }
 
     return (
         <Layout isDashboard={true}>
             <Head>
-                <title>แก้ไขหมวดหมู่ - หจก.ลานทองเชียงใหม่</title>
+                <title>แก้ไขหมวดหมู่ - {config.website_title}</title>
             </Head>
             {/* ชื่อหน้า */}
             <div className="w-full">
@@ -110,7 +106,9 @@ const EditCategoryPage = ({ id }) => {
                     className="flex flex-col md:flex-row gap-4 py-6 items-start md:items-center justify-between"
                 >
                     <div className="flex flex-col">
-                        <h2 className="text-2xl font-bold">แก้ไขหมวดหมู่ {category.name}</h2>
+                        <h2 className="text-2xl font-bold">
+                            แก้ไขหมวดหมู่ {category.name}
+                        </h2>
                     </div>
                 </div>
             </div>
@@ -135,7 +133,9 @@ const EditCategoryPage = ({ id }) => {
                                 <input
                                     type="text"
                                     value={categoryId}
-                                    onChange={(e) => setCategoryId(e.target.value)}
+                                    onChange={(e) =>
+                                        setCategoryId(e.target.value)
+                                    }
                                     className="mt-1 p-2 block w-full rounded-md border focus:outline-none border-gray-300 focus:border-blue-600 shadow-sm text-sm md:text-base"
                                 />
                             </div>
