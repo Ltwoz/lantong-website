@@ -93,7 +93,11 @@ export default function Home({ config }) {
                     <div className="absolute inset-0 w-full h-full z-[1]">
                         <Image
                             alt="property-image"
-                            src={`/about-bg.png`}
+                            src={
+                                config?.about_banner
+                                    ? config?.about_banner[0].url
+                                    : `/about-bg.png`
+                            }
                             draggable="false"
                             fill
                             className="absolute select-none object-cover z-[-1]"
@@ -122,7 +126,8 @@ export default function Home({ config }) {
                                 />
                                 {/* Button */}
                                 <Link
-                                    href={"#"}
+                                    href={config?.social.facebook_url}
+                                    target="_blank"
                                     className="xl:h-[50px] w-fit inline-flex items-center bg-[#4267B2] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
                                 >
                                     <div className="w-full h-full inline-flex items-center justify-center font-medium text-white text-sm xl:text-base hover:backdrop-brightness-95 py-2 px-4 xl:px-6">
@@ -146,11 +151,15 @@ export default function Home({ config }) {
                         <div className="w-full">
                             <Accordian
                                 title="หจก.ลานทองเชียงใหม่อยู่ที่ไหน"
-                                content={"ห้างหุ้นส่วนจำกัด ลานทองเชียงใหม่ เลขที่ 207/3 ถ.วังสิงห์คำ ต.ช้างม่อย อ.เมืองเชียงใหม่ จ.เชียงใหม่ 50300"}
+                                content={
+                                    "ห้างหุ้นส่วนจำกัด ลานทองเชียงใหม่ เลขที่ 207/3 ถ.วังสิงห์คำ ต.ช้างม่อย อ.เมืองเชียงใหม่ จ.เชียงใหม่ 50300"
+                                }
                             />
                             <Accordian
                                 title="สินค้ามีการรับประกันไหม"
-                                content={"สินค้าทุกชิ้น มีการันตีการรับประกันจากลานทอง"}
+                                content={
+                                    "สินค้าทุกชิ้น มีการันตีการรับประกันจากลานทอง"
+                                }
                             />
                         </div>
                     </div>
