@@ -94,8 +94,8 @@ export default function Home({ config }) {
                         <Image
                             alt="property-image"
                             src={
-                                config?.about_banner
-                                    ? config?.about_banner[0].url
+                                config?.about_bg.url
+                                    ? config?.about_bg[0].url
                                     : `/about-bg.png`
                             }
                             draggable="false"
