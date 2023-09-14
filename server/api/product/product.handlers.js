@@ -10,25 +10,44 @@ const { uploadFile, deleteFiles } = require("../../utils/s3");
 exports.createProduct = catchAsyncErrors(async (req, res, next) => {
     // Create a multer instance and configure it
     const storage = multer.memoryStorage();
-    const uploadMiddleware = multer({ storage: storage }).array("images");
+    const uploadMiddleware = multer({ storage: storage }).any();
     const uploadMiddlewareAsync = promisify(uploadMiddleware);
 
     await uploadMiddlewareAsync(req, res);
 
     const files = req.files;
-    const result = await uploadFile(files, "products");
-    
 
-    const updateImages = [];
+    const images = [];
+    const videos = [];
 
-    for (let i = 0; i < result.length; i++) {
-        updateImages.push({
-            public_id: result[i].Key,
-            url: result[i].Location,
+    for (let i = 0; i < files.length; i++) {
+        if (files[i].mimetype.startsWith("image")) {
+            images.push(files[i]);
+        } else if (files[i].mimetype.startsWith("video")) {
+            videos.push(files[i]);
+        }
+    }
+
+    const imageResult = await uploadFile(images, "products/images");
+    const videoResult = await uploadFile(videos, "products/videos");
+
+    const updateFiles = [];
+
+    for (let i = 0; i < imageResult.length; i++) {
+        updateFiles.push({
+            public_id: imageResult[i].Key,
+            url: imageResult[i].Location,
         });
     }
 
-    req.body.images = updateImages;
+    for (let i = 0; i < videoResult.length; i++) {
+        updateFiles.push({
+            public_id: videoResult[i].Key,
+            url: videoResult[i].Location,
+        });
+    }
+
+    req.body.images = updateFiles;
 
     const product = await Product.create(req.body);
 
@@ -171,7 +190,7 @@ exports.getAdminDetailProduct = catchAsyncErrors(async (req, res, next) => {
 exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
     // Create a multer instance and configure it
     const storage = multer.memoryStorage();
-    const uploadMiddleware = multer({ storage: storage }).array("files");
+    const uploadMiddleware = multer({ storage: storage }).any();
     const uploadMiddlewareAsync = promisify(uploadMiddleware);
 
     await uploadMiddlewareAsync(req, res);
@@ -183,7 +202,7 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
     // Images Array
     const oldImages = product.images || [];
     const currentImages = [];
-    const updateImages = [];
+    const updateFiles = [];
 
     // JSON Parse images if it's not undefined
     if (req.body.images !== undefined) {
@@ -202,33 +221,43 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
     //Deleting Images From AWS S3
     await deleteFiles(unmatchedImages);
 
-    // Upload Images
-    const result = await uploadFile(files, "products");
+    const images = [];
+    const videos = [];
 
-    if (currentImages.length === 0) {
-        for (let i = 0; i < result.length; i++) {
-            updateImages.push({
-                public_id: result[i].Key,
-                url: result[i].Location,
-            });
-        }
-    } else {
-        // Push current images and push new images (if have)
-        for (let i = 0; i < currentImages.length; i++) {
-            updateImages.push({
-                public_id: currentImages[i].public_id,
-                url: currentImages[i].url,
-            });
-        }
-        for (let i = 0; i < result.length; i++) {
-            updateImages.push({
-                public_id: result[i].Key,
-                url: result[i].Location,
-            });
+    for (let i = 0; i < files.length; i++) {
+        if (files[i].mimetype.startsWith("image")) {
+            images.push(files[i]);
+        } else if (files[i].mimetype.startsWith("video")) {
+            videos.push(files[i]);
         }
     }
 
-    req.body.images = updateImages;
+    // Upload Images
+    const imageResult = await uploadFile(images, "products/images");
+    const videoResult = await uploadFile(videos, "products/videos");
+
+    for (let i = 0; i < currentImages.length; i++) {
+        updateFiles.push({
+            public_id: currentImages[i].public_id,
+            url: currentImages[i].url,
+        });
+    }
+
+    for (let i = 0; i < imageResult.length; i++) {
+        updateFiles.push({
+            public_id: imageResult[i].Key,
+            url: imageResult[i].Location,
+        });
+    }
+
+    for (let i = 0; i < videoResult.length; i++) {
+        updateFiles.push({
+            public_id: videoResult[i].Key,
+            url: videoResult[i].Location,
+        });
+    }
+
+    req.body.images = updateFiles;
 
     product = await Product.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
@@ -284,6 +313,36 @@ exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
     await deleteFiles(product.images);
 
     await product.remove();
+
+    // Count products in a category
+    const categoryProductsCount = await Category.aggregate([
+        {
+            $lookup: {
+                from: "products",
+                localField: "_id",
+                foreignField: "category",
+                as: "products",
+            },
+        },
+        {
+            $addFields: {
+                productsCount: { $size: "$products" },
+            },
+        },
+    ]);
+
+    // Update productsCount field to a category
+    for (let category of categoryProductsCount) {
+        await Category.findByIdAndUpdate(
+            category._id,
+            { productsCount: category.productsCount },
+            {
+                new: true,
+                runValidators: true,
+                useFindAndModify: false,
+            }
+        );
+    }
 
     res.status(200).json({ success: true, message: "Product deleted." });
 });
