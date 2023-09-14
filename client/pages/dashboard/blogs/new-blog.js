@@ -12,6 +12,8 @@ import NoPermission from "@/components/ui/custom-pages/403";
 import { z } from "zod";
 import Autocomplete from "@/components/ui/AutoCompleateInput";
 import { getCoordinatesFromMapsUrl } from "@/utils/get-coordinates";
+import LoadingModal from "@/components/modals/LoadingModal";
+import { AnimatePresence } from "framer-motion";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -177,6 +179,16 @@ const NewBlogPage = ({ config }) => {
             <Head>
                 <title>สร้างรีวิว - {config.website_title}</title>
             </Head>
+            {/* Modal */}
+            <AnimatePresence>
+                {loading && (
+                    <LoadingModal
+                        title={`กำลังสร้างรีวิว . . .`}
+                        buttonLabel={"ตกลง"}
+                        setIsOpen={setLoading}
+                    />
+                )}
+            </AnimatePresence>
             {/* ชื่อหน้า */}
             <div className="w-full">
                 <div
@@ -490,20 +502,26 @@ const NewBlogPage = ({ config }) => {
                             className="inline-flex items-center bg-[#12A53B] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
                         >
                             <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={2.5}
-                                    stroke="currentColor"
-                                    className="w-5 h-5 mr-2"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M12 4.5v15m7.5-7.5h-15"
-                                    />
-                                </svg>
+                                {loading ? (
+                                    <div className="relative flex items-center">
+                                        <div className="w-5 h-5 mr-2 border-2 border-gray-300/80 border-t-2 border-t-gray-800/80 rounded-[50%] animate-spin"></div>
+                                    </div>
+                                ) : (
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={2.5}
+                                        stroke="currentColor"
+                                        className="w-5 h-5 mr-2"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M12 4.5v15m7.5-7.5h-15"
+                                        />
+                                    </svg>
+                                )}
                                 <span className="block">
                                     {loading ? "กำลังสร้าง" : "สร้างรีวิว"}
                                 </span>

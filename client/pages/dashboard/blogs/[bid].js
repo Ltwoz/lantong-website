@@ -13,6 +13,8 @@ import { z } from "zod";
 import { useRouter } from "next/router";
 import { withInitProps } from "@/utils/get-init-props";
 import { getCoordinatesFromMapsUrl } from "@/utils/get-coordinates";
+import LoadingModal from "@/components/modals/LoadingModal";
+import { AnimatePresence } from "framer-motion";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -70,12 +72,10 @@ const EditBlogPage = ({ id, config }) => {
         const getBlogById = async () => {
             const { data } = await instanceApi.get(`/api/blog/${id}`);
             setBlog(data?.blog);
-            setLoading(false);
         };
 
         getBlogById().catch(() => {
             console.error;
-            setLoading(false);
         });
     }, [id]);
 
@@ -196,6 +196,16 @@ const EditBlogPage = ({ id, config }) => {
             <Head>
                 <title>แก้ไขรีวิว - {config.website_title}</title>
             </Head>
+            {/* Modal */}
+            <AnimatePresence>
+                {loading && (
+                    <LoadingModal
+                        title={`กำลังแก้ไขรีวิว . . .`}
+                        buttonLabel={"ตกลง"}
+                        setIsOpen={setLoading}
+                    />
+                )}
+            </AnimatePresence>
             {/* ชื่อหน้า */}
             <div className="w-full">
                 <div
@@ -591,20 +601,26 @@ const EditBlogPage = ({ id, config }) => {
                             className="inline-flex items-center bg-[#12A53B] disabled:bg-gray-400 rounded-md transition-all overflow-hidden disabled:cursor-not-allowed"
                         >
                             <div className="w-full h-full inline-flex items-center justify-center font-medium text-white hover:backdrop-brightness-95 py-2 px-4">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={2.5}
-                                    stroke="currentColor"
-                                    className="w-5 h-5 mr-2"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M12 4.5v15m7.5-7.5h-15"
-                                    />
-                                </svg>
+                                {loading ? (
+                                    <div className="relative flex items-center">
+                                        <div className="w-5 h-5 mr-2 border-2 border-gray-300/80 border-t-2 border-t-gray-800/80 rounded-[50%] animate-spin"></div>
+                                    </div>
+                                ) : (
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={2.5}
+                                        stroke="currentColor"
+                                        className="w-5 h-5 mr-2"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M12 4.5v15m7.5-7.5h-15"
+                                        />
+                                    </svg>
+                                )}
                                 <span className="block">
                                     {loading ? "กำลังแก้ไข" : "แก้ไขรีวิว"}
                                 </span>
