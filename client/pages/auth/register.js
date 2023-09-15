@@ -94,10 +94,20 @@ export default function Register({ config }) {
             </Head>
             <div className="flex justify-center mx-auto xl:max-w-[1200px] w-full md:w-1/2 xl:w-full h-fit xl:h-[800px] p-4 xl:px-0 xl:py-20">
                 <div className="flex flex-row border w-full rounded-lg overflow-hidden">
-                    <div
-                        id="login-banner"
-                        className="hidden xl:block w-1/2 bg-gray-600"
-                    ></div>
+                    <div id="login-banner" className="hidden xl:block w-1/2">
+                        <div className="w-full h-full relative flex items-center">
+                            <div className="absolute z-[1] right-0 bottom-0 left-0 w-full h-[70%] overflow-hidden bg-gradient-to-t from-black/80 to-white/0 opacity-100" />
+                            <Image
+                                alt="property-image"
+                                src={
+                                    "https://media.discordapp.net/attachments/609919287024680961/1152189833570156554/image.png"
+                                }
+                                draggable="false"
+                                fill
+                                className="select-none object-cover object-top"
+                            />
+                        </div>
+                    </div>
                     <div
                         id="login-form"
                         className="w-full xl:w-1/2 p-6 xl:px-24 xl:py-0 bg-white flex flex-col justify-center"
