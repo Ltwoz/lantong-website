@@ -12,7 +12,7 @@ export default function About({ config }) {
                     <Image
                         alt="property-image"
                         src={
-                            config?.about_bg.url
+                            config?.about_bg?.length
                                 ? config?.about_bg[0].url
                                 : `/about-bg.png`
                         }
