@@ -40,9 +40,7 @@ const Layout = ({ children, isDashboard }) => {
                 <meta
                     property="og:image"
                     content={
-                        config.about_bg?.length
-                            ? config.about_bg[0].url
-                            : "https://scontent.fbkk3-5.fna.fbcdn.net/v/t39.30808-6/267397068_7121185127895374_5976241779719606896_n.jpg?stp=dst-jpg_s960x960&_nc_cat=111&ccb=1-7&_nc_sid=52f669&_nc_eui2=AeFwKDUAhYt4ClTfTl1FrrLKQw3kcRXQlkBDDeRxFdCWQG6AK2Jshkd8jf-93ik1C9ouWsxqn94LMr2VkZbK1DiF&_nc_ohc=f5IhJAHNhSsAX8cwgXB&_nc_zt=23&_nc_ht=scontent.fbkk3-5.fna&oh=00_AfCWIGMIPNH7nSvTKsM0qQLFTE9tpg63E6SdMGYIpwTS4w&oe=650E611B"
+                        "https://scontent.fbkk3-5.fna.fbcdn.net/v/t39.30808-6/267397068_7121185127895374_5976241779719606896_n.jpg?stp=dst-jpg_s960x960&_nc_cat=111&ccb=1-7&_nc_sid=52f669&_nc_eui2=AeFwKDUAhYt4ClTfTl1FrrLKQw3kcRXQlkBDDeRxFdCWQG6AK2Jshkd8jf-93ik1C9ouWsxqn94LMr2VkZbK1DiF&_nc_ohc=f5IhJAHNhSsAX8cwgXB&_nc_zt=23&_nc_ht=scontent.fbkk3-5.fna&oh=00_AfCWIGMIPNH7nSvTKsM0qQLFTE9tpg63E6SdMGYIpwTS4w&oe=650E611B"
                     }
                 />
                 <link rel="icon" href="/favicon.ico" />
