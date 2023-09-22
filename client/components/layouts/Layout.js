@@ -42,12 +42,6 @@ const Layout = ({ children, isDashboard }) => {
                 <style>:root {`{${primaryColor} ${allyColor}}`}</style>
             </Head>
             <ToastContainer toastClassName="!font-noto" />
-            {typeof window !== "undefiend" && !isDashboard && (
-                <MessengerCustomerChat
-                    pageId={process.env.NEXT_PUBLIC_FACEBOOK_PAGE_ID}
-                    appId={process.env.NEXT_PUBLIC_FACEBOOK_APP_ID}
-                />
-            )}
             <div
                 id="page-wrapper"
                 className={`min-h-screen flex flex-col text-gray-900`}
@@ -82,6 +76,14 @@ const Layout = ({ children, isDashboard }) => {
                 ) : (
                     // Layout ทั่วไป
                     <>
+                        {typeof window !== "undefiend" && (
+                            <MessengerCustomerChat
+                                pageId={
+                                    process.env.NEXT_PUBLIC_FACEBOOK_PAGE_ID
+                                }
+                                appId={process.env.NEXT_PUBLIC_FACEBOOK_APP_ID}
+                            />
+                        )}
                         <Navbar />
                         <div className="flex-grow">
                             <Sidebar />
