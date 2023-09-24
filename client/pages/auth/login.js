@@ -56,7 +56,7 @@ export default function Login({ config }) {
                             <div className="absolute z-[1] right-0 bottom-0 left-0 w-full h-[70%] overflow-hidden bg-gradient-to-t from-black/80 to-white/0 opacity-100" />
                             <Image
                                 alt="property-image"
-                                src={"https://media.discordapp.net/attachments/609919287024680961/1152189833570156554/image.png"}
+                                src={"https://media.discordapp.net/attachments/1112683157062422566/1154621557679857714/500x-login.png"}
                                 draggable="false"
                                 fill
                                 className="select-none object-cover object-top"
