@@ -100,7 +100,7 @@ export default function Register({ config }) {
                             <Image
                                 alt="property-image"
                                 src={
-                                    "https://media.discordapp.net/attachments/609919287024680961/1152189833570156554/image.png"
+                                    "https://media.discordapp.net/attachments/1112683157062422566/1154621557935718410/500x-register.png"
                                 }
                                 draggable="false"
                                 fill
