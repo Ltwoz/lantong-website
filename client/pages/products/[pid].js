@@ -328,6 +328,18 @@ const ProductDetails = ({ product, config }) => {
                                 </div>
                             </>
                         )}
+                        {product.isPromotion && (
+                            <>
+                                <hr />
+                                {/* โปรโมชั่น */}
+                                <div className="flex flex-col gap-3">
+                                    <h2 className="text-xl font-bold">
+                                        โปรโมชั่น
+                                    </h2>
+                                    <p>{product.promotionDetail}</p>
+                                </div>
+                            </>
+                        )}
                     </div>
                 </section>
             </div>
