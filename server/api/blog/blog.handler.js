@@ -303,6 +303,7 @@ exports.getBlogReviews = catchAsyncErrors(async (req, res, next) => {
 
 // Delete Review
 exports.deleteReview = catchAsyncErrors(async (req, res, next) => {
+    console.log(req.query);
     const blog = await Blog.findById(req.query.blogId);
 
     if (!blog) {

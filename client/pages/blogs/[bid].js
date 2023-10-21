@@ -25,6 +25,7 @@ const BlogDetails = ({ blog: blogSSR, config }) => {
     const [comment, setComment] = useState("");
 
     const [isSuccess, setIsSuccess] = useState(false);
+    const [isDeleted, setIsDeleted] = useState(false);
     const [error, setError] = useState(null);
 
     const mainSlideRef = useRef();
@@ -82,7 +83,7 @@ const BlogDetails = ({ blog: blogSSR, config }) => {
         getBlog().catch(() => {
             console.error;
         });
-    }, [blog._id, isSuccess]);
+    }, [blog._id, isSuccess, isDeleted]);
 
     const submitReviewHandler = async () => {
         try {
@@ -376,6 +377,9 @@ const BlogDetails = ({ blog: blogSSR, config }) => {
                                                 <ReviewCard
                                                     key={review._id}
                                                     review={review}
+                                                    blogId={blog._id}
+                                                    isDeleted={isDeleted}
+                                                    setIsDeleted={setIsDeleted}
                                                 />
                                             ))}
                                     </>
