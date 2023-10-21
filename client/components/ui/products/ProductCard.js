@@ -23,7 +23,6 @@ export default function ProductCard({ product }) {
                                     ? product?.images[0]?.url
                                     : `https://dummyimage.com/273x273`
                             }
-                            unoptimized
                             draggable="false"
                             fill
                             className="select-none object-cover"

@@ -2,7 +2,11 @@
 const nextConfig = {
     reactStrictMode: true,
     images: {
-        domains: ["lantongshopbucket.s3.ap-southeast-1.amazonaws.com", "dummyimage.com", "media.discordapp.net"],
+        domains: [
+            "lantongshopbucket.s3.ap-southeast-1.amazonaws.com",
+            "dummyimage.com",
+            "media.discordapp.net",
+        ],
     },
 };
 

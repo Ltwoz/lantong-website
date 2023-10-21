@@ -166,7 +166,6 @@ const ProductDetails = ({ product, config }) => {
                                                         <Image
                                                             alt="property-image"
                                                             src={image.url}
-                                                            unoptimized
                                                             draggable="false"
                                                             fill
                                                             className="select-none object-contain"
@@ -214,7 +213,6 @@ const ProductDetails = ({ product, config }) => {
                                                         <Image
                                                             alt="thumb-image"
                                                             src={image.url}
-                                                            unoptimized
                                                             draggable="false"
                                                             fill
                                                             className="select-none object-cover"

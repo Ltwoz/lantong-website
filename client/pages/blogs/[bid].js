@@ -229,7 +229,6 @@ const BlogDetails = ({ blog: blogSSR, config }) => {
                                                     <Image
                                                         alt="property-image"
                                                         src={image.url}
-                                                        unoptimized
                                                         draggable="false"
                                                         fill
                                                         className="select-none object-contain"
@@ -286,7 +285,6 @@ const BlogDetails = ({ blog: blogSSR, config }) => {
                                                     <Image
                                                         alt="thumb-image"
                                                         src={image.url}
-                                                        unoptimized
                                                         draggable="false"
                                                         fill
                                                         className="select-none object-cover"

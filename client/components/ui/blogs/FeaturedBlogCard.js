@@ -16,7 +16,6 @@ export default function FeaturedBlogCard({ blog }) {
                                     ? blog?.images[0]?.url
                                     : `https://dummyimage.com/273x273`
                             }
-                            unoptimized
                             draggable="false"
                             fill
                             className="select-none object-cover"
