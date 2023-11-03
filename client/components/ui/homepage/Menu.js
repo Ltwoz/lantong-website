@@ -131,11 +131,11 @@ const Menu = () => {
                         </div>
                     </Link>
                     <Link
-                        href={`/products?category=พ่วงข้างรถบรรทุก`}
+                        href={`/products?category=เทรลเลอร์ลากท้าย`}
                         className="p-3 flex-shrink-0 xl:flex-grow w-[150px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
                         <p className="text-sm xl:text-base text-white font-semibold max-w-[70px]">
-                            พ่วงข้าง รถบรรทุก
+                            เทรลเลอร์ ลากท้าย
                         </p>
                         <div className="absolute right-1 bottom-1">
                             <div className="w-[70px] h-[65px] xl:w-[96px] xl:h-[80px] relative flex flex-shrink-0 items-center overflow-hidden">
@@ -171,7 +171,7 @@ const Menu = () => {
                         </div>
                     </Link>
                     <Link
-                        href={`/products?category=ไซด์คาร์`}
+                        href={`/products?category=Sidecar`}
                         className="p-3 flex-shrink-0 xl:flex-grow w-[150px] h-[90px] xl:w-[190px] xl:h-[100px] relative rounded-lg gap-[10px] bg-[#173559]"
                     >
                         <p className="text-sm xl:text-base text-white font-semibold max-w-[70px]">
