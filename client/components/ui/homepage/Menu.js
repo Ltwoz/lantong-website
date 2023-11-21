@@ -101,7 +101,7 @@ const Menu = () => {
                             <div className="w-[70px] h-[65px] xl:w-[96px] xl:h-[80px] relative flex flex-shrink-0 items-center overflow-hidden">
                                 <Image
                                     alt="property-image"
-                                    src={`https://scontent.fcnx2-1.fna.fbcdn.net/v/t1.15752-9/370277867_623555999980221_6129408550497586814_n.png?_nc_cat=103&ccb=1-7&_nc_sid=8cd0a2&_nc_ohc=xi2YLxRVWqsAX8135xJ&_nc_ht=scontent.fcnx2-1.fna&oh=03_AdS0BQBoebhvf-bvQ9tGYSOFk8eXaaBLgtMPVf4FfOm1XA&oe=654E5ADD`}
+                                    src={`/menu-c3.png`}
                                     unoptimized
                                     draggable="false"
                                     fill
